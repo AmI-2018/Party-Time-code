@@ -91,10 +91,30 @@ def getGenresList():
 def getListByGenre(genre):
     "to be done"
     pass
+
+"""
+backup of the old but working version of importMusic()
+
 def importMusic():
 
     for roots, dirs, files in os.walk("./music"):
         pass
+    for roots, dirs, files in os.walk(musicPath):
+        if(roots != musicPath):
+            for track in files:
+                genre = roots.replace(musicPath + '/', '')
+                trackPath = roots + '/' + track
+                newTrack(track, trackPath, genre)
+    showAllMusic()
+    return
+
+"""
+
+def importMusic():
+
+    for roots, dirs, files in os.walk("./music"):
+        print(files)
+    return
     for roots, dirs, files in os.walk(musicPath):
         if(roots != musicPath):
             for track in files:
