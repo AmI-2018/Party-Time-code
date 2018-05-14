@@ -25,14 +25,14 @@ def DBinit():
         con = sqlite3.connect(path)
         cur = con.cursor()
         query = """
-DROP TABLE IF EXISTS `musicDB`;
+    DROP TABLE IF EXISTS `musicDB`;
     CREATE TABLE IF NOT EXISTS `musicDB` 
-(
-  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-  `title` varchar(200) NOT NULL,
-  `kind` varchar(200) NOT NULL,
-  `location` varchar(200) NOT NULL 
-);
+        (
+          `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+          `title` varchar(200) NOT NULL,
+          `kind` varchar(200) NOT NULL,
+          `location` varchar(200) NOT NULL 
+        );
      
         """
         cur.executescript(query)
@@ -84,6 +84,13 @@ def showAllMusic():
         print("errore nell'apertura del db " + DBerror.args[0])
         sys.exit(1)
 
+def getGenresList():
+    "to be done"
+    pass
+
+def getListByGenre(genre):
+    "to be done"
+    pass
 def importMusic():
 
     for roots, dirs, files in os.walk("./music"):
