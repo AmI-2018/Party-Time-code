@@ -1,0 +1,14 @@
+method:"POST"
+url:https://accounts.spotify.com/api/token
+
+
+headers{
+  "Authorization":"Basic NDJlMDAxZDIzNTY1NDU1OWFiMjQ2YmQwM2NjOWE5ODY6ZDA2MjBkNTI1MDlhNDM0Njg1ZDQzZDVkNDRlMzMxZTA="
+  "Content-Type":"application/x-www-form-urlencoded"
+}
+body:{
+  body content type: application/x-www-form-urlencoded
+  encoded-payload{
+    "grant_type":"client_credentials"
+  }
+}
