@@ -6,6 +6,7 @@ import glob
 from time import sleep
 
 path = "./tmpDB"
+musicPath = "./music"
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -85,24 +86,17 @@ def showAllMusic():
 
 def importMusic():
 
-    for dirpath, dirnames, filenames in os.walk("./music"):
-        #print("dirpath dir: " +   dirpath)
-        for file, dir in (filenames, dirnames):
-            print("file: " + str(file))
-            sleep(5)
-            print("dir: " + str(dir))
-            #newTrack(file, dirpath, os.path.join(dirpath, file))
-            #print(file)
+    for roots, dirs, files in os.walk("./music"):
+        pass
+    for roots, dirs, files in os.walk(musicPath):
+        if(roots != musicPath):
+            for track in files:
+                genre = roots.replace(musicPath + '/', '')
+                trackPath = roots + '/' + track
+                newTrack(track, trackPath, genre)
     showAllMusic()
+    return
 
-
-
-
-"""
-    for kind in os.listdir('./music'):
-        res = glob.glob(kind + "*")
-        print(res)
-"""
 
 if __name__ == '__main__':
     DBinit()
