@@ -6,7 +6,7 @@ import glob
 from time import sleep
 
 path = "./tmpDB"
-musicPath = "./music"
+musicPath = ""
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -19,8 +19,11 @@ logging.basicConfig(
       ('boh', 'rock'),
       ('boh2', 'jazz');
 """
-def DBinit():
 
+
+def DBinit(musicFolder):
+    global musicPath
+    musicPath = musicFolder
     try:
         con = sqlite3.connect(path)
         cur = con.cursor()
@@ -74,8 +77,9 @@ def showAllMusic():
         cur.execute(query)
         rows = cur.fetchall()
         print("risultati")
-        for row in rows:
-            print(row)
+        #for row in rows:
+        #    print(row)
+
         cur.close()
         con.close()
     except sqlite3.DataError as DataErr:
@@ -83,6 +87,7 @@ def showAllMusic():
     except sqlite3.DatabaseError as DBerror:
         print("errore nell'apertura del db " + DBerror.args[0])
         sys.exit(1)
+    return rows
 
 def getGenresList():
     "to be done"
@@ -112,19 +117,27 @@ def importMusic():
 
 def importMusic():
 
-    for roots, dirs, files in os.walk("./music"):
-        print(files)
-    return
+    #for roots, dirs, files in os.walk("./music"):
+    #    print(files)
+    #return
+    global musicPath
+    #print("music path: " + musicPath)
     for roots, dirs, files in os.walk(musicPath):
+        #print('roots ', end='')
+        #print(roots)
+        #print('musicpath ', end='')
+        #print(musicPath)
         if(roots != musicPath):
             for track in files:
                 genre = roots.replace(musicPath + '/', '')
                 trackPath = roots + '/' + track
                 newTrack(track, trackPath, genre)
-    showAllMusic()
+                #print(track + ' ' + trackPath + ' ' + genre)
+    #showAllMusic()
     return
 
 
 if __name__ == '__main__':
-    DBinit()
+    DBinit("./music")
     importMusic()
+    print(showAllMusic())
