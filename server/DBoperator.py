@@ -121,7 +121,7 @@ def importMusic():
     #    print(files)
     #return
     global musicPath
-    #print("music path: " + musicPath)
+    #xoprint("music path: " + musicPath)
     for roots, dirs, files in os.walk(musicPath):
         #print('roots ', end='')
         #print(roots)
