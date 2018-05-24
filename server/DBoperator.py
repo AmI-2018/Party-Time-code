@@ -6,6 +6,7 @@ import glob
 from time import sleep
 
 path = "./tmpDB"
+musicPath = ""
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -18,20 +19,23 @@ logging.basicConfig(
       ('boh', 'rock'),
       ('boh2', 'jazz');
 """
-def DBinit():
 
+
+def DBinit(musicFolder):
+    global musicPath
+    musicPath = musicFolder
     try:
         con = sqlite3.connect(path)
         cur = con.cursor()
         query = """
-DROP TABLE IF EXISTS `musicDB`;
+    DROP TABLE IF EXISTS `musicDB`;
     CREATE TABLE IF NOT EXISTS `musicDB` 
-(
-  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-  `title` varchar(200) NOT NULL,
-  `kind` varchar(200) NOT NULL,
-  `location` varchar(200) NOT NULL 
-);
+        (
+          `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+          `title` varchar(200) NOT NULL,
+          `kind` varchar(200) NOT NULL,
+          `location` varchar(200) NOT NULL 
+        );
      
         """
         cur.executescript(query)
@@ -73,8 +77,9 @@ def showAllMusic():
         cur.execute(query)
         rows = cur.fetchall()
         print("risultati")
-        for row in rows:
-            print(row)
+        #for row in rows:
+        #    print(row)
+
         cur.close()
         con.close()
     except sqlite3.DataError as DataErr:
@@ -82,28 +87,57 @@ def showAllMusic():
     except sqlite3.DatabaseError as DBerror:
         print("errore nell'apertura del db " + DBerror.args[0])
         sys.exit(1)
+    return rows
+
+def getGenresList():
+    "to be done"
+    pass
+
+def getListByGenre(genre):
+    "to be done"
+    pass
+
+"""
+backup of the old but working version of importMusic()
 
 def importMusic():
 
-    for dirpath, dirnames, filenames in os.walk("./music"):
-        #print("dirpath dir: " +   dirpath)
-        for file, dir in (filenames, dirnames):
-            print("file: " + str(file))
-            sleep(5)
-            print("dir: " + str(dir))
-            #newTrack(file, dirpath, os.path.join(dirpath, file))
-            #print(file)
+    for roots, dirs, files in os.walk("./music"):
+        pass
+    for roots, dirs, files in os.walk(musicPath):
+        if(roots != musicPath):
+            for track in files:
+                genre = roots.replace(musicPath + '/', '')
+                trackPath = roots + '/' + track
+                newTrack(track, trackPath, genre)
     showAllMusic()
-
-
-
+    return
 
 """
-    for kind in os.listdir('./music'):
-        res = glob.glob(kind + "*")
-        print(res)
-"""
+
+def importMusic():
+
+    #for roots, dirs, files in os.walk("./music"):
+    #    print(files)
+    #return
+    global musicPath
+    #xoprint("music path: " + musicPath)
+    for roots, dirs, files in os.walk(musicPath):
+        #print('roots ', end='')
+        #print(roots)
+        #print('musicpath ', end='')
+        #print(musicPath)
+        if(roots != musicPath):
+            for track in files:
+                genre = roots.replace(musicPath + '/', '')
+                trackPath = roots + '/' + track
+                newTrack(track, trackPath, genre)
+                #print(track + ' ' + trackPath + ' ' + genre)
+    #showAllMusic()
+    return
+
 
 if __name__ == '__main__':
-    DBinit()
+    DBinit("./music")
     importMusic()
+    print(showAllMusic())
