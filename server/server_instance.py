@@ -15,8 +15,6 @@ if __name__ == '__main__':
     rows = db.showAllMusic()
     for row in rows:
         print(row)
-# DBinit(DirMusic)
-# DB.DBinit(DirMusic)
 
 # print(DB.showAllMusic)
 # print("music are " + str(findKind()))
