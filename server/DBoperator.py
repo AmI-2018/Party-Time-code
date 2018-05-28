@@ -93,7 +93,7 @@ class DBoperator:
             con = sqlite3.connect(path)
             cur = con.cursor()
             query = """INSERT INTO `music` (`title`, `kind`, `location`) VALUES (?,?,?)"""
-            cur.execute(query, (trackName, trackPath, trackKind))
+            cur.execute(query, (trackName, trackKind, trackPath))
             con.commit()
             # cur.execute("select  * from musicDB")
             # rows = cur.fetchall()
@@ -235,14 +235,32 @@ class DBoperator:
                     # print(track + ' ' + trackPath + ' ' + genre)
         # showAllMusic()
         return
+    def getKindsOfMusic(self):
+        query = "SELECT DISTINCT kind FROM music  "
+        try:
 
+            con = sqlite3.connect(path)
+            cur = con.cursor()
+
+            cur.execute(query)
+            rows = cur.fetchall()
+            print("risultati " + str(rows))
+            con.commit()
+            cur.close()
+            con.close()
+        except sqlite3.DataError as DataErr:
+            print("errore di creazione table " + DataErr.args[0])
+        except sqlite3.DatabaseError as DBerror:
+            print("errore nell'apertura del db " + DBerror.args[0])
+            sys.exit(1)
 
 if __name__ == '__main__':
     db = DBoperator("./music")
     db.importMusic()
-    print("ciao")
-    print(musicPath)
-    db.registerUser("1234", "1111", "2222", "ciccio")
+    db.createUser("ciccio", "rock", "pop", None)
+    db.registerUserPosition("1234", "1111", "2222", "ciccio")
+    db.createRoom("sala", "10.0.0.1", "3429872347", "1234", "1111", "2222")
+    db.getKindsOfMusic()
     # DBinit("./music")
     # importMusic()
     # print(showAllMusic())
