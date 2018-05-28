@@ -75,10 +75,9 @@ class DBoperator:
                       FOREIGN KEY (beaconID, beaconMajor, beaconMinor) REFERENCES rooms(beaconID, beaconMajor, beaconMinor)
                     ); 
                 """
+
             cur.executescript(query)
             con.commit()
-
-
 
             cur.close()
             con.close()
@@ -135,7 +134,7 @@ class DBoperator:
     def getListByGenre(genre):
         "to be done"
         pass
-    def registerUser(self, beacon, major, minor, username):
+    def registerUserPosition(self, beacon, major, minor, username):
         try:
             query = """
                 INSERT INTO positions (username, beaconID, beaconMajor, beaconMinor, time) 
@@ -175,6 +174,46 @@ class DBoperator:
             return
 
         """
+    def createRoom(self, roomName, raspIP, hueID, beaconID, beaconMajor, beaconMinor):
+        """create room entry in DB using roomName, ip of raspi, hue id associated, beaconID associated (with major and minor)"""
+        try:
+            query = """
+                INSERT INTO rooms(roomname, raspberryIP, hueID, beaconID, beaconIDMajor, beaconIDMinor)
+                VALUES (?,?,?,?,?,?);
+                """
+            con = sqlite3.connect(path)
+            cur = con.cursor()
+
+            cur.execute(query, (roomName, raspIP, hueID, beaconID, beaconMajor, beaconMinor))
+            con.commit()
+            cur.close()
+            con.close()
+        except sqlite3.DataError as DataErr:
+            print("errore di creazione table " + DataErr.args[0])
+        except sqlite3.DatabaseError as DBerror:
+            print("errore nell'apertura del db " + DBerror.args[0])
+            sys.exit(1)
+
+    def createUser(self, username, preference1, preference2, preference3):
+        """Create username in database, need 3 preference, use None if less prefs provided"""
+
+        try:
+            query = """
+                       INSERT INTO users(username, preference1, preference2, preference3)
+                       VALUES (?,?,?,?);
+                       """
+            con = sqlite3.connect(path)
+            cur = con.cursor()
+
+            cur.execute(query, (username, preference1, preference2, preference3))
+            con.commit()
+            cur.close()
+            con.close()
+        except sqlite3.DataError as DataErr:
+            print("errore di creazione table " + DataErr.args[0])
+        except sqlite3.DatabaseError as DBerror:
+            print("errore nell'apertura del db " + DBerror.args[0])
+            sys.exit(1)
 
     def importMusic(self):
 
