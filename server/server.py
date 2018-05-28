@@ -7,6 +7,7 @@ DirMusic = "./music/"
 #sys.path.append(os.path.abspath("./server"))
 #from DBoperator import *
 import DBoperator as DB
+import APIserver as api
 
 def findKind():
     kindOfMusic = list(listdir(DirMusic))
