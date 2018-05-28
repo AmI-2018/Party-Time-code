@@ -1,13 +1,15 @@
+from flask import Flask, jsonify, abort, request, Response, render_template
+import server.DBoperator as DB
 
-class APIserver:
-    def __init__(self):
+app = Flask(__name__)
 
-        from flask import Flask, redirect, url_for, render_template, session, request, jsonify
-        import DBoperator as db
+# ---------- REST SERVER ----------
+@app.route('/api/pos/update', methods=['POST'])
+def fetch_json(item):
+    """
+    Convert the json in a dictionary
+    """
+    DB.registerUser()
 
-        import logging
-
-        pass
-
-    def ciao(self):
-        pass
+if __name__ == '__main__':
+    app.run()
