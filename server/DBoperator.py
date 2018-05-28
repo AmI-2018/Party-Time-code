@@ -33,7 +33,7 @@ class DBoperator:
             cur.executescript(enableFK)
             con.commit()
             query = """
-                DROP TABLE IF EXISTS `music`;
+                --DROP TABLE IF EXISTS `music`;
                 CREATE TABLE IF NOT EXISTS `music` 
                     (
                       `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,7 +41,7 @@ class DBoperator:
                       `kind` varchar(200) NOT NULL,
                       `location` varchar(200) NOT NULL 
                     );
-                DROP TABLE IF EXISTS `users`;
+                --DROP TABLE IF EXISTS `users`;
                 CREATE TABLE IF NOT EXISTS `users`
                     (
                       `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -52,7 +52,7 @@ class DBoperator:
                       FOREIGN KEY (username) REFERENCES users(username)
                     );
                     
-                DROP TABLE IF EXISTS `rooms`;
+                --DROP TABLE IF EXISTS `rooms`;
                 CREATE TABLE IF NOT EXISTS `rooms`
                     (
                       `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -63,7 +63,7 @@ class DBoperator:
                       `beaconIDMajor` INTEGER ,
                       `beaconIDMinor` INTEGER                       
                     );   
-                 DROP TABLE IF EXISTS `positions`;
+                --DROP TABLE IF EXISTS `positions`;
                 CREATE TABLE IF NOT EXISTS `positions`
                     (
                       `username` VARCHAR(200),
@@ -126,10 +126,6 @@ class DBoperator:
             print("errore nell'apertura del db " + DBerror.args[0])
             sys.exit(1)
         return rows
-
-    def getGenresList():
-        "to be done"
-        pass
 
     def getListByGenre(genre):
         "to be done"
@@ -260,7 +256,7 @@ if __name__ == '__main__':
     db.createUser("ciccio", "rock", "pop", None)
     db.registerUserPosition("1234", "1111", "2222", "ciccio")
     db.createRoom("sala", "10.0.0.1", "3429872347", "1234", "1111", "2222")
-    db.getKindsOfMusic()
+    # db.getKindsOfMusic()
     # DBinit("./music")
     # importMusic()
     # print(showAllMusic())
