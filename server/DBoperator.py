@@ -29,8 +29,10 @@ class DBoperator:
             con = sqlite3.connect(path)
             cur = con.cursor()
 
-            queryMusic = """
-                PRAGMA foreign_keys = ON;
+            enableFK = "PRAGMA foreign_keys = ON;"
+            cur.executescript(enableFK)
+            con.commit()
+            query = """
                 DROP TABLE IF EXISTS `music`;
                 CREATE TABLE IF NOT EXISTS `music` 
                     (
@@ -39,12 +41,6 @@ class DBoperator:
                       `kind` varchar(200) NOT NULL,
                       `location` varchar(200) NOT NULL 
                     );
-
-                """
-            cur.executescript(queryMusic)
-            con.commit()
-
-            queryUsers = """
                 DROP TABLE IF EXISTS `users`;
                 CREATE TABLE IF NOT EXISTS `users`
                     (
@@ -52,30 +48,22 @@ class DBoperator:
                       `username` VARCHAR(200) NOT NULL,
                       `preference1` VARCHAR(200) NOT NULL, 
                       `preference2` VARCHAR(200),
-                      `preference3` VARCHAR(200)
+                      `preference3` VARCHAR(200),
+                      FOREIGN KEY (username) REFERENCES users(username)
                     );
-                """
-            cur.executescript(queryUsers)
-            con.commit()
-
-            queryRooms = """
+                    
                 DROP TABLE IF EXISTS `rooms`;
                 CREATE TABLE IF NOT EXISTS `rooms`
                     (
                       `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-                      `roomname` VARCHAR(200),
+                      `roomName` VARCHAR(200),
                       `raspberryIP` VARCHAR(200),
                       `hueID` VARCHAR(200), 
                       `beaconID` VARCHAR(200),
                       `beaconIDMajor` INTEGER ,
                       `beaconIDMinor` INTEGER                       
-                    );
-                    """
-            cur.executescript(queryRooms)
-            con.commit()
-
-            queryPositions = """
-                DROP TABLE IF EXISTS `positions`;
+                    );   
+                 DROP TABLE IF EXISTS `positions`;
                 CREATE TABLE IF NOT EXISTS `positions`
                     (
                       `username` VARCHAR(200),
@@ -85,10 +73,11 @@ class DBoperator:
                       `time` TIMESTAMP, 
                       FOREIGN KEY (username) REFERENCES users(username),
                       FOREIGN KEY (beaconID, beaconMajor, beaconMinor) REFERENCES rooms(beaconID, beaconMajor, beaconMinor)
-                    );
+                    ); 
                 """
-            cur.executescript(queryPositions)
+            cur.executescript(query)
             con.commit()
+
 
 
             cur.close()
