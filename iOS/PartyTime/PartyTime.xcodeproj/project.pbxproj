@@ -14,6 +14,8 @@
 		E1BE7EC720C3080D00C9213A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1BE7EC520C3080D00C9213A /* LaunchScreen.storyboard */; };
 		E1BE7ED220C3080D00C9213A /* PartyTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE7ED120C3080D00C9213A /* PartyTimeTests.swift */; };
 		E1BE7EDD20C3080E00C9213A /* PartyTimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE7EDC20C3080E00C9213A /* PartyTimeUITests.swift */; };
+		E1BE7EEB20C30BBE00C9213A /* KindsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE7EEA20C30BBE00C9213A /* KindsTableViewCell.swift */; };
+		E1BE7EED20C30CDC00C9213A /* KindsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE7EEC20C30CDC00C9213A /* KindsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		E1BE7ED820C3080E00C9213A /* PartyTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BE7EDC20C3080E00C9213A /* PartyTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyTimeUITests.swift; sourceTree = "<group>"; };
 		E1BE7EDE20C3080E00C9213A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1BE7EEA20C30BBE00C9213A /* KindsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindsTableViewCell.swift; sourceTree = "<group>"; };
+		E1BE7EEC20C30CDC00C9213A /* KindsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 			children = (
 				E1BE7EBC20C3080D00C9213A /* AppDelegate.swift */,
 				E1BE7EBE20C3080D00C9213A /* ViewController.swift */,
+				E1BE7EEA20C30BBE00C9213A /* KindsTableViewCell.swift */,
+				E1BE7EEC20C30CDC00C9213A /* KindsTableViewController.swift */,
 				E1BE7EC020C3080D00C9213A /* Main.storyboard */,
 				E1BE7EC320C3080D00C9213A /* Assets.xcassets */,
 				E1BE7EC520C3080D00C9213A /* LaunchScreen.storyboard */,
@@ -256,6 +262,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1BE7EEB20C30BBE00C9213A /* KindsTableViewCell.swift in Sources */,
+				E1BE7EED20C30CDC00C9213A /* KindsTableViewController.swift in Sources */,
 				E1BE7EBF20C3080D00C9213A /* ViewController.swift in Sources */,
 				E1BE7EBD20C3080D00C9213A /* AppDelegate.swift in Sources */,
 			);
