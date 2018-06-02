@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="31.773399014778327"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Kinds Table View Controller-->
         <scene sceneID="16Z-Rk-qHk">
             <objects>
-                <tableViewController id="20D-1v-1VQ" sceneMemberID="viewController">
+                <tableViewController id="20D-1v-1VQ" customClass="KindsTableViewController" customModule="PartyTime" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="F13-tt-SlI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -111,7 +111,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oIb-Ip-Imc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="960.79999999999995" y="31.934032983508249"/>
+            <point key="canvasLocation" x="790" y="-65"/>
         </scene>
     </scenes>
     <resources>

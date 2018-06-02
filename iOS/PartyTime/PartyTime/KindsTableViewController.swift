@@ -10,6 +10,8 @@ import UIKit
 
 class KindsTableViewController: UITableViewController {
 
+    var kinds = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,6 +20,7 @@ class KindsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        loadSampleKinds()
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,24 +31,27 @@ class KindsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return kinds.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        
+        let cellIdentifier = "KindTableViewCell"
+        // let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? KindsTableViewCell else {
+            fatalError("The dequeued cell is not an instance of KindTableViewCell")
+        }
+        
+        let kind = kinds[indexPath.row]
+        cell.kindLabel.text = kind
+        
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -91,5 +97,16 @@ class KindsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    //MARK: Private Methods
+    
+    private func loadSampleKinds() {
+        
+        //here load the data from the server
+        
+        kinds = ["pop","rock","jazz","classic","modern","stupid"]
+        
+    }
+    
 
 }
