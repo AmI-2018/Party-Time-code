@@ -34,7 +34,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="514"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell" id="MHg-xU-0XP">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainCell" id="MHg-xU-0XP">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MHg-xU-0XP" id="r4U-Xg-sWh">
@@ -44,7 +44,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="delegate" destination="nEH-ZN-v0r" id="bJC-Nl-2Ph"/>
+                                    <outlet property="dataSource" destination="nEH-ZN-v0r" id="IHB-oU-LwX"/>
+                                    <outlet property="delegate" destination="nEH-ZN-v0r" id="9NX-8f-TYL"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -63,7 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Rk-Ut-5Ob" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="773.60000000000002" y="-713.79310344827593"/>
+            <point key="canvasLocation" x="738" y="-715"/>
         </scene>
         <!--Kind Prefs2 View Controller-->
         <scene sceneID="dl9-rC-hE2">

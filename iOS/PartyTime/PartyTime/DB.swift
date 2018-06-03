@@ -4,13 +4,25 @@ import UIKit
 
 class DB: NSObject {
     
+    var kindDict: [String:Any] = [:]
+    
+    override init() {
+        
+        super.init()
+//        self.kindDict = getKindsOfMusicAndCount()
+//        print("Dentro il DB.sw")
+//        print(kindDict.count)
+//        self.kindDict = getKindsOfMusicAndCount()
+        
+    }
+    
     func getKindsOfMusicAndCount() -> [String:Any]
     {
         
-        var ret = [String:Any]()
+//        var ret = [String:Any]()
         
         let urlString: String = "http://192.168.2.14:5000/api/music/kindAndCount"
-        guard let url = URL(string: urlString) else { return ret}
+        guard let url = URL(string: urlString) else { return kindDict}
         let urlRequest = URLRequest(url: url)
         
         
@@ -47,7 +59,9 @@ class DB: NSObject {
                             // let's just print it to prove we can access it
                             print("The todo is: " + kinds.description)
                             print(kinds.keys)
-                            ret = kinds
+                            print("la variabile senza nulla: \(kinds)")
+//                            ret = kinds
+                            self.kindDict = kinds
                             
                         } catch  {
                             print("error trying to convert data to JSON")
@@ -59,10 +73,12 @@ class DB: NSObject {
        
         }
         task.resume()
-        return ret
+        return kindDict
+        
         
     }
     
+   
     
     
 }
