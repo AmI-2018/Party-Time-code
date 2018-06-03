@@ -237,7 +237,10 @@ def importMusic():
 
 
 def getKindsOfMusic():
+
+    """ Return a list of all kinds of music avaible in the DB """
     query = "SELECT DISTINCT kind FROM music  "
+    rows = ""
     try:
 
         con = sqlite3.connect(path)
@@ -246,6 +249,7 @@ def getKindsOfMusic():
         cur.execute(query)
         rows = cur.fetchall()
         print("risultati " + str(rows))
+        print(type(rows))
         con.commit()
         cur.close()
         con.close()
@@ -254,6 +258,7 @@ def getKindsOfMusic():
     except sqlite3.DatabaseError as DBerror:
         print("errore nell'apertura del db " + DBerror.args[0])
         sys.exit(1)
+    return rows
 
 
 def clearDB():
@@ -311,6 +316,7 @@ if __name__ == '__main__':
     print(userInDB("ciccio"))
     print(userInDB("ale"))
 
+    getKindsOfMusic()
     # db.getKindsOfMusic()
     # DBinit("./music")
     # importMusic()
