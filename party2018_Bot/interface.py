@@ -1,7 +1,6 @@
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-
 def start(bot, update):
     update.message.reply_text('Hello! This is Party-Time.Bot. You can use one of the commands present in the interface:')
     update.message.reply_text('/start')
