@@ -260,6 +260,30 @@ def getKindsOfMusic():
         sys.exit(1)
     return rows
 
+def getKindsOfMusicAndCount():
+
+    """ Return a list of all kinds of music avaible in the DB """
+    query = "select kind, count(*) from music GROUP BY kind"
+    rows = ""
+    try:
+
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+
+        cur.execute(query)
+        rows = cur.fetchall()
+        print("risultati " + str(rows))
+        print(type(rows))
+        con.commit()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return rows
+
 
 def clearDB():
     query = """
@@ -316,7 +340,7 @@ if __name__ == '__main__':
     print(userInDB("ciccio"))
     print(userInDB("ale"))
 
-    getKindsOfMusic()
+    getKindsOfMusicAndCount()
     # db.getKindsOfMusic()
     # DBinit("./music")
     # importMusic()

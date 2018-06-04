@@ -1,5 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, session, request, jsonify, abort, Response
 import json
+from datetime import datetime
+
 import logging
 from server import DBoperator
 
@@ -28,8 +30,23 @@ def info():
 def retrieveUsers():
     pass
 
+@app.route('/api/users/<username>', methods=['GET'])
+def checkuser(username):
+    """Find if user is already registered"""
+    print("ore: " + str(datetime.now()))
+
+    if DBoperator.userInDB(username):
+        print("Returned 202")
+        return Response(status=202) # accepted, is in DB
+    print("Returned 204")
+
+    return Response(status=204) # no content
+
+
+
 @app.route('/api/users/<username>', methods=['POST'])
 def adduser(username):
+
     if DBoperator.userInDB(username):
         return Response(status=409)
 
@@ -43,9 +60,20 @@ def adduser(username):
 
 @app.route('/api/music/kind', methods=['GET'])
 def getKindsOfMusic():
+    """Return a List object for every kind of music"""
     kinds = DBoperator.getKindsOfMusic()
-    print(kinds)
     return jsonify(kinds)
+
+@app.route('/api/music/kindAndCount', methods=['GET'])
+def getKindsOfMusicAndCount():
+    """Return a List object for every kind of music"""
+    kinds = DBoperator.getKindsOfMusicAndCount()
+    ret = dict(kinds)
+    print("ore: " + str(datetime.now()))
+    print(ret)
+    print(type(ret))
+
+    return jsonify(ret)
 
 
 if __name__ == '__main__':
