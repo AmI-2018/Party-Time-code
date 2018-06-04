@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E10DFB5F20C55ABB00521470 /* LastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10DFB5E20C55ABB00521470 /* LastViewController.swift */; };
 		E12EA11920C3F21500E7A08E /* KindPrefs1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EA11820C3F21500E7A08E /* KindPrefs1ViewController.swift */; };
 		E12EA11B20C3F24200E7A08E /* KindPrefs2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EA11A20C3F24200E7A08E /* KindPrefs2ViewController.swift */; };
 		E12EA11D20C3F24800E7A08E /* KindPrefs3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EA11C20C3F24800E7A08E /* KindPrefs3ViewController.swift */; };
 		E12EA12520C4031F00E7A08E /* DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EA12420C4031F00E7A08E /* DB.swift */; };
 		E12EA12720C435B500E7A08E /* item.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EA12620C435B500E7A08E /* item.swift */; };
-		E12EA12920C437FA00E7A08E /* itemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EA12820C437FA00E7A08E /* itemStore.swift */; };
 		E1BE7EBD20C3080D00C9213A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE7EBC20C3080D00C9213A /* AppDelegate.swift */; };
 		E1BE7EBF20C3080D00C9213A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE7EBE20C3080D00C9213A /* ViewController.swift */; };
 		E1BE7EC220C3080D00C9213A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1BE7EC020C3080D00C9213A /* Main.storyboard */; };
@@ -40,12 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E10DFB5E20C55ABB00521470 /* LastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastViewController.swift; sourceTree = "<group>"; };
 		E12EA11820C3F21500E7A08E /* KindPrefs1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPrefs1ViewController.swift; sourceTree = "<group>"; };
 		E12EA11A20C3F24200E7A08E /* KindPrefs2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPrefs2ViewController.swift; sourceTree = "<group>"; };
 		E12EA11C20C3F24800E7A08E /* KindPrefs3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPrefs3ViewController.swift; sourceTree = "<group>"; };
 		E12EA12420C4031F00E7A08E /* DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB.swift; sourceTree = "<group>"; };
 		E12EA12620C435B500E7A08E /* item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = item.swift; sourceTree = "<group>"; };
-		E12EA12820C437FA00E7A08E /* itemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemStore.swift; sourceTree = "<group>"; };
 		E1BE7EB920C3080D00C9213A /* PartyTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BE7EBC20C3080D00C9213A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1BE7EBE20C3080D00C9213A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				E12EA11820C3F21500E7A08E /* KindPrefs1ViewController.swift */,
 				E12EA11A20C3F24200E7A08E /* KindPrefs2ViewController.swift */,
 				E12EA11C20C3F24800E7A08E /* KindPrefs3ViewController.swift */,
-				E12EA12820C437FA00E7A08E /* itemStore.swift */,
+				E10DFB5E20C55ABB00521470 /* LastViewController.swift */,
 				E12EA12420C4031F00E7A08E /* DB.swift */,
 				E1BE7EC020C3080D00C9213A /* Main.storyboard */,
 				E12EA12620C435B500E7A08E /* item.swift */,
@@ -280,7 +280,7 @@
 				E12EA12520C4031F00E7A08E /* DB.swift in Sources */,
 				E12EA11D20C3F24800E7A08E /* KindPrefs3ViewController.swift in Sources */,
 				E1BE7EBD20C3080D00C9213A /* AppDelegate.swift in Sources */,
-				E12EA12920C437FA00E7A08E /* itemStore.swift in Sources */,
+				E10DFB5F20C55ABB00521470 /* LastViewController.swift in Sources */,
 				E12EA11920C3F21500E7A08E /* KindPrefs1ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
