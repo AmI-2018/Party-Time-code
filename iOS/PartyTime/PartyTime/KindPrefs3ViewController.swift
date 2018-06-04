@@ -90,6 +90,11 @@ class KindPrefs3ViewController: UIViewController, UITableViewDataSource, UITable
             }
             let vc = segue.destination as? KindPrefs3ViewController
             vc?.selectedList = self.selectedList
+            
+            let defaults = UserDefaults.standard
+            print("Setting the pref3 (\(selectedKind)) inside defaults")
+            defaults.set(selectedKind, forKey: "pref3")
+            
         }
     }
     

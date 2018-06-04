@@ -20,6 +20,8 @@
 		E1BE7EC720C3080D00C9213A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1BE7EC520C3080D00C9213A /* LaunchScreen.storyboard */; };
 		E1BE7ED220C3080D00C9213A /* PartyTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE7ED120C3080D00C9213A /* PartyTimeTests.swift */; };
 		E1BE7EDD20C3080E00C9213A /* PartyTimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE7EDC20C3080E00C9213A /* PartyTimeUITests.swift */; };
+		E1CA7F6C20C5AE950094332B /* BeaconsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CA7F6B20C5AE950094332B /* BeaconsDelegate.swift */; };
+		E1CA7F6E20C5B2510094332B /* beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CA7F6D20C5B2510094332B /* beacon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		E1BE7ED820C3080E00C9213A /* PartyTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BE7EDC20C3080E00C9213A /* PartyTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyTimeUITests.swift; sourceTree = "<group>"; };
 		E1BE7EDE20C3080E00C9213A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1CA7F6B20C5AE950094332B /* BeaconsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconsDelegate.swift; sourceTree = "<group>"; };
+		E1CA7F6D20C5B2510094332B /* beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = beacon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				E1BE7EBC20C3080D00C9213A /* AppDelegate.swift */,
+				E1CA7F6D20C5B2510094332B /* beacon.swift */,
+				E1CA7F6B20C5AE950094332B /* BeaconsDelegate.swift */,
 				E1BE7EBE20C3080D00C9213A /* ViewController.swift */,
 				E12EA11820C3F21500E7A08E /* KindPrefs1ViewController.swift */,
 				E12EA11A20C3F24200E7A08E /* KindPrefs2ViewController.swift */,
@@ -274,8 +280,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1CA7F6C20C5AE950094332B /* BeaconsDelegate.swift in Sources */,
 				E12EA11B20C3F24200E7A08E /* KindPrefs2ViewController.swift in Sources */,
 				E1BE7EBF20C3080D00C9213A /* ViewController.swift in Sources */,
+				E1CA7F6E20C5B2510094332B /* beacon.swift in Sources */,
 				E12EA12720C435B500E7A08E /* item.swift in Sources */,
 				E12EA12520C4031F00E7A08E /* DB.swift in Sources */,
 				E12EA11D20C3F24800E7A08E /* KindPrefs3ViewController.swift in Sources */,
@@ -457,6 +465,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4Z2G724N7T;
 				INFOPLIST_FILE = PartyTime/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,6 +484,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4Z2G724N7T;
 				INFOPLIST_FILE = PartyTime/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

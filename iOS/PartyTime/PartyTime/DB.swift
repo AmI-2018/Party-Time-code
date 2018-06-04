@@ -35,7 +35,7 @@ class DB: NSObject {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
-        var responseDict = [String:Any]()
+        // var responseDict = [String:Any]()
         
         // make the request
         let task = session.dataTask(with: urlRequest)
@@ -69,7 +69,7 @@ class DB: NSObject {
                 
                 DispatchQueue.main.async {
                     self.kindDict = kinds
-                    responseDict = kinds
+                    //responseDict = kinds
 //                    completionHandler(kinds)
                     print("kindDict inside function \(self.kindDict)")
                     print("kinds inside function \(kinds)")

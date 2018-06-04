@@ -119,6 +119,10 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
             vc?.itemsList = self.itemsList
             vc?.selectedList = self.selectedList
             
+            let defaults = UserDefaults.standard
+            print("Setting the pref1 (\(selectedKind)) inside defaults")
+            defaults.set(selectedKind, forKey: "pref1")
+            
             
             
         }
