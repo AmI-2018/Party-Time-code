@@ -33,9 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
     
+    
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -51,9 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     
+    
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         getBeaconList()
-//        rangeBeacons()
+        //        rangeBeacons()
         
     }
     
@@ -63,27 +68,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         print("entrato in getBeaconList()")
         let url = URL(string: "http://192.168.2.14:5000/api/pos/allbeacons")
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            
+            print("sono all'1")
             guard error == nil else { fatalError("returning error") }
+            print("sono all'2")
             
             guard let content = data else { fatalError("not returning data") }
+            print("sono all'3")
             
             guard let json = (try? JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String: Any] else { fatalError("Not containing JSON") }
-            
-            for e in json {
-                print(e.key, e.value)
+            print("sono all'4")
+            DispatchQueue.main.async {
+                for e in json {
+                    print(e.key, e.value)
+                    print("sono all'5")
+                }
             }
             
             
         }
+        print("sono prima del resume")
         
         task.resume()
         
         
     }
+    
+    
     func rangeBeacons(){
-        //http://192.168.2.14:5000/api/pos/allbeacons
-        
         let uuid = UUID(uuidString: "3e1d7817-4eac-4b27-b809-deee2f246c46")
         //let uuid = UUID(uuidString: "8492E75F-4FD6-469D-B132-043FE94921D8")
         let major:CLBeaconMajorValue = 1
