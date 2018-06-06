@@ -19,6 +19,10 @@ class Beacon: NSObject {
         super.init()
     }
     
+    func toPrint() -> String {
+        return "room:\(self.room), uuid:\(self.uuid), major:\(self.major), minor:\(self.minor)"
+    }
+        
 //    func firstChoise(choise: String) {
 //        self.preference = 1
 //        self.alreadyAdded = true

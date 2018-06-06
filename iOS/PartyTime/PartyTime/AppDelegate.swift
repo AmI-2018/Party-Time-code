@@ -26,7 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
         print("chiamo getBeaconList()")
-        beaconsList = getBeaconList()
+        getBeaconList(){ (ret) in
+            
+            // [Beacon] is the value returned from the function!
+            
+            print("sono nella funzione application")
+            for b in (ret){
+                print(b.toPrint())
+            }
+            
+        }
         
         return true
     }
@@ -61,36 +70,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        beaconsList = getBeaconList()
+//        beaconsList = getBeaconList()
         
         //        rangeBeacons()
         
     }
     
+//    {
+//      "beacons": [
+                //    {
+                //    "major": 2222,
+                //    "minor": 1111,
+                //    "room": "sala",
+                //    "uuid": "1234"
+                //    },
+                //    {
+                //    "major": 2223,
+                //    "minor": 1112,
+                //    "room": "cucina",
+                //    "uuid": "5678"
+                //    }
+//                  ]
+//    }
+
     
     struct restBeaconList: Decodable {
         
         let beacons : [restBeacon]
         
+        enum CodingKeys : String, CodingKey {
+            case beacons = "beacons"
+        }
+        
     }
     
     struct restBeacon: Decodable {
-        let room: String
-        let UUID: String
         let major: Int
         let minor: Int
+        let room: String
+        let uuid: String
     }
     
-    func getBeaconList() -> [Beacon] {
+    func getBeaconList(returnCompletion: @escaping ([Beacon]) -> () ) {
         print("entrato in getBeaconList()")
-        let beacons = [Beacon]()
+        
         let url = URL(string: "http://192.168.2.14:5000/api/pos/allbeacons")
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             print("sono all'1")
             guard error == nil else { fatalError("returning error") }
             print("sono all'2")
             
-            guard let content = data else { fatalError("not returning data") }
+//            guard let content = data else { fatalError("not returning data") }
             print("sono all'3")
             
             
@@ -100,12 +130,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
 //            guard let json = (try? JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String: Any] else { fatalError("Not containing JSON") }
             print("sono all'4")
+            
             DispatchQueue.main.async {
+                var beacons = [Beacon]()
                 for e in json.beacons {
-                    print(e.UUID, e.room)
+//                    self.beaconsList.append(Beacon(room: e.room, uuid: e.uuid, minor: e.minor, major: e.major))
+//                    print(e.uuid, e.room)
+                    beacons.append(Beacon(room: e.room, uuid: e.uuid, minor: e.minor, major: e.major))
+                    
                     print("sono all'5")
                 }
+                returnCompletion(beacons as [Beacon])
+//                for b in self.beaconsList{
+//                    print(b.toPrint())
+//                }
+//                print()
             }
+            
             
             
         }
@@ -113,7 +154,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         task.resume()
         
-        return beacons
     }
     
     
