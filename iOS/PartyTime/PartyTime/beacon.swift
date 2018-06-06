@@ -10,11 +10,11 @@ class Beacon: NSObject {
     var major: Int
    
     
-    init(room:String, uuid: String, minor: Int, major: Int) {
+    init(room:String, uuid: String, minor: Int?=nil, major: Int?=nil) {
         self.room = room
         self.uuid = uuid
-        self.minor = minor
-        self.major = major
+        self.minor = minor!
+        self.major = major!
         
         super.init()
     }

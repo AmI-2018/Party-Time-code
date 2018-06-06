@@ -68,7 +68,7 @@ class ViewController: UIViewController {
     private func usernameRejected(user: String) {
         print("Username rejected")
 //        doneButton.alpha = 1
-        doneButton.backgroundColor = UIColor(red: 154.0, green: 154.0, blue: 154.0, alpha: 0.90)
+//        doneButton.backgroundColor = UIColor(red: 154.0, green: 154.0, blue: 154.0, alpha: 0.90)
 //        doneButton.backgroundColor = UIColor(hue: 359, saturation: 0, brightness: 61, alpha: 0.60)
         
         doneButton.setTitle("Username in Use", for: UIControlState.normal)

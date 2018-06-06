@@ -19,11 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        print("Sono entrato nel delegate")
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         // Request permission to send notifications
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
+        print("chiamo getBeaconList()")
+        beaconsList = getBeaconList()
+        
         return true
     }
     
@@ -53,19 +57,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    
+    // from this line the functions was added by me
     
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        getBeaconList()
+        beaconsList = getBeaconList()
+        
         //        rangeBeacons()
         
     }
     
     
+    struct restBeaconList: Decodable {
+        
+        let beacons : [restBeacon]
+        
+    }
     
-    func getBeaconList() {
+    struct restBeacon: Decodable {
+        let room: String
+        let UUID: String
+        let major: Int
+        let minor: Int
+    }
+    
+    func getBeaconList() -> [Beacon] {
         print("entrato in getBeaconList()")
+        let beacons = [Beacon]()
         let url = URL(string: "http://192.168.2.14:5000/api/pos/allbeacons")
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             print("sono all'1")
@@ -75,11 +93,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             guard let content = data else { fatalError("not returning data") }
             print("sono all'3")
             
-            guard let json = (try? JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String: Any] else { fatalError("Not containing JSON") }
+            
+            guard let json = try? JSONDecoder().decode(restBeaconList.self, from: data!) else {
+                print("Error: Couldn't decode data into restBeaconList")
+                return
+            }
+//            guard let json = (try? JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String: Any] else { fatalError("Not containing JSON") }
             print("sono all'4")
             DispatchQueue.main.async {
-                for e in json {
-                    print(e.key, e.value)
+                for e in json.beacons {
+                    print(e.UUID, e.room)
                     print("sono all'5")
                 }
             }
@@ -90,7 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         task.resume()
         
-        
+        return beacons
     }
     
     
@@ -100,10 +123,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let major:CLBeaconMajorValue = 1
         let minor:CLBeaconMinorValue = 2
         let identifier = "myBeacon"
+        
         let region = CLBeaconRegion(proximityUUID: uuid!, major: major, minor: minor, identifier: identifier)
         region.notifyOnEntry = true
         region.notifyEntryStateOnDisplay = true
         region.notifyOnExit = true
+        
         locationManager.startRangingBeacons(in: region)
         locationManager.startMonitoring(for: region)
     }

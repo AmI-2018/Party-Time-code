@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Kind Prefs1 View Controller-->
+        <!--First preference-->
         <scene sceneID="GwU-y0-cQb">
             <objects>
                 <viewController id="nEH-ZN-v0r" customClass="KindPrefs1ViewController" customModule="PartyTime" customModuleProvider="target" sceneMemberID="viewController">
@@ -77,6 +77,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t0e-4h-xcp"/>
                     </view>
+                    <navigationItem key="navigationItem" title="First preference" id="5Kc-yY-254">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="s1x-cC-fWh"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="HaB-Iq-Wy2" id="E4X-lm-9So"/>
                         <outlet property="tableOutlet" destination="abh-YW-tGT" id="xAm-sv-FBw"/>
@@ -86,7 +89,7 @@
             </objects>
             <point key="canvasLocation" x="738" y="-715"/>
         </scene>
-        <!--Kind Prefs2 View Controller-->
+        <!--Second preference-->
         <scene sceneID="dl9-rC-hE2">
             <objects>
                 <viewController id="QTW-9M-71M" customClass="KindPrefs2ViewController" customModule="PartyTime" customModuleProvider="target" sceneMemberID="viewController">
@@ -153,6 +156,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="E7v-au-qXI"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Second preference" id="Q6u-BG-Zqt">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="5an-xS-t13"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="UhP-zK-E6f" id="MCu-cT-PTS"/>
                         <outlet property="tableOutlet" destination="oSu-FQ-8ak" id="yvn-jR-q86"/>
@@ -162,7 +168,7 @@
             </objects>
             <point key="canvasLocation" x="1447" y="-714"/>
         </scene>
-        <!--Kind Prefs3 View Controller-->
+        <!--Third preference-->
         <scene sceneID="AO7-VA-l7Z">
             <objects>
                 <viewController id="czr-up-ZF3" customClass="KindPrefs3ViewController" customModule="PartyTime" customModuleProvider="target" sceneMemberID="viewController">
@@ -229,6 +235,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GZX-OW-14k"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Third preference" id="fjg-MN-0dw">
+                        <barButtonItem key="backBarButtonItem" title="Preferences" id="dvX-bI-gVq"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="sdR-bg-hfK" id="Clo-d1-7UV"/>
                         <outlet property="tableOutlet" destination="S38-8y-IEk" id="aVg-ac-Bgq"/>
