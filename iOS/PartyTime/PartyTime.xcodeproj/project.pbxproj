@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E10DFB5F20C55ABB00521470 /* LastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10DFB5E20C55ABB00521470 /* LastViewController.swift */; };
+		E12396CD20C875E6001E13A0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E12396CC20C875E6001E13A0 /* Default-568h@2x.png */; };
 		E12EA11920C3F21500E7A08E /* KindPrefs1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EA11820C3F21500E7A08E /* KindPrefs1ViewController.swift */; };
 		E12EA11B20C3F24200E7A08E /* KindPrefs2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EA11A20C3F24200E7A08E /* KindPrefs2ViewController.swift */; };
 		E12EA11D20C3F24800E7A08E /* KindPrefs3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EA11C20C3F24800E7A08E /* KindPrefs3ViewController.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		E10DFB5E20C55ABB00521470 /* LastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastViewController.swift; sourceTree = "<group>"; };
+		E12396CC20C875E6001E13A0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E12EA11820C3F21500E7A08E /* KindPrefs1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPrefs1ViewController.swift; sourceTree = "<group>"; };
 		E12EA11A20C3F24200E7A08E /* KindPrefs2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPrefs2ViewController.swift; sourceTree = "<group>"; };
 		E12EA11C20C3F24800E7A08E /* KindPrefs3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPrefs3ViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		E1BE7EB020C3080D00C9213A = {
 			isa = PBXGroup;
 			children = (
+				E12396CC20C875E6001E13A0 /* Default-568h@2x.png */,
 				E1BE7EBB20C3080D00C9213A /* PartyTime */,
 				E1BE7ED020C3080D00C9213A /* PartyTimeTests */,
 				E1BE7EDB20C3080E00C9213A /* PartyTimeUITests */,
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1BE7EC720C3080D00C9213A /* LaunchScreen.storyboard in Resources */,
+				E12396CD20C875E6001E13A0 /* Default-568h@2x.png in Resources */,
 				E1BE7EC420C3080D00C9213A /* Assets.xcassets in Resources */,
 				E1BE7EC220C3080D00C9213A /* Main.storyboard in Resources */,
 			);

@@ -19,10 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
         print("Sono entrato nel delegate")
         locationManager.delegate = self
+        
         print("sto per richiedere l'autorizzatione...")
         locationManager.requestAlwaysAuthorization()
+        
+        
         // Request permission to send notifications
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
@@ -67,34 +71,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             // [Beacon] is the value returned from the function!
             
             print("sono nella funzione locationManager(didChangeAuth)")
+            print("questi sono i beacon che ho ottenuto:")
             for b in (ret){
                 print(b.toPrint())
             }
             self.beaconsList = ret
             self.rangeBeacons(bList: ret)
             
+            
         }
-//                rangeBeacons()
+        
+        //                rangeBeacons()
         
     }
     
-//    {
-//      "beacons": [
-                //    {
-                //    "major": 2222,
-                //    "minor": 1111,
-                //    "room": "sala",
-                //    "uuid": "1234"
-                //    },
-                //    {
-                //    "major": 2223,
-                //    "minor": 1112,
-                //    "room": "cucina",
-                //    "uuid": "5678"
-                //    }
-//                  ]
-//    }
-
     
     struct restBeaconList: Decodable {
         
@@ -118,41 +108,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         let url = URL(string: "http://192.168.2.14:5000/api/pos/allbeacons")
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            print("sono all'1")
+//            print("sono all'1")
             guard error == nil else { fatalError("returning error") }
-            print("sono all'2")
+//            print("sono all'2")
             
-//            guard let content = data else { fatalError("not returning data") }
-            print("sono all'3")
+            //            guard let content = data else { fatalError("not returning data") }
+//            print("sono all'3")
             
             
             guard let json = try? JSONDecoder().decode(restBeaconList.self, from: data!) else {
                 print("Error: Couldn't decode data into restBeaconList")
                 return
             }
-//            guard let json = (try? JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String: Any] else { fatalError("Not containing JSON") }
-            print("sono all'4")
+            //            guard let json = (try? JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String: Any] else { fatalError("Not containing JSON") }
+//            print("sono all'4")
             
             DispatchQueue.main.async {
                 var beacons = [Beacon]()
                 for e in json.beacons {
-//                    self.beaconsList.append(Beacon(room: e.room, uuid: e.uuid, minor: e.minor, major: e.major))
-//                    print(e.uuid, e.room)
+                    //                    self.beaconsList.append(Beacon(room: e.room, uuid: e.uuid, minor: e.minor, major: e.major))
+                    //                    print(e.uuid, e.room)
                     beacons.append(Beacon(room: e.room, uuid: e.uuid, minor: e.minor, major: e.major))
                     
-                    print("sono all'5")
                 }
+                
+//                print("sono all'5")
                 returnCompletion(beacons as [Beacon])
-//                for b in self.beaconsList{
-//                    print(b.toPrint())
-//                }
-//                print()
+                
+                //                for b in self.beaconsList{
+                //                    print(b.toPrint())
+                //                }
+                //                print()
             }
             
             
             
         }
-        print("sono prima del resume")
+//        print("sono prima del resume")
         
         task.resume()
         
@@ -160,50 +152,74 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     
     func rangeBeacons(bList: [Beacon]){
-//        let uuid = UUID(uuidString: "3e1d7817-4eac-4b27-b809-deee2f246c46")
-//        let uuid = UUID(uuidString: "8492E75F-4FD6-469D-B132-043FE94921D8")
-//        let major:CLBeaconMajorValue = 1
-//        let minor:CLBeaconMinorValue = 2
-//        let identifier = "myBeacon"
+        //        let uuid = UUID(uuidString: "3e1d7817-4eac-4b27-b809-deee2f246c46")
+        //        let uuid = UUID(uuidString: "8492E75F-4FD6-469D-B132-043FE94921D8")
+        //        let major:CLBeaconMajorValue = 1
+        //        let minor:CLBeaconMinorValue = 2
+        //        let identifier = "myBeacon"
         
-//        let region = CLBeaconRegion(proximityUUID: uuid!, major: major, minor: minor, identifier: identifier)
+        //        let region = CLBeaconRegion(proximityUUID: uuid!, major: major, minor: minor, identifier: identifier)
         var region = [CLBeaconRegion]()
         
-        for b in bList{
-            region.append(CLBeaconRegion(proximityUUID: b.bUUID, major: b.bMajor, minor: b.bMinor, identifier: b.room))
-        }
-        for r in region{
-            r.notifyOnExit = true
-            r.notifyEntryStateOnDisplay = true
-            r.notifyOnExit = true
-            locationManager.startRangingBeacons(in: r)
-            locationManager.startMonitoring(for: r)
-        }
-//        region.notifyOnEntry = true
-//        region.notifyEntryStateOnDisplay = true
-//        region.notifyOnExit = true
-//
-//        locationManager.startRangingBeacons(in: region)
-//        locationManager.startMonitoring(for: region)
+        print("Sono nella funzione rangeBeacons")
+        
+        var newRegion = CLBeaconRegion(proximityUUID: bList[0].bUUID, identifier: bList[0].room)
+//        for b in bList{
+//            region.append(CLBeaconRegion(proximityUUID: b.bUUID, major: b.bMajor, minor: b.bMinor, identifier: b.room))
+//        }
+        
+        var i = 0
+        
+//        for r in region{
+//            print("Region\(i) di identificativo:\(r.identifier)")
+//            i += 1
+//            r.notifyOnEntry = true
+//            r.notifyEntryStateOnDisplay = true
+//            r.notifyOnExit = true
+//            locationManager.startRangingBeacons(in: r)
+//            locationManager.startMonitoring(for: r)
+//        }
+        
+        print("Region\(i) di identificativo:\(newRegion.identifier)")
+        i += 1
+        newRegion.notifyOnEntry = true
+        newRegion.notifyEntryStateOnDisplay = true
+        newRegion.notifyOnExit = true
+        locationManager.startRangingBeacons(in: newRegion)
+        locationManager.startMonitoring(for: newRegion)
+        
+        
+        //        region.notifyOnEntry = true
+        //        region.notifyEntryStateOnDisplay = true
+        //        region.notifyOnExit = true
+        //
+        //        locationManager.startRangingBeacons(in: region)
+        //        locationManager.startMonitoring(for: region)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+        print(beacons)
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         let beaconRegion = region as! CLBeaconRegion
+        print("Ho rilevaro in INGRESSO: \(beaconRegion.identifier)")
         let content = UNMutableNotificationContent()
         content.title = "entered"
         content.body = "\(beaconRegion.identifier)"
         content.sound = .default()
-        let request = UNNotificationRequest(identifier: "SufalamTech", content: content, trigger: nil)
+        let request = UNNotificationRequest(identifier: "partyTime", content: content, trigger: nil)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         let beaconRegion = region as! CLBeaconRegion
+        print("Ho rilevaro in USCITA: \(beaconRegion.identifier)")
         let content = UNMutableNotificationContent()
         content.title = "leave"
         content.body = "\(beaconRegion.identifier)"
         content.sound = .default()
-        let request = UNNotificationRequest(identifier: "identifier", content: content, trigger: nil)
+        let request = UNNotificationRequest(identifier: "partyTime", content: content, trigger: nil)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
