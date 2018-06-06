@@ -87,8 +87,8 @@ class KindPrefs2ViewController: UIViewController, UITableViewDataSource, UITable
                     
                 }
                 
-                print("ItemsList è lunga: \(itemsList.count)")
-                print("Alla seconda scelta risulta: \(i.kind) \(i.preference)")
+//                print("ItemsList è lunga: \(itemsList.count)")
+//                print("Alla seconda scelta risulta: \(i.kind) \(i.preference)")
                 
             }
             
@@ -97,7 +97,7 @@ class KindPrefs2ViewController: UIViewController, UITableViewDataSource, UITable
             vc?.selectedList = self.selectedList
             
             let defaults = UserDefaults.standard
-            print("Setting the pref2 (\(selectedKind)) inside defaults")
+//            print("Setting the pref2 (\(selectedKind)) inside defaults")
             defaults.set(selectedKind, forKey: "pref2")
             
 //
@@ -147,9 +147,9 @@ class KindPrefs2ViewController: UIViewController, UITableViewDataSource, UITable
         //        let currentCell = tableOutlet.cellForRow(at: selectedIndex)
         selectedCell = tableView.cellForRow(at: selectedIndex)!
         //        let selectedKind = currentCell!.textLabel!.text!
-        let selectedKind = selectedCell.textLabel!.text! // da togliere!
+//        let selectedKind = selectedCell.textLabel!.text! // da togliere!
         
-        print("Cella selezionata: \(selectedKind)")
+//        print("Cella selezionata: \(selectedKind)")
         
     }
     

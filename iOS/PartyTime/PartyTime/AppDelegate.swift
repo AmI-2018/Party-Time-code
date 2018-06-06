@@ -21,21 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Override point for customization after application launch.
         print("Sono entrato nel delegate")
         locationManager.delegate = self
+        print("sto per richiedere l'autorizzatione...")
         locationManager.requestAlwaysAuthorization()
         // Request permission to send notifications
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
-        print("chiamo getBeaconList()")
-        getBeaconList(){ (ret) in
-            
-            // [Beacon] is the value returned from the function!
-            
-            print("sono nella funzione application")
-            for b in (ret){
-                print(b.toPrint())
-            }
-            
-        }
         
         return true
     }
@@ -70,9 +60,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        beaconsList = getBeaconList()
-        
-        //        rangeBeacons()
+        //        beaconsList = getBeaconList()
+        print("chiamo getBeaconList() da locationManager(didChangeAuthorization)")
+        getBeaconList(){ (ret) in
+            
+            // [Beacon] is the value returned from the function!
+            
+            print("sono nella funzione locationManager(didChangeAuth)")
+            for b in (ret){
+                print(b.toPrint())
+            }
+            self.beaconsList = ret
+            self.rangeBeacons(bList: ret)
+            
+        }
+//                rangeBeacons()
         
     }
     
@@ -157,35 +159,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     
-    func rangeBeacons(){
-        let uuid = UUID(uuidString: "3e1d7817-4eac-4b27-b809-deee2f246c46")
-        //let uuid = UUID(uuidString: "8492E75F-4FD6-469D-B132-043FE94921D8")
-        let major:CLBeaconMajorValue = 1
-        let minor:CLBeaconMinorValue = 2
-        let identifier = "myBeacon"
+    func rangeBeacons(bList: [Beacon]){
+//        let uuid = UUID(uuidString: "3e1d7817-4eac-4b27-b809-deee2f246c46")
+//        let uuid = UUID(uuidString: "8492E75F-4FD6-469D-B132-043FE94921D8")
+//        let major:CLBeaconMajorValue = 1
+//        let minor:CLBeaconMinorValue = 2
+//        let identifier = "myBeacon"
         
-        let region = CLBeaconRegion(proximityUUID: uuid!, major: major, minor: minor, identifier: identifier)
-        region.notifyOnEntry = true
-        region.notifyEntryStateOnDisplay = true
-        region.notifyOnExit = true
+//        let region = CLBeaconRegion(proximityUUID: uuid!, major: major, minor: minor, identifier: identifier)
+        var region = [CLBeaconRegion]()
         
-        locationManager.startRangingBeacons(in: region)
-        locationManager.startMonitoring(for: region)
+        for b in bList{
+            region.append(CLBeaconRegion(proximityUUID: b.bUUID, major: b.bMajor, minor: b.bMinor, identifier: b.room))
+        }
+        for r in region{
+            r.notifyOnExit = true
+            r.notifyEntryStateOnDisplay = true
+            r.notifyOnExit = true
+            locationManager.startRangingBeacons(in: r)
+            locationManager.startMonitoring(for: r)
+        }
+//        region.notifyOnEntry = true
+//        region.notifyEntryStateOnDisplay = true
+//        region.notifyOnExit = true
+//
+//        locationManager.startRangingBeacons(in: region)
+//        locationManager.startMonitoring(for: region)
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        let beaconRegion = region as! CLBeaconRegion
         let content = UNMutableNotificationContent()
-        content.title = "Hello!!!"
-        content.body = "You Are Back in the Office"
+        content.title = "entered"
+        content.body = "\(beaconRegion.identifier)"
         content.sound = .default()
         let request = UNNotificationRequest(identifier: "SufalamTech", content: content, trigger: nil)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        let beaconRegion = region as! CLBeaconRegion
         let content = UNMutableNotificationContent()
-        content.title = "Alert!!!"
-        content.body = "You are Out of the Office"
+        content.title = "leave"
+        content.body = "\(beaconRegion.identifier)"
         content.sound = .default()
         let request = UNNotificationRequest(identifier: "identifier", content: content, trigger: nil)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)

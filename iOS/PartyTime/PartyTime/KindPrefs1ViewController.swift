@@ -110,8 +110,8 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
                     
                 }
                 
-                print("ItemsList è lunga: \(itemsList.count)")
-                print("Alla prima scelta risulta: \(i.kind) \(i.preference)")
+//                print("ItemsList è lunga: \(itemsList.count)")
+//                print("Alla prima scelta risulta: \(i.kind) \(i.preference)")
                 
             }
             
@@ -120,7 +120,7 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
             vc?.selectedList = self.selectedList
             
             let defaults = UserDefaults.standard
-            print("Setting the pref1 (\(selectedKind)) inside defaults")
+//            print("Setting the pref1 (\(selectedKind)) inside defaults")
             defaults.set(selectedKind, forKey: "pref1")
             
             
@@ -131,7 +131,7 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func parseJSON() {
-        print("entrato nel parser")
+//        print("entrato nel parser")
         let url = URL(string: "http://192.168.2.14:5000/api/music/kindAndCount")
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             
@@ -179,9 +179,9 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
         //        let currentCell = tableOutlet.cellForRow(at: selectedIndex)
         selectedCell = tableView.cellForRow(at: selectedIndex)!
         //        let selectedKind = currentCell!.textLabel!.text!
-        let selectedKind = selectedCell.textLabel!.text! // da togliere!
+//        let selectedKind = selectedCell.textLabel!.text! // da togliere!
         
-        print("Cella selezionata: \(selectedKind)")
+//        print("Cella selezionata: \(selectedKind)")
         
     }
     

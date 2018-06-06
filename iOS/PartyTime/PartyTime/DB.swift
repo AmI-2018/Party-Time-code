@@ -23,7 +23,7 @@ class DB: NSObject {
         
         let urlString: String = "http://192.168.2.14:5000/api/music/kindAndCount"
         guard let url = URL(string: urlString) else {
-            print("error in url")
+//            print("error in url")
             return kindDict
             
             
@@ -43,8 +43,8 @@ class DB: NSObject {
             (data, response, error) in
             // check for any errors
             guard error == nil else {
-                print("error calling GET on /todos/1")
-                print(error!)
+//                print("error calling GET on /todos/1")
+//                print(error!)
                 return
             }
             // make sure we got data
@@ -71,22 +71,22 @@ class DB: NSObject {
                     self.kindDict = kinds
                     //responseDict = kinds
 //                    completionHandler(kinds)
-                    print("kindDict inside function \(self.kindDict)")
-                    print("kinds inside function \(kinds)")
+//                    print("kindDict inside function \(self.kindDict)")
+//                    print("kinds inside function \(kinds)")
                     var itemsList = [Item]()
                     for e in kinds{
                         itemsList.append(Item(kind: e.key, numberOfSongs: e.value as! Int))
                     }
 //                    self.defaults.set(itemsList, forKey: "kinds")
-                    for i in itemsList{
-                        print("itemsList \(i.kind) \(i.numberOfSongs) \(i.alreadyAdded)")
-                    }
+//                    for i in itemsList{
+//                        print("itemsList \(i.kind) \(i.numberOfSongs) \(i.alreadyAdded)")
+//                    }
                     
                 }
                 
                 
             } catch  {
-                print("error trying to convert data to JSON")
+//                print("error trying to convert data to JSON")
                 return
             }
             

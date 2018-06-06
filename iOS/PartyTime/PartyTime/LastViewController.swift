@@ -54,9 +54,9 @@ class LastViewController: UIViewController{
     
     func createUser() {
         let defaults = UserDefaults.standard
-        let username = defaults.string(forKey: "username")
-        print("Ho trovato l'username: \(username ?? "none")")
-        print("entrato nel createUser")
+//        let username = defaults.string(forKey: "username")
+//        print("Ho trovato l'username: \(username ?? "none")")
+//        print("entrato nel createUser")
         //        let myPost = Post(userId: 1, id: 1, title: "Hello World", body: "How are you all today?")
         
         
@@ -64,17 +64,17 @@ class LastViewController: UIViewController{
         let pref2 = defaults.string(forKey: "pref2")
         let pref3 = defaults.string(forKey: "pref3")
         
-        print("prefs: \(pref1 ?? "nope") \(pref2 ?? "nope") \(pref3 ?? "nope")")
+//        print("prefs: \(pref1 ?? "nope") \(pref2 ?? "nope") \(pref3 ?? "nope")")
         
         let myPost = Post(pref1: pref1!, pref2: pref2!, pref3: pref3!)
         
-        print("myPost: \(myPost)")
+//        print("myPost: \(myPost)")
         
         
         //        let url = URL(string: "http://192.168.0.22:5000/api/users/\(username)")
         submitPost(post: myPost) { (error) in
             if let error = error {
-                print("POrcoDIO")
+//                print("POrcoDIO")
                 fatalError(error.localizedDescription)
             }
             
@@ -106,7 +106,7 @@ class LastViewController: UIViewController{
             let jsonData = try encoder.encode(post)
             // ... and set our request's HTTP body
             request.httpBody = jsonData
-            print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
+//            print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
         } catch {
             completion?(error)
         }
@@ -121,11 +121,11 @@ class LastViewController: UIViewController{
             }
             
             // APIs usually respond with the data you just sent in your POST request
-            if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
-                print("response: ", utf8Representation)
-            } else {
-                print("no readable data received in response")
-            }
+//            if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
+//                print("response: ", utf8Representation)
+//            } else {
+//                print("no readable data received in response")
+//            }
         }
         task.resume()
     }

@@ -1,6 +1,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class Beacon: NSObject {
     
@@ -8,13 +9,18 @@ class Beacon: NSObject {
     var uuid: String
     var minor: Int
     var major: Int
-   
+    var bMajor: CLBeaconMajorValue
+    var bMinor: CLBeaconMinorValue
+    var bUUID: UUID
     
     init(room:String, uuid: String, minor: Int?=nil, major: Int?=nil) {
         self.room = room
         self.uuid = uuid
         self.minor = minor!
         self.major = major!
+        self.bMajor = UInt16(major!)
+        self.bMinor = UInt16(minor!)
+        self.bUUID = UUID(uuidString: uuid)!
         
         super.init()
     }
