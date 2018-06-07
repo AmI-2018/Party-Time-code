@@ -1,5 +1,6 @@
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import DBoperator
 
 def start(bot, update):
     update.message.reply_text('Hello! This is Party-Time.Bot. You can use one of the commands present in the interface:')
@@ -13,9 +14,9 @@ def echo(bot, update):
 def unknown(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="Sorry, I didn't understand that command.")
 def playlist(bot, update):
-
     update.message.reply_text('playlist')
 def all_songs(bot, update):
+    print(DBoperator.showAllMusic())
     update.message.reply_text('all')
 def vote_next(bot, update):
     update.message.reply_text('next')
