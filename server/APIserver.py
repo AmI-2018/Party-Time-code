@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, session, request, jsonify, abort, Response
 import json
+from collections import  defaultdict
 from datetime import datetime
 
 import logging
@@ -19,12 +20,21 @@ def fetch_json(item):
     """
     Convert the json in a dictionary
     """
-    DBoperator.registerUser()
+    #DBoperator.registerUserPosition()
+    pass
+
+@app.route('/api/registerroom', methods=['POST'])
+def registerRoom():
+
+    room = request.json
+    DBoperator.createRoom(roomName=room["roomName"], raspIP=room["raspIP"], hueID=room["hueIP"], beaconID=room["beaconUUID"], beaconMajor=room["beaconM"], beaconMinor=room["beaconm"])
+    return jsonify(room)
+    #return Response(status=201)
 
 
-@app.route('/info', methods=['GET'])
+@app.route('/api/info', methods=['GET'])
 def info():
-    return "funziona"
+    return Response(status=200)
 
 @app.route('/api/users', methods=['GET'])
 def retrieveUsers():
@@ -42,21 +52,37 @@ def checkuser(username):
 
     return Response(status=204) # no content
 
+@app.route('/api/pos/allbeacons', methods=['GET'])
+def retrieveAllBeacon():
+    ret = DBoperator.beaconsList()
+    if ret == False:
+        return Response(status=204)
+    d = list(defaultdict())
+    for room, uuid, major, minor in ret:
+        d.append({"room":room, "uuid":uuid, "major":major, "minor":minor})
+        print("ore: " + str(datetime.now()))
+
+    print("list of all beacons:")
+    print({"beacons":d})
+    return jsonify({"beacons":d})
 
 
 @app.route('/api/users/<username>', methods=['POST'])
 def adduser(username):
 
     if DBoperator.userInDB(username):
+        print("l'utente risulta gia registrato")
         return Response(status=409)
 
     preferences = request.json
+    print("username=" + username)
     print("pref1=" + preferences['pref1'])
     print("pref2=" + preferences['pref2'])
     print("pref3=" + preferences['pref3'])
 
     DBoperator.createUser(username, preferences['pref1'], preferences['pref2'], preferences['pref3'])
-    return Response(status=201)
+    return jsonify(preferences)
+    #return Response(status=201)
 
 @app.route('/api/music/kind', methods=['GET'])
 def getKindsOfMusic():
@@ -77,4 +103,5 @@ def getKindsOfMusicAndCount():
 
 
 if __name__ == '__main__':
+
     app.run(debug=True, host='0.0.0.0')

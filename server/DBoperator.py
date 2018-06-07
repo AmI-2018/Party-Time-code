@@ -109,7 +109,7 @@ def showAllMusic():
         print("show all music")
         con = sqlite3.connect(path)
         cur = con.cursor()
-        query = """select `title`, `kind`, `location` from `music`"""
+        query = """SELECT DISTINCT `title`, `kind`, `location` from `music`"""
         cur.execute(query)
         rows = cur.fetchall()
         print("risultati")
@@ -333,13 +333,33 @@ def createExampleEntries():
     registerUserPosition("1234", "1111", "2222", "ciccio")
     createRoom("sala", "10.0.0.1", "3429872347", "1234", "1111", "2222")
 
+def beaconsList():
+    query = "select DISTINCT roomName, beaconID, beaconIDMajor, beaconIDMinor from rooms"
+    try:
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query)
+        rows = cur.fetchall()
+        if len(rows) <= 0:
+            ret = false
+        else:
+            ret = rows
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return ret
 
 if __name__ == '__main__':
+    clearDB()
     initialize("./music")
     createExampleEntries()
-    print(userInDB("ciccio"))
-    print(userInDB("ale"))
-
+    #print(userInDB("ciccio"))
+    #print(userInDB("ale"))
+    #print(showAllMusic())
     getKindsOfMusicAndCount()
     # db.getKindsOfMusic()
     # DBinit("./music")
