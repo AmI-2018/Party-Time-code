@@ -159,11 +159,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         //        let identifier = "myBeacon"
         
         //        let region = CLBeaconRegion(proximityUUID: uuid!, major: major, minor: minor, identifier: identifier)
-        var region = [CLBeaconRegion]()
+//        var region = [CLBeaconRegion]()
         
         print("Sono nella funzione rangeBeacons")
         
-        var newRegion = CLBeaconRegion(proximityUUID: bList[0].bUUID, identifier: bList[0].room)
+        
+        let newRegion = CLBeaconRegion(proximityUUID: bList[0].bUUID, identifier: bList[0].room)
 //        for b in bList{
 //            region.append(CLBeaconRegion(proximityUUID: b.bUUID, major: b.bMajor, minor: b.bMinor, identifier: b.room))
 //        }
@@ -203,6 +204,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         let beaconRegion = region as! CLBeaconRegion
+        
         print("Ho rilevaro in INGRESSO: \(beaconRegion.identifier)")
         let content = UNMutableNotificationContent()
         content.title = "entered"
