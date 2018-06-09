@@ -44,8 +44,8 @@ def initialize(musicFolder):
                   `username` VARCHAR(200) NOT NULL,
                   `preference1` VARCHAR(200) NOT NULL, 
                   `preference2` VARCHAR(200),
-                  `preference3` VARCHAR(200),
-                  FOREIGN KEY (username) REFERENCES users(username)
+                  `preference3` VARCHAR(200)--,
+                  --FOREIGN KEY (username) REFERENCES users(username)
                 );
                 
             --DROP TABLE IF EXISTS `rooms`;
@@ -130,6 +130,15 @@ def getListByGenre(genre):
     "to be done"
     pass
 
+def getListOfUsers():
+    query = "select username from users ORDER BY username;"
+    print("this is returned by the DBoperator")
+    return customQueryWithReturn(query)
+
+def removeUser(username):
+    query = "delete from users WHERE username like ?;"
+    ret = customQueryWithReturnOneParameter(query, username)
+    return ret
 
 def registerUserPosition(beacon, major, minor, username):
     try:
@@ -330,6 +339,9 @@ def userInDB(username):
 def createExampleEntries():
     importMusic()
     createUser("ciccio", "rock", "pop", None)
+    createUser("baciccio", "jazz", "rock", None)
+    createUser("tizio", "r&b", "jazz", None)
+    createUser("caio", "house", "pop", "classica")
     registerUserPosition("1234", "1111", "2222", "ciccio")
     createRoom("sala", "10.0.0.1", "3429872347", "1234", "1111", "2222")
 
@@ -353,15 +365,47 @@ def beaconsList():
         sys.exit(1)
     return ret
 
+def customQueryWithReturn(query):
+    try:
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query)
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return rows
+
+def customQueryWithReturnOneParameter(query, param1):
+    try:
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query, param1)
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return rows
+
 if __name__ == '__main__':
-    clearDB()
-    initialize("./music")
-    createExampleEntries()
-    #print(userInDB("ciccio"))
-    #print(userInDB("ale"))
-    #print(showAllMusic())
-    getKindsOfMusicAndCount()
+    # clearDB()
+    # initialize("./music")
+    # createExampleEntries()
+    # print(userInDB("ciccio"))
+    # print(userInDB("ale"))
+    # print(showAllMusic())
+    # getKindsOfMusicAndCount()
     # db.getKindsOfMusic()
     # DBinit("./music")
     # importMusic()
     # print(showAllMusic())
+
+    print(getListOfUsers())
