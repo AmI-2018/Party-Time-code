@@ -38,7 +38,28 @@ def info():
 
 @app.route('/api/users', methods=['GET'])
 def retrieveUsers():
-    pass
+    """Return a json file as Dict<"users":[List of all users]>
+        es:
+        [
+        "users":[
+                "tizio",
+                "caio",
+                "sempronio"
+                ]
+        ]
+    """
+    rows = DBoperator.getListOfUsers()
+    ret = {"users":[i[0] for i in rows]}
+    print("called retrieveUsers @ " + str(datetime.now()))
+    return jsonify(ret)
+
+@app.route('/api/users/<username>', methods=['DELETE'])
+def removeUser(username):
+    """Remove a user by given name"""
+    ret = DBoperator.removeUser(username)
+    print("called removeUser @ " + str(datetime.now()))
+    """TODO: implement response code"""
+
 
 @app.route('/api/users/<username>', methods=['GET'])
 def checkuser(username):
@@ -105,3 +126,5 @@ def getKindsOfMusicAndCount():
 if __name__ == '__main__':
 
     app.run(debug=True, host='0.0.0.0')
+    # print(retrieveUsers)
+    # print(DBoperator.getListOfUsers())
