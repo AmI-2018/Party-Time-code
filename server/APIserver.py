@@ -4,8 +4,7 @@ from collections import  defaultdict
 from datetime import datetime
 
 import logging
-# from server import DBoperator
-import DBoperator
+from server import DBoperator
 
 app = Flask(__name__)
 
@@ -17,15 +16,16 @@ logging.basicConfig(
 
 # ---------- REST SERVER ----------
 @app.route('/api/pos/update', methods=['POST'])
-def fetch_json(item):
+def updateUserPosition():
     """
-    Convert the json in a dictionary
+    log the user position
     """
-    location = request.json
-    print("received location")
-    print(location)
+    pos = request.json
+    print("registerUserPos @ " + str(datetime.now()))
+    print(pos)
+    DBoperator.registerUserPosition(beacon=pos["beacon"], major=pos["major"], minor=pos["minor"], username=pos["username"])
     #DBoperator.registerUserPosition()
-    pass
+    return Response(status=200)
 
 @app.route('/api/registerroom', methods=['POST'])
 def registerRoom():
