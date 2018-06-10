@@ -16,16 +16,16 @@ logging.basicConfig(
 
 # ---------- REST SERVER ----------
 @app.route('/api/pos/update', methods=['POST'])
-def fetch_json(item):
+def updateUserPosition():
     """
-    Convert the json in a dictionary
+    log the user position
     """
     pos = request.json
     print("registerUserPos @ " + str(datetime.now()))
     print(pos)
-    DBoperator.registerUserPosition(beacon=pos["beacon"], major=pos["major"], minor=["minor"], username=["username"])
+    DBoperator.registerUserPosition(beacon=pos["beacon"], major=pos["major"], minor=pos["minor"], username=pos["username"])
     #DBoperator.registerUserPosition()
-    pass
+    return Response(status=200)
 
 @app.route('/api/registerroom', methods=['POST'])
 def registerRoom():

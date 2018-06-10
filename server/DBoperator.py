@@ -149,7 +149,7 @@ def registerUserPosition(beacon, major, minor, username):
         con = sqlite3.connect(path)
         cur = con.cursor()
 
-        cur.execute(query, (username, beacon, major, minor))
+        cur.execute(query, (str(username), str(beacon), str(major), str(minor)))
         con.commit()
         # cur.execute("select  * from musicDB")
         # rows = cur.fetchall()
@@ -344,7 +344,6 @@ def createExampleEntries():
     createUser("caio", "house", "pop", "classica")
     registerUserPosition("1234", "1111", "2222", "ciccio")
     # createRoom("sala", "10.0.0.1", "3429872347", "1234", "1111", "2222")
-            roomName, raspIP, hueID, beaconID, beaconMajor, beaconMinor
     createRoom("sala", "10.0.0.3", "83972732", "B9407F30-F5F8-466E-AFF9-25556B57FE6D", "24156", "10712")
     createRoom("bagno", "10.0.0.36", "8397232732", "B9407F30-F5F8-466E-AFF9-25556B57FE6D", "27390", "29386")
 
