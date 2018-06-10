@@ -24,15 +24,7 @@ class KindPrefs2ViewController: UIViewController, UITableViewDataSource, UITable
         
         doneButton.isEnabled = false
         doneButton.alpha = 0.6
-        
-//
-//        for i in itemsList{
-//            print("\(i.kind) \(i.numberOfSongs) \(i.alreadyAdded) \(i.preference)")
-//        }
-//        for i in selectedList{
-//            print("\(i.kind) \(i.numberOfSongs) \(i.alreadyAdded) \(i.preference)")
-//        }
-        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,10 +78,6 @@ class KindPrefs2ViewController: UIViewController, UITableViewDataSource, UITable
                     itemsList.remove(at: itemsList.index(of: i)!)
                     
                 }
-                
-//                print("ItemsList è lunga: \(itemsList.count)")
-//                print("Alla seconda scelta risulta: \(i.kind) \(i.preference)")
-                
             }
             
             let vc = segue.destination as? KindPrefs3ViewController
@@ -97,31 +85,8 @@ class KindPrefs2ViewController: UIViewController, UITableViewDataSource, UITable
             vc?.selectedList = self.selectedList
             
             let defaults = UserDefaults.standard
-//            print("Setting the pref2 (\(selectedKind)) inside defaults")
             defaults.set(selectedKind, forKey: "pref2")
             
-//
-//            let vc = segue.destination as? KindPrefs3ViewController
-//            vc?.itemsList = self.itemsList
-//            vc?.selectedList = self.selectedList
-//
-//            let indexPath = tableOutlet.indexPathForSelectedRow //optional, to get from any UIButton for example
-//
-//            let currentCell = tableOutlet.cellForRow(at: indexPath!)
-//            let selectedKind = currentCell!.textLabel!.text!
-//            print("Cella selezionata: \(selectedKind)")
-//
-//            var index = 0
-//            for i in itemsList{
-//                if i.kind == selectedKind{
-//                    i.firstChoise(choise: selectedKind)
-//                    selectedList.append(i)
-//                    itemsList.remove(at: index)
-//                    break
-//                }
-//                index += 1
-//                print("Alla seconda scelta risulta: \(i.kind) \(i.preference)")
-//            }
         }
     }
     
@@ -136,21 +101,9 @@ class KindPrefs2ViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt selectedIndex: IndexPath) {
         
-        //        tableView.deselectRow(at: indexPath, animated: true)
-        
         doneButton.alpha = 1
         doneButton.isEnabled = true
-        
-        //        let indexPath = tableOutlet.indexPathForSelectedRow //optional, to get from any UIButton for example
-        //        self.tableOutlet.deselectRow(at: selectedIndex, animated: true)
-        
-        //        let currentCell = tableOutlet.cellForRow(at: selectedIndex)
-        selectedCell = tableView.cellForRow(at: selectedIndex)!
-        //        let selectedKind = currentCell!.textLabel!.text!
-//        let selectedKind = selectedCell.textLabel!.text! // da togliere!
-        
-//        print("Cella selezionata: \(selectedKind)")
-        
+        selectedCell = tableView.cellForRow(at: selectedIndex)!        
     }
     
     
