@@ -24,20 +24,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         print("Sono entrato nel delegate")
         locationManager.delegate = self
         
-        print("sto per richiedere l'autorizzatione...")
+        print("sto per richiedere l'autorizzatione per la posizione")
         locationManager.requestAlwaysAuthorization()
         
-        
         // Request permission to send notifications
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
+//        let center = UNUserNotificationCenter.current()
+//        center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
         
-//        let serverAddress = "192.168.1.1:5000"
-        let serverAddress = "172.20.10.5"
-        print("serverAddress: \(serverAddress)")
-        let defaults = UserDefaults.standard
         
-        defaults.set(serverAddress, forKey: "serverAddress")
+//        let serverAddress = "172.20.10.5"
+//        print("serverAddress: \(serverAddress)")
+        
+        let serverAddress = "192.168.2.14"
+        UserDefaults.standard.set(serverAddress, forKey: "serverAddress")
+//        let defaults = UserDefaults.standard
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = serverAddress
+        urlComponents.path = "/api/pos/allbeacons"
+        urlComponents.port = 5000
+
+//        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+        
+//        defaults.set(url, forKey: "serverAddress")
+//        defaults.set(serverAddress, forKey: "serverAddress")
         
         return true
     }
@@ -74,8 +85,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     // from this line the functions was added by me
     
     
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         //        beaconsList = getBeaconList()
+        while UserDefaults.standard.string(forKey: "username")==nil {
+            sleep(1)
+            print("sto aspettando l'username")
+        }
+        
         print("chiamo getBeaconList() da locationManager(didChangeAuthorization)")
         getBeaconList(){ (ret) in
             
@@ -119,16 +136,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
 //        let url = URL(string: "http://192.168.2.14:5000/api/pos/allbeacons")
         
-        let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
+//        let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "http"
-        urlComponents.host = serverAddress
-        urlComponents.path = "/api/pos/allbeacons"
-        
-        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
-        
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+//        var urlComponents = URLComponents()
+//        urlComponents.scheme = "http"
+//        urlComponents.host = serverAddress
+//        urlComponents.path = "/api/pos/allbeacons"
+//        urlComponents.port = 5000
+//
+//        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+        let url = UserDefaults.standard.url(forKey: "serverAddress")
+        print("printo l'url")
+        print(url!.absoluteString)
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             //            print("sono all'1")
             guard error == nil else { fatalError("returning error: \(error.debugDescription)") }
             //            print("sono all'2")
@@ -299,11 +319,12 @@ func registerPosition(region: CLBeaconRegion){
 func submitPost(post: Post, completion:((Error?) -> Void)?) {
     
     let username = UserDefaults.standard.string(forKey: "username")
-    let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
     
+    let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
     var urlComponents = URLComponents()
     urlComponents.scheme = "http"
     urlComponents.host = serverAddress
+    urlComponents.port = 5000
     urlComponents.path = "/api/users/\(username ?? "")"
     guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
     
@@ -311,6 +332,7 @@ func submitPost(post: Post, completion:((Error?) -> Void)?) {
     
     //    let url = URL(string: "http://192.168.2.14:5000/api/users/\(username ?? "non funge")")
     //
+//    let url = UserDefaults.standard.url(forKey: "serverAddress")
     
     // Specify this request as being a POST method
     var request = URLRequest(url: url)

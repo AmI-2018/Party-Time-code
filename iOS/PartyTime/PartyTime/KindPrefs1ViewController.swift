@@ -21,6 +21,7 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        
         navigationItem.hidesBackButton = true
         doneButton.isEnabled = false
         doneButton.alpha = 0.6
@@ -140,6 +141,7 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = serverAddress
+        urlComponents.port = 5000
         urlComponents.path = "/api/music/kindAndCount"
         
         guard let url = urlComponents.url else { fatalError("Could not create URL from components") }

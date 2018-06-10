@@ -98,7 +98,7 @@ class LastViewController: UIViewController{
         urlComponents.scheme = "http"
         urlComponents.host = serverAddress
         urlComponents.path = "/api/users/\(username ?? "cazzononfunziona")"
-        
+        urlComponents.port = 5000
         guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
         
         

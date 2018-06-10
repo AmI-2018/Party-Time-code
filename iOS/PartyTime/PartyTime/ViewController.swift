@@ -92,8 +92,9 @@ class ViewController: UIViewController {
         urlComponents.scheme = "http"
         urlComponents.host = serverAddress
         urlComponents.path = "/api/users/\(user ?? "")"
-        
+        urlComponents.port = 5000
         guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+        
         
         let task = URLSession.shared.downloadTask(with:url) { loc, resp, err in
             let status = (resp as! HTTPURLResponse).statusCode
