@@ -14,12 +14,12 @@ def echo(bot, update):
 def unknown(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="Sorry, I didn't understand that command.")
 def playlist(bot, update):
-    update.message.reply_text('playlist')
+    update.message.reply_text('playlist of the party:')
 def all_songs(bot, update):
     print(DBoperator.showAllMusic())
-    update.message.reply_text('all')
+    update.message.reply_text('all present in the server:')
 def vote_next(bot, update):
-    update.message.reply_text('next')
+    update.message.reply_text('next song:')
 
 if __name__ == '__main__':
 
