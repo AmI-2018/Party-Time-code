@@ -20,6 +20,10 @@ def fetch_json(item):
     """
     Convert the json in a dictionary
     """
+    pos = request.json
+    print("registerUserPos @ " + str(datetime.now()))
+    print(pos)
+    DBoperator.registerUserPosition(beacon=pos["beacon"], major=pos["major"], minor=["minor"], username=["username"])
     #DBoperator.registerUserPosition()
     pass
 
