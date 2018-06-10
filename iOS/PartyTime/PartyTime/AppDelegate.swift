@@ -130,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             //            print("sono all'1")
-            guard error == nil else { fatalError("returning error: \(error.debugDescriptionx)") }
+            guard error == nil else { fatalError("returning error: \(error.debugDescription)") }
             //            print("sono all'2")
             
             //            guard let content = data else { fatalError("not returning data") }
