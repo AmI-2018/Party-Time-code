@@ -4,7 +4,8 @@ from collections import  defaultdict
 from datetime import datetime
 
 import logging
-from server import DBoperator
+# from server import DBoperator
+import DBoperator
 
 app = Flask(__name__)
 
@@ -20,6 +21,9 @@ def fetch_json(item):
     """
     Convert the json in a dictionary
     """
+    location = request.json
+    print("received location")
+    print(location)
     #DBoperator.registerUserPosition()
     pass
 

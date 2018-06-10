@@ -50,17 +50,17 @@
 		E12EA11C20C3F24800E7A08E /* KindPrefs3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPrefs3ViewController.swift; sourceTree = "<group>"; };
 		E12EA12420C4031F00E7A08E /* DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB.swift; sourceTree = "<group>"; };
 		E12EA12620C435B500E7A08E /* item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = item.swift; sourceTree = "<group>"; };
-		E1BE7EB920C3080D00C9213A /* PartyTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1BE7EB920C3080D00C9213A /* PartyTimeHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyTimeHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BE7EBC20C3080D00C9213A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1BE7EBE20C3080D00C9213A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E1BE7EC120C3080D00C9213A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E1BE7EC320C3080D00C9213A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1BE7EC620C3080D00C9213A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1BE7EC820C3080D00C9213A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1BE7ECD20C3080D00C9213A /* PartyTimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyTimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1BE7ECD20C3080D00C9213A /* PartyTimeHostTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyTimeHostTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BE7ED120C3080D00C9213A /* PartyTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyTimeTests.swift; sourceTree = "<group>"; };
 		E1BE7ED320C3080D00C9213A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1BE7ED820C3080E00C9213A /* PartyTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1BE7ED820C3080E00C9213A /* PartyTimeHostUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyTimeHostUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BE7EDC20C3080E00C9213A /* PartyTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyTimeUITests.swift; sourceTree = "<group>"; };
 		E1BE7EDE20C3080E00C9213A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1CA7F6B20C5AE950094332B /* BeaconsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconsDelegate.swift; sourceTree = "<group>"; };
@@ -96,9 +96,9 @@
 			isa = PBXGroup;
 			children = (
 				E12396CC20C875E6001E13A0 /* Default-568h@2x.png */,
-				E1BE7EBB20C3080D00C9213A /* PartyTime */,
-				E1BE7ED020C3080D00C9213A /* PartyTimeTests */,
-				E1BE7EDB20C3080E00C9213A /* PartyTimeUITests */,
+				E1BE7EBB20C3080D00C9213A /* PartyTimeHost */,
+				E1BE7ED020C3080D00C9213A /* PartyTimeHostTests */,
+				E1BE7EDB20C3080E00C9213A /* PartyTimeHostUITests */,
 				E1BE7EBA20C3080D00C9213A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -106,14 +106,14 @@
 		E1BE7EBA20C3080D00C9213A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E1BE7EB920C3080D00C9213A /* PartyTime.app */,
-				E1BE7ECD20C3080D00C9213A /* PartyTimeTests.xctest */,
-				E1BE7ED820C3080E00C9213A /* PartyTimeUITests.xctest */,
+				E1BE7EB920C3080D00C9213A /* PartyTimeHost.app */,
+				E1BE7ECD20C3080D00C9213A /* PartyTimeHostTests.xctest */,
+				E1BE7ED820C3080E00C9213A /* PartyTimeHostUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E1BE7EBB20C3080D00C9213A /* PartyTime */ = {
+		E1BE7EBB20C3080D00C9213A /* PartyTimeHost */ = {
 			isa = PBXGroup;
 			children = (
 				E1BE7EBC20C3080D00C9213A /* AppDelegate.swift */,
@@ -131,33 +131,33 @@
 				E1BE7EC520C3080D00C9213A /* LaunchScreen.storyboard */,
 				E1BE7EC820C3080D00C9213A /* Info.plist */,
 			);
-			path = PartyTime;
+			path = PartyTimeHost;
 			sourceTree = "<group>";
 		};
-		E1BE7ED020C3080D00C9213A /* PartyTimeTests */ = {
+		E1BE7ED020C3080D00C9213A /* PartyTimeHostTests */ = {
 			isa = PBXGroup;
 			children = (
 				E1BE7ED120C3080D00C9213A /* PartyTimeTests.swift */,
 				E1BE7ED320C3080D00C9213A /* Info.plist */,
 			);
-			path = PartyTimeTests;
+			path = PartyTimeHostTests;
 			sourceTree = "<group>";
 		};
-		E1BE7EDB20C3080E00C9213A /* PartyTimeUITests */ = {
+		E1BE7EDB20C3080E00C9213A /* PartyTimeHostUITests */ = {
 			isa = PBXGroup;
 			children = (
 				E1BE7EDC20C3080E00C9213A /* PartyTimeUITests.swift */,
 				E1BE7EDE20C3080E00C9213A /* Info.plist */,
 			);
-			path = PartyTimeUITests;
+			path = PartyTimeHostUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E1BE7EB820C3080D00C9213A /* PartyTime */ = {
+		E1BE7EB820C3080D00C9213A /* PartyTimeHost */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E1BE7EE120C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTime" */;
+			buildConfigurationList = E1BE7EE120C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTimeHost" */;
 			buildPhases = (
 				E1BE7EB520C3080D00C9213A /* Sources */,
 				E1BE7EB620C3080D00C9213A /* Frameworks */,
@@ -167,14 +167,14 @@
 			);
 			dependencies = (
 			);
-			name = PartyTime;
+			name = PartyTimeHost;
 			productName = PartyTime;
-			productReference = E1BE7EB920C3080D00C9213A /* PartyTime.app */;
+			productReference = E1BE7EB920C3080D00C9213A /* PartyTimeHost.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E1BE7ECC20C3080D00C9213A /* PartyTimeTests */ = {
+		E1BE7ECC20C3080D00C9213A /* PartyTimeHostTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E1BE7EE420C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTimeTests" */;
+			buildConfigurationList = E1BE7EE420C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTimeHostTests" */;
 			buildPhases = (
 				E1BE7EC920C3080D00C9213A /* Sources */,
 				E1BE7ECA20C3080D00C9213A /* Frameworks */,
@@ -185,14 +185,14 @@
 			dependencies = (
 				E1BE7ECF20C3080D00C9213A /* PBXTargetDependency */,
 			);
-			name = PartyTimeTests;
+			name = PartyTimeHostTests;
 			productName = PartyTimeTests;
-			productReference = E1BE7ECD20C3080D00C9213A /* PartyTimeTests.xctest */;
+			productReference = E1BE7ECD20C3080D00C9213A /* PartyTimeHostTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		E1BE7ED720C3080E00C9213A /* PartyTimeUITests */ = {
+		E1BE7ED720C3080E00C9213A /* PartyTimeHostUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E1BE7EE720C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTimeUITests" */;
+			buildConfigurationList = E1BE7EE720C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTimeHostUITests" */;
 			buildPhases = (
 				E1BE7ED420C3080E00C9213A /* Sources */,
 				E1BE7ED520C3080E00C9213A /* Frameworks */,
@@ -203,9 +203,9 @@
 			dependencies = (
 				E1BE7EDA20C3080E00C9213A /* PBXTargetDependency */,
 			);
-			name = PartyTimeUITests;
+			name = PartyTimeHostUITests;
 			productName = PartyTimeUITests;
-			productReference = E1BE7ED820C3080E00C9213A /* PartyTimeUITests.xctest */;
+			productReference = E1BE7ED820C3080E00C9213A /* PartyTimeHostUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -236,7 +236,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E1BE7EB420C3080D00C9213A /* Build configuration list for PBXProject "PartyTime" */;
+			buildConfigurationList = E1BE7EB420C3080D00C9213A /* Build configuration list for PBXProject "PartyTimeHost" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -249,9 +249,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E1BE7EB820C3080D00C9213A /* PartyTime */,
-				E1BE7ECC20C3080D00C9213A /* PartyTimeTests */,
-				E1BE7ED720C3080E00C9213A /* PartyTimeUITests */,
+				E1BE7EB820C3080D00C9213A /* PartyTimeHost */,
+				E1BE7ECC20C3080D00C9213A /* PartyTimeHostTests */,
+				E1BE7ED720C3080E00C9213A /* PartyTimeHostUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -323,12 +323,12 @@
 /* Begin PBXTargetDependency section */
 		E1BE7ECF20C3080D00C9213A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E1BE7EB820C3080D00C9213A /* PartyTime */;
+			target = E1BE7EB820C3080D00C9213A /* PartyTimeHost */;
 			targetProxy = E1BE7ECE20C3080D00C9213A /* PBXContainerItemProxy */;
 		};
 		E1BE7EDA20C3080E00C9213A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E1BE7EB820C3080D00C9213A /* PartyTime */;
+			target = E1BE7EB820C3080D00C9213A /* PartyTimeHost */;
 			targetProxy = E1BE7ED920C3080E00C9213A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -473,7 +473,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4Z2G724N7T;
-				INFOPLIST_FILE = PartyTime/Info.plist;
+				INFOPLIST_FILE = PartyTimeHost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -492,7 +492,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4Z2G724N7T;
-				INFOPLIST_FILE = PartyTime/Info.plist;
+				INFOPLIST_FILE = PartyTimeHost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -522,7 +522,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartyTime.app/PartyTime";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartyTimeHost.app/PartyTimeHost";
 			};
 			name = Debug;
 		};
@@ -543,7 +543,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartyTime.app/PartyTime";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartyTimeHost.app/PartyTimeHost";
 			};
 			name = Release;
 		};
@@ -590,7 +590,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E1BE7EB420C3080D00C9213A /* Build configuration list for PBXProject "PartyTime" */ = {
+		E1BE7EB420C3080D00C9213A /* Build configuration list for PBXProject "PartyTimeHost" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E1BE7EDF20C3080E00C9213A /* Debug */,
@@ -599,7 +599,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E1BE7EE120C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTime" */ = {
+		E1BE7EE120C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTimeHost" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E1BE7EE220C3080E00C9213A /* Debug */,
@@ -608,7 +608,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E1BE7EE420C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTimeTests" */ = {
+		E1BE7EE420C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTimeHostTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E1BE7EE520C3080E00C9213A /* Debug */,
@@ -617,7 +617,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E1BE7EE720C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTimeUITests" */ = {
+		E1BE7EE720C3080E00C9213A /* Build configuration list for PBXNativeTarget "PartyTimeHostUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E1BE7EE820C3080E00C9213A /* Debug */,

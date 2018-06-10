@@ -132,8 +132,19 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
     
     func parseJSON() {
 //        print("entrato nel parser")
-        let url = URL(string: "http://192.168.2.14:5000/api/music/kindAndCount")
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+        
+//        let url = URL(string: "http://192.168.2.14:5000/api/music/kindAndCount")
+        
+        let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = serverAddress
+        urlComponents.path = "/api/music/kindAndCount"
+        
+        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             
             guard error == nil else { fatalError("returning error") }
             
