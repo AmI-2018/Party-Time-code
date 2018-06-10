@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         //        db.getKindsOfMusicAndCount()
         //        db.storeKindsOfMusicAndCount()
 //        doneButton.alpha = 0.4
+        
         doneButton.isEnabled = false
         userInUseLabel.isHidden = true
         
@@ -84,9 +85,19 @@ class ViewController: UIViewController {
         let user = textField.text
         self.username = user!
 //        print("entrato nel saveUsername")
-        let url = URL(string: "http://192.168.2.14:5000/api/users/\(user ?? "")")
+//        let url = URL(string: "http://192.168.2.14:5000/api/users/\(user ?? "")")
         
-        let task = URLSession.shared.downloadTask(with:url!) { loc, resp, err in
+        let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = serverAddress
+        urlComponents.path = "/api/users/\(user ?? "")"
+        urlComponents.port = 5000
+        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+        
+        
+        let task = URLSession.shared.downloadTask(with:url) { loc, resp, err in
             let status = (resp as! HTTPURLResponse).statusCode
 //            print("response status: \(status)")
             self.responseStatus = status

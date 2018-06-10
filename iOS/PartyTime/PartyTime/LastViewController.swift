@@ -89,10 +89,21 @@ class LastViewController: UIViewController{
         //        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
         //
         let username = UserDefaults.standard.string(forKey: "username")
-        let url = URL(string: "http://192.168.2.14:5000/api/users/\(username ?? "cazzononfunziona")")
+        let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
+        
+        //        let url = URL(string: "http://192.168.2.14:5000/api/users/\(username ?? "cazzononfunziona")")
+        
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = serverAddress
+        urlComponents.path = "/api/users/\(username ?? "cazzononfunziona")"
+        urlComponents.port = 5000
+        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+        
         
         // Specify this request as being a POST method
-        var request = URLRequest(url: url!)
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
         // Make sure that we include headers specifying that our request's HTTP body
         // will be JSON encoded
