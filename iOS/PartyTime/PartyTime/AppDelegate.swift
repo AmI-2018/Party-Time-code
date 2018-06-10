@@ -316,8 +316,9 @@ struct Post: Codable {
 
 func registerPosition(region: CLBeaconRegion){
     
-    let defaults = UserDefaults.standard
-    let username = defaults.string(forKey: "username")
+//    let defaults = UserDefaults.standard
+//    let username = defaults.string(forKey: "username")
+    let username = UserDefaults.standard.string(forKey: "username")
     
     let myPostReq = Post(beacon: region.proximityUUID.uuidString, major: (region.major?.stringValue)!, minor: (region.minor?.stringValue)!, username: username!)
     print("beacon \(myPostReq.beacon) M \(myPostReq.major) m\(myPostReq.minor) user\(myPostReq.username)")
@@ -333,14 +334,14 @@ func registerPosition(region: CLBeaconRegion){
 
 func submitPost(post: Post, completion:((Error?) -> Void)?) {
     
-    let username = UserDefaults.standard.string(forKey: "username")
+//    let username = UserDefaults.standard.string(forKey: "username")
     
     let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
     var urlComponents = URLComponents()
     urlComponents.scheme = "http"
     urlComponents.host = serverAddress
     urlComponents.port = 5000
-    urlComponents.path = "/api/users/\(username ?? "")"
+    urlComponents.path = "/api/pos/update"
     guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
     
     //
