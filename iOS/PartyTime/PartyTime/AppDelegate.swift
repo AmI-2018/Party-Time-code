@@ -27,6 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         print("sto per richiedere l'autorizzatione per la posizione")
         locationManager.requestAlwaysAuthorization()
         
+        // se l'ho gia richiesta....
+        if CLLocationManager.locationServicesEnabled(){
+            startBeaconsScan()
+        }
+        
         // Request permission to send notifications
 //        let center = UNUserNotificationCenter.current()
 //        center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
@@ -87,13 +92,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        startBeaconsScan()
+        
+    }
+    
+    func startBeaconsScan() {
+        if !CLLocationManager.locationServicesEnabled(){
+            for _ in 1...10 {
+                print("Non ho la localizzazione")
+            }
+            fatalError("Non ho la localizzazione")
+        }
         //        beaconsList = getBeaconList()
         while UserDefaults.standard.string(forKey: "username")==nil {
             sleep(1)
             print("sto aspettando l'username")
         }
         
-        print("chiamo getBeaconList() da locationManager(didChangeAuthorization)")
+        print("chiamo getBeaconList() da startBeaconsScan")
         getBeaconList(){ (ret) in
             
             // [Beacon] is the value returned from the function!
@@ -110,9 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         
         //                rangeBeacons()
-        
     }
-    
     
     struct restBeaconList: Decodable {
         
@@ -136,19 +151,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
 //        let url = URL(string: "http://192.168.2.14:5000/api/pos/allbeacons")
         
-//        let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
+        let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
         
-//        var urlComponents = URLComponents()
-//        urlComponents.scheme = "http"
-//        urlComponents.host = serverAddress
-//        urlComponents.path = "/api/pos/allbeacons"
-//        urlComponents.port = 5000
-//
-//        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
-        let url = UserDefaults.standard.url(forKey: "serverAddress")
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = serverAddress
+        urlComponents.path = "/api/pos/allbeacons"
+        urlComponents.port = 5000
+
+        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+//        let url = UserDefaults.standard.url(forKey: "serverAddress")
         print("printo l'url")
-        print(url!.absoluteString)
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+        print(url.absoluteString)
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             //            print("sono all'1")
             guard error == nil else { fatalError("returning error: \(error.debugDescription)") }
             //            print("sono all'2")

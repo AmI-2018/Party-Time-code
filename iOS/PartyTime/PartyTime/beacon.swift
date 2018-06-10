@@ -20,7 +20,7 @@ class Beacon: NSObject {
         self.major = major!
         self.bMajor = UInt16(major!)
         self.bMinor = UInt16(minor!)
-        self.bUUID = UUID(uuidString: uuid)!
+        self.bUUID = UUID(uuidString: self.uuid)!
         
         super.init()
     }

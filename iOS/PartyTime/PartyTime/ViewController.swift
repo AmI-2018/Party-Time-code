@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         //        db.getKindsOfMusicAndCount()
         //        db.storeKindsOfMusicAndCount()
 //        doneButton.alpha = 0.4
+        
         doneButton.isEnabled = false
         userInUseLabel.isHidden = true
         
