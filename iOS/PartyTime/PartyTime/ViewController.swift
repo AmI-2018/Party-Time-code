@@ -20,6 +20,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
+        if UserDefaults.standard.string(forKey: "username") != nil{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "lastViewController")
+            self.present(controller, animated: false, completion: nil)
+        }
+        
         self.navigationController?.isNavigationBarHidden = true
         doneButton.isEnabled = false
         userInUseLabel.isHidden = true

@@ -339,7 +339,7 @@
         <!--Last View Controller-->
         <scene sceneID="TA6-CS-QMn">
             <objects>
-                <viewController id="ziG-uL-9r3" customClass="LastViewController" customModule="PartyTime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="lastViewController" id="ziG-uL-9r3" customClass="LastViewController" customModule="PartyTime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9TX-3b-y0f">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
