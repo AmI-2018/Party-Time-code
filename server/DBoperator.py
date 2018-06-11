@@ -16,7 +16,10 @@ logging.basicConfig(
       ('boh', 'rock'),
       ('boh2', 'jazz');
 """
-
+'''
+    todo funcion which return number of total users and number of
+    users for each preference. 
+'''
 
 def initialize(musicFolder):
     global musicPath

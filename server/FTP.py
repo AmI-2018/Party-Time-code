@@ -42,7 +42,7 @@ def ftp_connect():
             print("valid commands are cd/get/list/exit")
             ftp_command(ftp)
             break  #once ftp_command() exit, end this function
-    except ftplib.all_errors as e:
+            except ftplib.all_errors as e:
         print("failed to connect check address and credentials.":e)
 
 
@@ -52,12 +52,12 @@ def ftp_command(ftp):
         command = input("enter a command")
         commands = command.split()  #split command and file/directory into list
 
-        if command[0] == 'cd'  #change directory
+        if command[0] == 'cd' : #change directory
             ftp.cwd(command[1])
             print('directory of', ftp.pwd())
             ftp.dir()
             print('current directory', ftp.pwd)
-        except ftplib.error_perm as e:  #handle 550 (not found/no permission errore
+            except ftplib.error_perm as e:  #handle 550 (not found/no permission errore
             errore_code = str(e).split(None, 1)
         if errore_code[0] == '550':
             print(errore_code[1], 'directory may not exist ore you may not have the permission to view it')
@@ -76,8 +76,8 @@ def ftp_command(ftp):
             ftp.quit()
             print('stop')
             break
-        else
-            print('invalid try again')
+    else :
+         print('invalid try again')
 
 print('welcome to python ftp')
 ftp.connect()

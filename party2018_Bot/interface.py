@@ -1,6 +1,6 @@
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from server.DBoperator import DBoperator
+import DBoperator
 
 def start(bot, update):
     update.message.reply_text('Hello! This is Party-Time.Bot. You can use one of the commands present in the interface:')
