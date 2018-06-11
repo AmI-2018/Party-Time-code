@@ -25,6 +25,8 @@ class LastViewController: UIViewController{
         self.navigationController?.isNavigationBarHidden = true
         createUser()
         
+        
+        
     }
     
     override func didReceiveMemoryWarning() {

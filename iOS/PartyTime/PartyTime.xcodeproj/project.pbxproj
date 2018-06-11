@@ -23,6 +23,7 @@
 		E1BE7EDD20C3080E00C9213A /* PartyTimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE7EDC20C3080E00C9213A /* PartyTimeUITests.swift */; };
 		E1CA7F6C20C5AE950094332B /* BeaconsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CA7F6B20C5AE950094332B /* BeaconsDelegate.swift */; };
 		E1CA7F6E20C5B2510094332B /* beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CA7F6D20C5B2510094332B /* beacon.swift */; };
+		E1D264F920CEAE280087306B /* LastViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D264F820CEAE280087306B /* LastViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		E1BE7EDE20C3080E00C9213A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1CA7F6B20C5AE950094332B /* BeaconsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconsDelegate.swift; sourceTree = "<group>"; };
 		E1CA7F6D20C5B2510094332B /* beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = beacon.swift; sourceTree = "<group>"; };
+		E1D264F820CEAE280087306B /* LastViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				E12EA11A20C3F24200E7A08E /* KindPrefs2ViewController.swift */,
 				E12EA11C20C3F24800E7A08E /* KindPrefs3ViewController.swift */,
 				E10DFB5E20C55ABB00521470 /* LastViewController.swift */,
+				E1D264F820CEAE280087306B /* LastViewDelegate.swift */,
 				E12EA12420C4031F00E7A08E /* DB.swift */,
 				E1BE7EC020C3080D00C9213A /* Main.storyboard */,
 				E12EA12620C435B500E7A08E /* item.swift */,
@@ -296,6 +299,7 @@
 				E12EA12720C435B500E7A08E /* item.swift in Sources */,
 				E12EA12520C4031F00E7A08E /* DB.swift in Sources */,
 				E12EA11D20C3F24800E7A08E /* KindPrefs3ViewController.swift in Sources */,
+				E1D264F920CEAE280087306B /* LastViewDelegate.swift in Sources */,
 				E1BE7EBD20C3080D00C9213A /* AppDelegate.swift in Sources */,
 				E10DFB5F20C55ABB00521470 /* LastViewController.swift in Sources */,
 				E12EA11920C3F21500E7A08E /* KindPrefs1ViewController.swift in Sources */,

@@ -23,18 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         locationManager.delegate = self
         
-        locationManager.requestAlwaysAuthorization()
-        
-        // se l'ho gia richiesta....
-        if CLLocationManager.locationServicesEnabled(){
-            startBeaconsScan()
-        }
-        
-        // Request permission to send notifications
-//        let center = UNUserNotificationCenter.current()
-//        center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
-    
-        let serverAddress = "192.168.2.14"
+        //        let serverAddress = "192.168.2.14"
+        let serverAddress = "192.168.0.22"
         UserDefaults.standard.set(serverAddress, forKey: "serverAddress")
         
         var urlComponents = URLComponents()
@@ -42,7 +32,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         urlComponents.host = serverAddress
         urlComponents.path = "/api/pos/allbeacons"
         urlComponents.port = 5000
-
+        
+        print("Sono nel viewController\nstampo l'username")
+        print(UserDefaults.standard.string(forKey: "username") ?? "username non presente")
+        if UserDefaults.standard.string(forKey: "username") != nil{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "lastViewController")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+            startBeaconsScan()
+            
+        }
+        
+        
+        // se l'ho gia richiesta....
+        print("sono prima della richiesta")
+        locationManager.requestAlwaysAuthorization()
+        
+        //        if CLLocationManager.locationServicesEnabled(){
+        //            print("risulta gia abilitata")
+        //            startBeaconsScan()
+        //        }
+        //        if CLLocationManager.locationServicesEnabled(){
+        //            print("risulta gia abilitata")
+        //            startBeaconsScan()
+        //
+        //        }
+        //        else {
+        //            print("Richiedo l'abilitazione")
+        //            locationManager.requestAlwaysAuthorization()
+        //        }
+        // Request permission to send notifications
+        //        let center = UNUserNotificationCenter.current()
+        //        center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
         
         return true
     }
@@ -79,22 +101,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     // qui inizia il mio codice
     
+    @IBAction func doneButtonPressed(_ sender: UIButton) {
+        print("Faccio finalmente partire la scansione")
+        startBeaconsScan()
+    }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
-        startBeaconsScan()
+        //        startBeaconsScan()
         
     }
     
     func startBeaconsScan() {
+        print("sono entrato in start beacon scan")
         if !CLLocationManager.locationServicesEnabled(){
             for _ in 1...10 {
                 print("Non ho la localizzazione")
             }
             fatalError("Non ho la localizzazione")
         }
-
+        
         while UserDefaults.standard.string(forKey: "username")==nil {
             sleep(1)
+            print("non mi risulta un username")
         }
         
         getBeaconList(){ (ret) in
@@ -103,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             
             self.beaconsList = ret
             self.rangeBeacons(bList: ret)
-
+            
         }
     }
     
@@ -125,7 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func getBeaconList(returnCompletion: @escaping ([Beacon]) -> () ) {
-
+        
         let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
         
         var urlComponents = URLComponents()
@@ -133,18 +162,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         urlComponents.host = serverAddress
         urlComponents.path = "/api/pos/allbeacons"
         urlComponents.port = 5000
-
+        
         guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
-
+        
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-
+            
             guard error == nil else { fatalError("returning error: \(error.debugDescription)") }
-
+            
             guard let json = try? JSONDecoder().decode(restBeaconList.self, from: data!) else {
                 print("Error: Couldn't decode data into restBeaconList")
                 return
             }
-
+            
             DispatchQueue.main.async {
                 var beacons = [Beacon]()
                 for e in json.beacons {
@@ -152,7 +181,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 }
                 
                 returnCompletion(beacons as [Beacon])
-         
+                
             }
         }
         
@@ -161,10 +190,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     
     func rangeBeacons(bList: [Beacon]){
-      for b in bList{
+        for b in bList{
             regions.append(CLBeaconRegion(proximityUUID: b.bUUID, major: b.bMajor, minor: b.bMinor, identifier: b.room))
         }
-      
+        
         for region in regions{
             region.notifyOnEntry = true
             region.notifyEntryStateOnDisplay = true
@@ -172,7 +201,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             locationManager.startMonitoring(for: region)
         }
     }
-  
+    
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         
         let beaconRegion = region as! CLBeaconRegion
@@ -180,12 +209,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         print("Ho rilevaro in INGRESSO: \(beaconRegion.identifier)")
         
         registerPosition(region: beaconRegion)
-     }
+    }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         let beaconRegion = region as! CLBeaconRegion
         print("Ho rilevaro in USCITA: \(beaconRegion.identifier)")
-     }
+    }
     
 }
 
@@ -219,7 +248,7 @@ func submitPost(post: Post, completion:((Error?) -> Void)?) {
     urlComponents.port = 5000
     urlComponents.path = "/api/pos/update"
     guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
- 
+    
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     // Make sure that we include headers specifying that our request's HTTP body
@@ -246,7 +275,7 @@ func submitPost(post: Post, completion:((Error?) -> Void)?) {
             completion?(responseError!)
             return
         }
-
+        
     }
     task.resume()
 }
