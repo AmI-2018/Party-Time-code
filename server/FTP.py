@@ -35,7 +35,7 @@ def ftp_connect():
         site_address = "ftp address"
         try:
             with ftplib.FTP(site_address) as ftp:
-            ftp.login()
+                ftp.login()
             print(ftp.getwelcome())
             print("current directory", ftp.pwd())  # ftp.pwd return the current directory
             ftp.dir()  # print contents of the directory
