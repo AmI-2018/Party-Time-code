@@ -7,8 +7,10 @@ import ssdpDiscover as ssdp
 # probably best choise for the project: https://github.com/quentinsf/qhue
 
 if __name__ == '__main__':
-    bridge = ssdp.discover("Philips HUE")
-
+    #bridge = ssdp.discover("Philips HUE")
+    server = ssdp.discover("PartyTimeServer")
+    #print(bridge)
+    print("server: " + str(server))
 class hueOperator(object):
     """use this class to control and set hue lights and color"""
     def __init__(self):
