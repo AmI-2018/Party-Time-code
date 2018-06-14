@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:PartyTime.xcodeproj">
+      location = "self:/Users/jazz/Documents/Git/Party-Time-code/iOS/PartyTimeHost/PartyTimeHost.xcodeproj">
    </FileRef>
 </Workspace>

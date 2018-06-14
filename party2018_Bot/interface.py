@@ -16,12 +16,12 @@ def unknown(bot, update):
 def playlist(bot, update):
     update.message.reply_text('playlist of the party:')
 def all_songs(bot, update):
-    update.message.reply_text('all present in the server:')
     db = DBoperator(DirMusic)
     db.importMusic()
     rows = db.showAllMusic()
     for row in rows:
         print(row)
+    update.message.reply_text('all present in the server:')
 def vote_next(bot, update):
     update.message.reply_text('next song:')
 

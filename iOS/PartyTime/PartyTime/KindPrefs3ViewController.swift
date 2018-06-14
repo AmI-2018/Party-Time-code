@@ -82,17 +82,11 @@ class KindPrefs3ViewController: UIViewController, UITableViewDataSource, UITable
                     itemsList.remove(at: itemsList.index(of: i)!)
                     
                 }
-                
-//                print("ItemsList è lunga: \(itemsList.count)")
-//                print("Alla terza scelta risulta: \(i.kind) \(i.preference)")
-                
-                
-            }
+           }
             let vc = segue.destination as? KindPrefs3ViewController
             vc?.selectedList = self.selectedList
             
             let defaults = UserDefaults.standard
-//            print("Setting the pref3 (\(selectedKind)) inside defaults")
             defaults.set(selectedKind, forKey: "pref3")
             
         }
@@ -111,20 +105,10 @@ class KindPrefs3ViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt selectedIndex: IndexPath) {
         
-        //        tableView.deselectRow(at: indexPath, animated: true)
-        
         doneButton.alpha = 1
         doneButton.isEnabled = true
         
-        //        let indexPath = tableOutlet.indexPathForSelectedRow //optional, to get from any UIButton for example
-        //        self.tableOutlet.deselectRow(at: selectedIndex, animated: true)
-        
-        //        let currentCell = tableOutlet.cellForRow(at: selectedIndex)
-        selectedCell = tableView.cellForRow(at: selectedIndex)!
-        //        let selectedKind = currentCell!.textLabel!.text!
-//        let selectedKind = selectedCell.textLabel!.text! // da togliere!
-        
-//        print("Cella selezionata: \(selectedKind)")
+      selectedCell = tableView.cellForRow(at: selectedIndex)!
         
     }
     

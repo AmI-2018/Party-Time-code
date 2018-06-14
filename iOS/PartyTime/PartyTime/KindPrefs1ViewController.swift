@@ -44,14 +44,6 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
      // Pass the selected object to the new view controller.
      }
      */
-    //    let sections = ["Fruit", "Vegetables"]
-    
-    
-    //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //        // here the title for the section
-    //        return "tette"
-    //    }
-    //
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -77,29 +69,6 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is KindPrefs2ViewController
         {
-            
-            //            let indexPath = tableOutlet.indexPathForSelectedRow //optional, to get from any UIButton for example
-            //
-            //            let currentCell = tableOutlet.cellForRow(at: indexPath!)
-            //            let selectedKind = currentCell!.textLabel!.text!
-            //
-            //            print("Cella selezionata: \(selectedKind)")
-            //
-            //            for i in itemsList{
-            //                if i.kind == selectedKind{
-            //
-            //                    i.firstChoise(choise: selectedKind)
-            //                    selectedList.append(i)
-            //                    itemsList.remove(at: itemsList.index(of: i)!)
-            //
-            //                }
-            //
-            //                print("ItemsList è lunga: \(itemsList.count)")
-            //                print("Alla prima scelta risulta: \(i.kind) \(i.preference)")
-            //
-            //            }
-            //
-            
             let selectedKind = selectedCell.textLabel!.text!
             for i in itemsList{
                 if i.kind == selectedKind{
@@ -110,9 +79,6 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
                     
                 }
                 
-//                print("ItemsList è lunga: \(itemsList.count)")
-//                print("Alla prima scelta risulta: \(i.kind) \(i.preference)")
-                
             }
             
             let vc = segue.destination as? KindPrefs2ViewController
@@ -120,7 +86,6 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
             vc?.selectedList = self.selectedList
             
             let defaults = UserDefaults.standard
-//            print("Setting the pref1 (\(selectedKind)) inside defaults")
             defaults.set(selectedKind, forKey: "pref1")
             
             
@@ -131,9 +96,18 @@ class KindPrefs1ViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func parseJSON() {
-//        print("entrato nel parser")
-        let url = URL(string: "http://192.168.2.14:5000/api/music/kindAndCount")
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+        
+        let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = serverAddress
+        urlComponents.port = 5000
+        urlComponents.path = "/api/music/kindAndCount"
+        
+        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             
             guard error == nil else { fatalError("returning error") }
             

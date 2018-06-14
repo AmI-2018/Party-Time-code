@@ -16,7 +16,12 @@ logging.basicConfig(
       ('boh', 'rock'),
       ('boh2', 'jazz');
 """
-
+'''
+    todo funcion which return number of total users and number of
+    users for each preference. 
+    countTotalUser() return number of all users
+    countUsers(kindOfMusic) return users with kindOfMusic as parameter kindOfMusic is a string 
+'''
 
 def initialize(musicFolder):
     global musicPath
@@ -30,35 +35,35 @@ def initialize(musicFolder):
         con.commit()
         query = """
             --DROP TABLE IF EXISTS `music`;
-            CREATE TABLE IF NOT EXISTS `music` 
+            CREATE TABLE IF NOT EXISTS `music`
                 (
                   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
                   `title` varchar(200) NOT NULL,
                   `kind` varchar(200) NOT NULL,
-                  `location` varchar(200) NOT NULL 
+                  `location` varchar(200) NOT NULL
                 );
             --DROP TABLE IF EXISTS `users`;
             CREATE TABLE IF NOT EXISTS `users`
                 (
                   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
                   `username` VARCHAR(200) NOT NULL,
-                  `preference1` VARCHAR(200) NOT NULL, 
+                  `preference1` VARCHAR(200) NOT NULL,
                   `preference2` VARCHAR(200),
                   `preference3` VARCHAR(200)--,
                   --FOREIGN KEY (username) REFERENCES users(username)
                 );
-                
+
             --DROP TABLE IF EXISTS `rooms`;
             CREATE TABLE IF NOT EXISTS `rooms`
                 (
                   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
                   `roomName` VARCHAR(200),
                   `raspberryIP` VARCHAR(200),
-                  `hueID` VARCHAR(200), 
+                  `hueID` VARCHAR(200),
                   `beaconID` VARCHAR(200),
                   `beaconIDMajor` INTEGER ,
-                  `beaconIDMinor` INTEGER                       
-                );   
+                  `beaconIDMinor` INTEGER
+                );
             --DROP TABLE IF EXISTS `positions`;
             CREATE TABLE IF NOT EXISTS `positions`
                 (
@@ -66,10 +71,10 @@ def initialize(musicFolder):
                   `beaconID` VARCHAR(200),
                   `beaconMajor` INTEGER,
                   `beaconMinor` INTEGER,
-                  `time` TIMESTAMP, 
+                  `time` TIMESTAMP,
                   FOREIGN KEY (username) REFERENCES users(username),
                   FOREIGN KEY (beaconID, beaconMajor, beaconMinor) REFERENCES rooms(beaconID, beaconMajor, beaconMinor)
-                ); 
+                );
             """
 
         cur.executescript(query)
@@ -143,13 +148,13 @@ def removeUser(username):
 def registerUserPosition(beacon, major, minor, username):
     try:
         query = """
-            INSERT INTO positions (username, beaconID, beaconMajor, beaconMinor, time) 
+            INSERT INTO positions (username, beaconID, beaconMajor, beaconMinor, time)
             VALUES (?,?,?,?,CURRENT_TIMESTAMP);
             """
         con = sqlite3.connect(path)
         cur = con.cursor()
 
-        cur.execute(query, (username, beacon, major, minor))
+        cur.execute(query, (str(username), str(beacon), str(major), str(minor)))
         con.commit()
         # cur.execute("select  * from musicDB")
         # rows = cur.fetchall()
@@ -343,7 +348,9 @@ def createExampleEntries():
     createUser("tizio", "r&b", "jazz", None)
     createUser("caio", "house", "pop", "classica")
     registerUserPosition("1234", "1111", "2222", "ciccio")
-    createRoom("sala", "10.0.0.1", "3429872347", "1234", "1111", "2222")
+    # createRoom("sala", "10.0.0.1", "3429872347", "1234", "1111", "2222")
+    createRoom("sala", "10.0.0.3", "83972732", "B9407F30-F5F8-466E-AFF9-25556B57FE6D", "24156", "10712")
+    createRoom("bagno", "10.0.0.36", "8397232732", "B9407F30-F5F8-466E-AFF9-25556B57FE6D", "27390", "29386")
 
 def beaconsList():
     query = "select DISTINCT roomName, beaconID, beaconIDMajor, beaconIDMinor from rooms"

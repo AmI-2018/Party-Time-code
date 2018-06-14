@@ -16,20 +16,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var window: UIWindow?
     var locationManager:CLLocationManager = CLLocationManager()
     var beaconsList = [Beacon]()
+    var regions = [CLBeaconRegion]()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        print("Sono entrato nel delegate")
         locationManager.delegate = self
         
-        print("sto per richiedere l'autorizzatione...")
         locationManager.requestAlwaysAuthorization()
         
+        // se l'ho gia richiesta....
+        if CLLocationManager.locationServicesEnabled(){
+            startBeaconsScan()
+        }
         
         // Request permission to send notifications
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
+//        let center = UNUserNotificationCenter.current()
+//        center.requestAuthorization(options:[.alert, .sound]) { (granted, error) in }
+    
+        let serverAddress = "192.168.2.14"
+        UserDefaults.standard.set(serverAddress, forKey: "serverAddress")
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = serverAddress
+        urlComponents.path = "/api/pos/allbeacons"
+        urlComponents.port = 5000
+
         
         return true
     }
@@ -58,33 +71,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // stoppo quando l'app viene chiusa completamente, anche dal background
+        for region in regions{
+            locationManager.stopRangingBeacons(in: region)
+        }
     }
     
-    // from this line the functions was added by me
-    
+    // qui inizia il mio codice
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        //        beaconsList = getBeaconList()
-        print("chiamo getBeaconList() da locationManager(didChangeAuthorization)")
+        
+        startBeaconsScan()
+        
+    }
+    
+    func startBeaconsScan() {
+        if !CLLocationManager.locationServicesEnabled(){
+            for _ in 1...10 {
+                print("Non ho la localizzazione")
+            }
+            fatalError("Non ho la localizzazione")
+        }
+
+        while UserDefaults.standard.string(forKey: "username")==nil {
+            sleep(1)
+        }
+        
         getBeaconList(){ (ret) in
             
             // [Beacon] is the value returned from the function!
             
-            print("sono nella funzione locationManager(didChangeAuth)")
-            print("questi sono i beacon che ho ottenuto:")
-            for b in (ret){
-                print(b.toPrint())
-            }
             self.beaconsList = ret
             self.rangeBeacons(bList: ret)
-            
-            
+
         }
-        
-        //                rangeBeacons()
-        
     }
-    
     
     struct restBeaconList: Decodable {
         
@@ -104,126 +125,131 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func getBeaconList(returnCompletion: @escaping ([Beacon]) -> () ) {
-        print("entrato in getBeaconList()")
+
+        let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
         
-        let url = URL(string: "http://192.168.2.14:5000/api/pos/allbeacons")
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-//            print("sono all'1")
-            guard error == nil else { fatalError("returning error") }
-//            print("sono all'2")
-            
-            //            guard let content = data else { fatalError("not returning data") }
-//            print("sono all'3")
-            
-            
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = serverAddress
+        urlComponents.path = "/api/pos/allbeacons"
+        urlComponents.port = 5000
+
+        guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+
+            guard error == nil else { fatalError("returning error: \(error.debugDescription)") }
+
             guard let json = try? JSONDecoder().decode(restBeaconList.self, from: data!) else {
                 print("Error: Couldn't decode data into restBeaconList")
                 return
             }
-            //            guard let json = (try? JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String: Any] else { fatalError("Not containing JSON") }
-//            print("sono all'4")
-            
+
             DispatchQueue.main.async {
                 var beacons = [Beacon]()
                 for e in json.beacons {
-                    //                    self.beaconsList.append(Beacon(room: e.room, uuid: e.uuid, minor: e.minor, major: e.major))
-                    //                    print(e.uuid, e.room)
                     beacons.append(Beacon(room: e.room, uuid: e.uuid, minor: e.minor, major: e.major))
-                    
                 }
                 
-//                print("sono all'5")
                 returnCompletion(beacons as [Beacon])
-                
-                //                for b in self.beaconsList{
-                //                    print(b.toPrint())
-                //                }
-                //                print()
+         
             }
-            
-            
-            
         }
-//        print("sono prima del resume")
         
         task.resume()
-        
     }
     
     
     func rangeBeacons(bList: [Beacon]){
-        //        let uuid = UUID(uuidString: "3e1d7817-4eac-4b27-b809-deee2f246c46")
-        //        let uuid = UUID(uuidString: "8492E75F-4FD6-469D-B132-043FE94921D8")
-        //        let major:CLBeaconMajorValue = 1
-        //        let minor:CLBeaconMinorValue = 2
-        //        let identifier = "myBeacon"
-        
-        //        let region = CLBeaconRegion(proximityUUID: uuid!, major: major, minor: minor, identifier: identifier)
-//        var region = [CLBeaconRegion]()
-        
-        print("Sono nella funzione rangeBeacons")
-        
-        
-        let newRegion = CLBeaconRegion(proximityUUID: bList[0].bUUID, identifier: bList[0].room)
-//        for b in bList{
-//            region.append(CLBeaconRegion(proximityUUID: b.bUUID, major: b.bMajor, minor: b.bMinor, identifier: b.room))
-//        }
-        
-        var i = 0
-        
-//        for r in region{
-//            print("Region\(i) di identificativo:\(r.identifier)")
-//            i += 1
-//            r.notifyOnEntry = true
-//            r.notifyEntryStateOnDisplay = true
-//            r.notifyOnExit = true
-//            locationManager.startRangingBeacons(in: r)
-//            locationManager.startMonitoring(for: r)
-//        }
-        
-        print("Region\(i) di identificativo:\(newRegion.identifier)")
-        i += 1
-        newRegion.notifyOnEntry = true
-        newRegion.notifyEntryStateOnDisplay = true
-        newRegion.notifyOnExit = true
-        locationManager.startRangingBeacons(in: newRegion)
-        locationManager.startMonitoring(for: newRegion)
-        
-        
-        //        region.notifyOnEntry = true
-        //        region.notifyEntryStateOnDisplay = true
-        //        region.notifyOnExit = true
-        //
-        //        locationManager.startRangingBeacons(in: region)
-        //        locationManager.startMonitoring(for: region)
+      for b in bList{
+            regions.append(CLBeaconRegion(proximityUUID: b.bUUID, major: b.bMajor, minor: b.bMinor, identifier: b.room))
+        }
+      
+        for region in regions{
+            region.notifyOnEntry = true
+            region.notifyEntryStateOnDisplay = true
+            region.notifyOnExit = true
+            locationManager.startMonitoring(for: region)
+        }
     }
-    
-    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
-        print(beacons)
-    }
-    
+  
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        
         let beaconRegion = region as! CLBeaconRegion
         
         print("Ho rilevaro in INGRESSO: \(beaconRegion.identifier)")
-        let content = UNMutableNotificationContent()
-        content.title = "entered"
-        content.body = "\(beaconRegion.identifier)"
-        content.sound = .default()
-        let request = UNNotificationRequest(identifier: "partyTime", content: content, trigger: nil)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-    }
+        
+        registerPosition(region: beaconRegion)
+     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         let beaconRegion = region as! CLBeaconRegion
         print("Ho rilevaro in USCITA: \(beaconRegion.identifier)")
-        let content = UNMutableNotificationContent()
-        content.title = "leave"
-        content.body = "\(beaconRegion.identifier)"
-        content.sound = .default()
-        let request = UNNotificationRequest(identifier: "partyTime", content: content, trigger: nil)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-    }
+     }
     
 }
+
+struct Post: Codable {
+    let beacon: String
+    let major: String
+    let minor: String
+    let username: String
+}
+
+func registerPosition(region: CLBeaconRegion){
+    
+    let username = UserDefaults.standard.string(forKey: "username")
+    
+    let myPostReq = Post(beacon: region.proximityUUID.uuidString, major: (region.major?.stringValue)!, minor: (region.minor?.stringValue)!, username: username!)
+    
+    submitPost(post: myPostReq) { (error) in
+        if let error = error {
+            fatalError(error.localizedDescription)
+        }
+    }
+}
+
+
+func submitPost(post: Post, completion:((Error?) -> Void)?) {
+    
+    let serverAddress = UserDefaults.standard.string(forKey: "serverAddress")
+    var urlComponents = URLComponents()
+    urlComponents.scheme = "http"
+    urlComponents.host = serverAddress
+    urlComponents.port = 5000
+    urlComponents.path = "/api/pos/update"
+    guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+ 
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    // Make sure that we include headers specifying that our request's HTTP body
+    // will be JSON encoded
+    var headers = request.allHTTPHeaderFields ?? [:]
+    headers["Content-Type"] = "application/json"
+    request.allHTTPHeaderFields = headers
+    
+    // Now let's encode out Post struct into JSON data...
+    let encoder = JSONEncoder()
+    do {
+        let jsonData = try encoder.encode(post)
+        // ... and set our request's HTTP body
+        request.httpBody = jsonData
+    } catch {
+        completion?(error)
+    }
+    
+    // Create and run a URLSession data task with our JSON encoded POST request
+    let config = URLSessionConfiguration.default
+    let session = URLSession(configuration: config)
+    let task = session.dataTask(with: request) { (responseData, response, responseError) in
+        guard responseError == nil else {
+            completion?(responseError!)
+            return
+        }
+
+    }
+    task.resume()
+}
+
+
 
