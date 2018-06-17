@@ -1,15 +1,18 @@
 from lib.ssdp import SSDPServer
 from lib.upnp_http_server import UPNPHTTPServer
+
 import uuid
 import netifaces as ni
 from time import sleep
 import logging
 
-NETWORK_INTERFACE = 'eth0'
+NETWORK_INTERFACE = 'wlp2s0'
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-
+#logger = logging.getLogger()
+#logger.setLevel(logging.DEBUG)
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.DEBUG)
 
 def setup_debugging():
     """
@@ -22,7 +25,7 @@ def setup_debugging():
     pydevd.settrace('192.168.4.47', port=5422, stdoutToServer=True, stderrToServer=True, suspend=False)
 
 
-setup_debugging()
+#setup_debugging()
 
 
 def get_network_interface_ip_address(interface='eth0'):
@@ -43,25 +46,25 @@ def get_network_interface_ip_address(interface='eth0'):
         return interface[2][0]['addr']
 
 
-device_uuid = uuid.uuid4()
-local_ip_address = get_network_interface_ip_address(NETWORK_INTERFACE)
 
-http_server = UPNPHTTPServer(8088,
-                             friendly_name="PartyTimeServer",
-                             manufacturer="AMI-Polito",
-                             manufacturer_url='https://ami-2018.github.io/Party-Time/index.html',
-                             model_description='PartyTime Server',
-                             model_name="PartyTimeServer",
-                             model_number="1.0",
-                             model_url="https://ami-2018.github.io/Party-Time/index.html",
-                             serial_number="112233",
-                             uuid=device_uuid,
-                             presentation_url="http://{}:5000/".format(local_ip_address))
-http_server.start()
+if __name__ == '__main__':
 
-ssdp = SSDPServer()
-ssdp.register('local',
-              'uuid:{}::upnp:rootdevice'.format(device_uuid),
-              'upnp:rootdevice',
-              'http://{}:8088/jambon-3000.xml'.format(local_ip_address))
-ssdp.run()
+    device_uuid = uuid.uuid4()
+    local_ip_address = get_network_interface_ip_address(NETWORK_INTERFACE)
+
+    http_server = UPNPHTTPServer(8088,
+                                 friendly_name="PartyTimeServer",
+                                 manufacturer="AMI-PartyTime",
+                                 manufacturer_url='https://ami-2018.github.io/Party-Time/index.html',
+                                 model_description='PartyTime Server',
+                                 model_name="PartyTimeServer",
+                                 )
+    http_server.start()
+
+    ssdp = SSDPServer()
+    ssdp.register
+    ssdp.register('local',
+                  'uuid:{}::upnp:rootdevice'.format(device_uuid),
+                  'upnp:rootdevice',
+                  'http://{}:8088/partyTime.xml'.format(local_ip_address))
+    ssdp.run()
