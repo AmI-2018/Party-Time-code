@@ -2,6 +2,7 @@ import os, random, time, sys
 import glob
 from pygame import mixer # Load the required library
 
+
 import mpg123
 from pygame import mixer # Load the required library
 from mpg123 import Mpg123
@@ -26,15 +27,8 @@ for path, directory, element in os.walk(mediapath, False):
 
 random.shuffle(mp3s)
 
-"""
+
 for i in range(0, len(tmparray)-1):
     print(mp3s[i])
-    os.system("mpg123 '" + mediapath + mp3s[i] + "'")
-    time.sleep(1)
-"""
+    os.system(mediapath + '\\' + mp3s[i])
 
-for k in range(0, len(tmparray)-1):
-    print(mp3s[k])
-    mixer.init()
-    mixer.music.load(mp3s[k])
-    mixer.music.play()
