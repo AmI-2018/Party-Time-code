@@ -6,7 +6,7 @@ import os
 # ftp settings
 settings = {
     'ftp': {
-        'url': '192.168.1.111',
+        'url': '192.168.0.13',
         'username': 'party-time',
         'password': 'party-time',
         'remote-directory': r'C:\Users\lucag\Desktop\ftp_client'
@@ -16,7 +16,7 @@ settings = {
 
 # local paths
 paths = {
-    'local-directory': r'C:\Users\lucag\Desktop\ftp_server\music'
+    'local-directory': r'C:\Users\lucag\Desktop\SCUOLA\3° ANNO\ambient intelligence\Party-Time-code\server\playlist'
 }
 print(paths['local-directory'])
 
