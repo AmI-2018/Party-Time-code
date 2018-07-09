@@ -55,7 +55,7 @@ def initialize(musicFolder):
                 );
 
             --DROP TABLE IF EXISTS `rooms`;
-            #hueID is the light name 
+            -- hueid is the light name 
             CREATE TABLE IF NOT EXISTS `rooms`
                 (
                   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -365,6 +365,66 @@ def beaconsList():
             ret = false
         else:
             ret = rows
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return ret
+
+def countUserInRooms():
+    """count users in room"""
+    query = """
+select roomName, count(*)
+from (
+  select *
+  from positions
+  group by username
+  having time = MAX(time))as lastP, rooms
+where lastP.beaconID = rooms.beaconID and lastP.beaconMajor = rooms.beaconIDMajor and lastP.beaconMinor = rooms.beaconIDMinor
+group by roomName
+;"""
+    try:
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query)
+        rows = cur.fetchall()
+        if len(rows) <= 0:
+            ret = false
+        else:
+            ret = rows
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return ret
+
+def countUserInRoomByGenre(genre):
+    """count users in room by given genre"""
+    query = """
+    select roomName, count(*)
+    from (
+      select *
+      from positions
+      group by username
+      having time = MAX(time))as lastP, rooms, users
+    where users.username = lastP.username and lastP.beaconID = rooms.beaconID and lastP.beaconMajor = rooms.beaconIDMajor and lastP.beaconMinor = rooms.beaconIDMinor and users.preference1 = ?
+    group by roomName
+    ;"""
+    try:
+        ret = False
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query, (genre,))
+        rows = cur.fetchall()
+        if len(rows) > 0:
+            ret = True
+
         cur.close()
         con.close()
     except sqlite3.DataError as DataErr:
