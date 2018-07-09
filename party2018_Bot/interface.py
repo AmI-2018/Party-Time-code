@@ -1,4 +1,8 @@
+"""
 
+prototype bot for telegram
+
+"""
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import DBoperator
 
