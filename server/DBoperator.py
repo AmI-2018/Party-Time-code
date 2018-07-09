@@ -22,7 +22,7 @@ logging.basicConfig(
     countTotalUser() return number of all users
     countUsers(kindOfMusic) return users with kindOfMusic as parameter kindOfMusic is a string 
 '''
-def countTotalUser()
+def countTotalUser():
 
 def initialize(musicFolder):
     global musicPath
