@@ -28,3 +28,10 @@ class hueOperator(object):
         4->green
         5->? #TODO add more colorID
         """
+        code_payload={"bri": 254,
+                      "hue": colorID,
+                      "on": true}
+        """
+        bri = 254 is the maximum brightness
+        """
+post_reply = requests.post(SPOTIFY_TOKEN_URL, data=code_payload, headers=headers).json()
