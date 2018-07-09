@@ -20,6 +20,12 @@ def vote():
     return playlist
 
 #create a folder with playlist characteristics and pass the directory to ftp.py
+if __name__ == '__main__':
+    playlist=vote()
+    sorted_list = sorted(playlist.items(), key=operator.itemgetter(1),reverse=True)
+    print(sorted_list)
+
+
 
 
 
