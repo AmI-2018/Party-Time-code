@@ -11,10 +11,10 @@ import netifaces as ni
 
 NETWORK_INTERFACE = 'wlp2s0'
 
-#logging.basicConfig(level=logging.DEBUG)
-#logging.getLogger('zeroconf').setLevel(logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
+logging.getLogger('zeroconf').setLevel(logging.DEBUG)
 
-def get_network_interface_ip_address(interface='wlp2s0'):
+def get_network_interface_ip_address(interface='eth0'):
     """
     Get the first IP address of a network interface.
     :param interface: The name of the interface.
@@ -38,14 +38,13 @@ if __name__ == '__main__':
 
     desc = {
         'api':'/api/info',
-        'welcome': 'hi!!'
-        }
+        'welcome': 'hi!!'}
     local_ip_address = get_network_interface_ip_address(NETWORK_INTERFACE)
-    print("local_ip_address = " + local_ip_address)
-    info = ServiceInfo("PT._http._tcp.local.",
+    #print(local_ip_address)
+    info = ServiceInfo("_http._tcp.local.",
                        "Party Time server._http._tcp.local.",
                        socket.inet_aton(local_ip_address), 80, 0, 0,
-                       desc, "PartyTimeServer.local.")
+                       desc, "ash-2.local.")
 
     '''
     info = ServiceInfo("_http._tcp.local.",

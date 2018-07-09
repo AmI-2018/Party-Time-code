@@ -18,9 +18,9 @@ logging.basicConfig(
 """
 '''
     todo funcion which return number of total users and number of
-    users for each preference. 
+    users for each preference.
     countTotalUser() return number of all users
-    countUsers(kindOfMusic) return users with kindOfMusic as parameter kindOfMusic is a string 
+    countUsers(kindOfMusic) return users with kindOfMusic as parameter kindOfMusic is a string
 '''
 
 def initialize(musicFolder):
@@ -54,6 +54,7 @@ def initialize(musicFolder):
                 );
 
             --DROP TABLE IF EXISTS `rooms`;
+            #hueID is the light name 
             CREATE TABLE IF NOT EXISTS `rooms`
                 (
                   `id` INTEGER PRIMARY KEY AUTOINCREMENT,

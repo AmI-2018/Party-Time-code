@@ -3,7 +3,7 @@ from server import DBoperator
 kindOfMusic = DBoperator.getKindsOfMusicAndCount()
 print(kindOfMusic)
 
-N=100 #number of songs per playlist
+N=10 #number of songs per playlist
 rows=DBoperator.getKindsOfMusicAndCount()
 
 kinds=[]  #initialize list
@@ -21,7 +21,3 @@ for i in range(0,total_users):
 
 for i in range(0,total_users):
     playlist[kinds[i]]=float(user_per_genre[i])/float(total_users)*N
-
-
-
-
