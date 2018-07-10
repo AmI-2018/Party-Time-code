@@ -40,7 +40,8 @@ def initialize(musicFolder):
                   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
                   `title` varchar(200) NOT NULL,
                   `kind` varchar(200) NOT NULL,
-                  `location` varchar(200) NOT NULL
+                  `location` varchar(200) NOT NULL,
+                  `played` INTEGER 
                 );
             --DROP TABLE IF EXISTS `users`;
             CREATE TABLE IF NOT EXISTS `users`
@@ -95,7 +96,7 @@ def newTrack(trackName, trackPath, trackKind):
     try:
         con = sqlite3.connect(path)
         cur = con.cursor()
-        query = """INSERT INTO `music` (`title`, `kind`, `location`) VALUES (?,?,?)"""
+        query = """INSERT INTO `music` (`title`, `kind`, `location`, `played`) VALUES (?,?,?,0)"""
         cur.execute(query, (trackName, trackKind, trackPath))
         con.commit()
         # cur.execute("select  * from musicDB")
@@ -250,6 +251,56 @@ def importMusic():
     # showAllMusic()
     return
 
+def getNSongsByGenre(n, genre):
+
+    """ Return a list of id for less played songs by genre"""
+    query = """select m.id
+                from music m
+                where m.kind=?
+                order by m.played
+                limit ?
+            ;"""
+    rows = ""
+    try:
+
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+
+        cur.execute(query, (genre, n))
+        rows = cur.fetchall()
+        print("risultati " + str(rows))
+        print(type(rows))
+        con.commit()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    for r in rows:
+        print(r[0])
+        playedSong(r[0])
+    return rows
+
+def playedSong(songID):
+
+    """ increment song player counter by id"""
+    query = "update music set played=played+1 where id = ?;"
+    try:
+
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+
+        cur.execute(query, (str(songID), ))
+        con.commit()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
 
 def getKindsOfMusic():
 
@@ -303,9 +354,9 @@ def getKindsOfMusicAndCount():
 def clearDB():
     query = """
             DROP TABLE IF EXISTS `music`;
-            DROP TABLE IF EXISTS `positions`;
-            DROP TABLE IF EXISTS `rooms`;
-            DROP TABLE IF EXISTS `users`;
+            -- DROP TABLE IF EXISTS `positions`;
+            -- DROP TABLE IF EXISTS `rooms`;
+            -- DROP TABLE IF EXISTS `users`;
             """
     try:
         con = sqlite3.connect(path)
@@ -471,5 +522,6 @@ if __name__ == '__main__':
     # DBinit("./music")
     # importMusic()
     # print(showAllMusic())
-    print(countUserInRoomByGenre('pop'))
-    #print(getListOfUsers())
+    # print(countUserInRoomByGenre('pop'))
+    # print(getListOfUsers())
+    getNSongsByGenre(4, 'rb')
