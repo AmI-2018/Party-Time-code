@@ -23,7 +23,6 @@ logging.basicConfig(
     countUsers(kindOfMusic) return users with kindOfMusic as parameter kindOfMusic is a string
 '''
 
-
 def initialize(musicFolder):
     global musicPath
     musicPath = musicFolder
@@ -404,7 +403,6 @@ group by roomName
         sys.exit(1)
     return ret
 
-
 def countUserInRoomByGenre(genre):
     """count users in room by given genre"""
     query = """
@@ -418,14 +416,10 @@ def countUserInRoomByGenre(genre):
     group by roomName
     ;"""
     try:
-        ret = False
         con = sqlite3.connect(path)
         cur = con.cursor()
         cur.execute(query, (genre,))
         rows = cur.fetchall()
-        if len(rows) > 0:
-            ret = True
-
         cur.close()
         con.close()
     except sqlite3.DataError as DataErr:
@@ -433,7 +427,7 @@ def countUserInRoomByGenre(genre):
     except sqlite3.DatabaseError as DBerror:
         print("errore nell'apertura del db " + DBerror.args[0])
         sys.exit(1)
-    return ret
+    return rows
 
 def customQueryWithReturn(query):
     try:
@@ -477,5 +471,5 @@ if __name__ == '__main__':
     # DBinit("./music")
     # importMusic()
     # print(showAllMusic())
-
-    print(getListOfUsers())
+    print(countUserInRoomByGenre('pop'))
+    #print(getListOfUsers())
