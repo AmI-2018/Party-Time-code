@@ -8,7 +8,8 @@ from time import sleep
 from zeroconf import ServiceInfo, Zeroconf
 import netifaces as ni
 
-
+NAME = "PTserver"
+TYPE = "_PT._tcp.local."
 NETWORK_INTERFACE = 'wlp2s0'
 
 #logging.basicConfig(level=logging.DEBUG)
@@ -40,20 +41,23 @@ if __name__ == '__main__':
         'api':'/api/info',
         'welcome': 'hi!!'
         }
+    zeroconf = Zeroconf()
+
     local_ip_address = get_network_interface_ip_address(NETWORK_INTERFACE)
     print("local_ip_address = " + local_ip_address)
-    info = ServiceInfo("PT._http._tcp.local.",
-                       "Party Time server._http._tcp.local.",
-                       socket.inet_aton(local_ip_address), 80, 0, 0,
-                       desc, "PartyTimeServer.local.")
+    print(" socket.inet_aton(local_ip_address) = " +  str(socket.inet_aton(local_ip_address)))
 
-    '''
-    info = ServiceInfo("_http._tcp.local.",
-                       "Party Time server._http._tcp.local.",
-                       socket.inet_aton("127.0.0.1"), 80, 0, 0,
-                       desc, "ash-2.local.")
-    '''
-    zeroconf = Zeroconf()
+    info = ServiceInfo(type_="_http._tcp.local.",
+                       name="PartyTimeServer._http._tcp.local.",
+                       address=socket.inet_aton(str(local_ip_address)),
+                       port=80,
+                       weight=0,
+                       priority=0,
+                       properties=desc,
+                       server=str(local_ip_address))
+
+
+
     print("Registration of a service, press Ctrl-C to exit...")
     zeroconf.register_service(info)
     try:
