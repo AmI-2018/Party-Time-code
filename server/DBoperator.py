@@ -22,7 +22,7 @@ logging.basicConfig(
     countTotalUser() return number of all users
     countUsers(kindOfMusic) return users with kindOfMusic as parameter kindOfMusic is a string
 '''
-def countTotalUser():
+
 
 def initialize(musicFolder):
     global musicPath
@@ -403,6 +403,7 @@ group by roomName
         print("errore nell'apertura del db " + DBerror.args[0])
         sys.exit(1)
     return ret
+
 
 def countUserInRoomByGenre(genre):
     """count users in room by given genre"""

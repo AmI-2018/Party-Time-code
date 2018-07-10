@@ -1,5 +1,5 @@
 """
-prototype used for vote_function
+prototype used for vote_function version 1
 
 """
 
