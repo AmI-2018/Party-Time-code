@@ -1,22 +1,25 @@
+
 from ftplib import FTP
 import os
+
 
 # ftp settings
 settings = {
     'ftp': {
-        'url': ' 192.168.0.27',
+        'url': '192.168.1.183',
         'username': 'party-time',
         'password': 'party-time',
-        'remote-directory': '/'
+        'remote-directory': r'C:\Users\lucag\Desktop\ftp_server'
     }
 }
 
-# local paths
 
+# local paths
 paths = {
     'local-directory': r'C:\Users\lucag\Desktop\ftp_server'
 }
 print(paths['local-directory'])
+
 # list of local files
 files = os.listdir(paths['local-directory'])
 print(files)

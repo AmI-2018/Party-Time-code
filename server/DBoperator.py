@@ -18,9 +18,9 @@ logging.basicConfig(
 """
 '''
     todo funcion which return number of total users and number of
-    users for each preference. 
+    users for each preference.
     countTotalUser() return number of all users
-    countUsers(kindOfMusic) return users with kindOfMusic as parameter kindOfMusic is a string 
+    countUsers(kindOfMusic) return users with kindOfMusic as parameter kindOfMusic is a string
 '''
 
 def initialize(musicFolder):
@@ -40,7 +40,8 @@ def initialize(musicFolder):
                   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
                   `title` varchar(200) NOT NULL,
                   `kind` varchar(200) NOT NULL,
-                  `location` varchar(200) NOT NULL
+                  `location` varchar(200) NOT NULL,
+                  `played` INTEGER 
                 );
             --DROP TABLE IF EXISTS `users`;
             CREATE TABLE IF NOT EXISTS `users`
@@ -54,6 +55,7 @@ def initialize(musicFolder):
                 );
 
             --DROP TABLE IF EXISTS `rooms`;
+            -- hueid is the light name 
             CREATE TABLE IF NOT EXISTS `rooms`
                 (
                   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -94,7 +96,7 @@ def newTrack(trackName, trackPath, trackKind):
     try:
         con = sqlite3.connect(path)
         cur = con.cursor()
-        query = """INSERT INTO `music` (`title`, `kind`, `location`) VALUES (?,?,?)"""
+        query = """INSERT INTO `music` (`title`, `kind`, `location`, `played`) VALUES (?,?,?,0)"""
         cur.execute(query, (trackName, trackKind, trackPath))
         con.commit()
         # cur.execute("select  * from musicDB")
@@ -249,6 +251,56 @@ def importMusic():
     # showAllMusic()
     return
 
+def getNSongsByGenre(n, genre):
+
+    """ Return a list of id for less played songs by genre"""
+    query = """select m.id
+                from music m
+                where m.kind=?
+                order by m.played
+                limit ?
+            ;"""
+    rows = ""
+    try:
+
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+
+        cur.execute(query, (genre, n))
+        rows = cur.fetchall()
+        print("risultati " + str(rows))
+        print(type(rows))
+        con.commit()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    for r in rows:
+        print(r[0])
+        playedSong(r[0])
+    return rows
+
+def playedSong(songID):
+
+    """ increment song player counter by id"""
+    query = "update music set played=played+1 where id = ?;"
+    try:
+
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+
+        cur.execute(query, (str(songID), ))
+        con.commit()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
 
 def getKindsOfMusic():
 
@@ -302,9 +354,9 @@ def getKindsOfMusicAndCount():
 def clearDB():
     query = """
             DROP TABLE IF EXISTS `music`;
-            DROP TABLE IF EXISTS `positions`;
-            DROP TABLE IF EXISTS `rooms`;
-            DROP TABLE IF EXISTS `users`;
+            -- DROP TABLE IF EXISTS `positions`;
+            -- DROP TABLE IF EXISTS `rooms`;
+            -- DROP TABLE IF EXISTS `users`;
             """
     try:
         con = sqlite3.connect(path)
@@ -372,6 +424,62 @@ def beaconsList():
         sys.exit(1)
     return ret
 
+def countUserInRooms():
+    """count users in room"""
+    query = """
+select roomName, count(*)
+from (
+  select *
+  from positions
+  group by username
+  having time = MAX(time))as lastP, rooms
+where lastP.beaconID = rooms.beaconID and lastP.beaconMajor = rooms.beaconIDMajor and lastP.beaconMinor = rooms.beaconIDMinor
+group by roomName
+;"""
+    try:
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query)
+        rows = cur.fetchall()
+        if len(rows) <= 0:
+            ret = false
+        else:
+            ret = rows
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return ret
+
+def countUserInRoomByGenre(genre):
+    """count users in room by given genre"""
+    query = """
+    select roomName, count(*)
+    from (
+      select *
+      from positions
+      group by username
+      having time = MAX(time))as lastP, rooms, users
+    where users.username = lastP.username and lastP.beaconID = rooms.beaconID and lastP.beaconMajor = rooms.beaconIDMajor and lastP.beaconMinor = rooms.beaconIDMinor and users.preference1 = ?
+    group by roomName
+    ;"""
+    try:
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query, (genre,))
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return rows
+
 def customQueryWithReturn(query):
     try:
         con = sqlite3.connect(path)
@@ -414,5 +522,6 @@ if __name__ == '__main__':
     # DBinit("./music")
     # importMusic()
     # print(showAllMusic())
-
-    print(getListOfUsers())
+    # print(countUserInRoomByGenre('pop'))
+    # print(getListOfUsers())
+    getNSongsByGenre(4, 'rb')
