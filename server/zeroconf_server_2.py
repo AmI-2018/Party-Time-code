@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
 
-""" Example of announcing a service (in this case, a fake HTTP server) """
+""" working """
 
 import logging
 import socket
@@ -9,7 +8,7 @@ from time import sleep
 import netifaces as ni
 from zeroconf import ServiceInfo, Zeroconf
 
-NETWORK_INTERFACE='wlp2s0'
+NETWORK_INTERFACE='wlan0'
 
 def get_network_interface_ip_address(interface='wlp2s0'):
     """

@@ -524,4 +524,6 @@ if __name__ == '__main__':
     # print(showAllMusic())
     # print(countUserInRoomByGenre('pop'))
     # print(getListOfUsers())
-    getNSongsByGenre(4, 'rb')
+    # getNSongsByGenre(4, 'rb')
+    print(countUserInRoomByGenre('rock'))
+    print(countUserInRooms())
