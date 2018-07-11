@@ -1,6 +1,5 @@
 import os, random, time, sys
 import glob
-from pygame import mixer # Load the required library
 import pygame
 import time
 #from mutagen.mp3 import MP3
@@ -37,19 +36,19 @@ for i in range(0, len(tmpArray)-1):
 
 for i in range(0, len(tmpArray)-1):
     tmpString = "./" + mediapath + '/' + mp3s[i]
-#    print(mp3s[i])
+    print(mp3s[i])
     print(tmpString)
     pygame.mixer.music.load(tmpString)
     #pyg.mixer.music.load(tmpString)
 # instantiate pygame
-#    pygame.init()
+    pygame.init()
 
 # select track
     #pygame.mixer.music.load(tmpString)
  #   len = MP3(tmpString).info.length
     print("riproduco: " + tmpString)
-#    pygame.mixer.music.play()
-    time.sleep(5)
+    #pygame.mixer.music.play()
+    #time.sleep(5)
 
 #    time.sleep(len-1)
 
@@ -57,7 +56,7 @@ for i in range(0, len(tmpArray)-1):
     pygame.mixer.music.play(-1, 0.0)
 
 # wait
-#    time.sleep(10)
+    time.sleep(10)
 
 # stop music
-#    pygame.mixer.music.stop()
+    pygame.mixer.music.stop()

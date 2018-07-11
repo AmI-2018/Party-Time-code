@@ -1,33 +1,35 @@
-import DBoperator as DB
-import operator
+import DBoperator as db
 
 def vote():
-
-    N=20 #number of songs per playlist
-
-    kinds=["rock","pop","rb"]  #initialize list
-    user_per_genre=[]  #initialize list
-    playlist={} #empty dictionary
-
-    total_users = DB.countUserInRooms() #number of users in a specific room
-
-    for i in range(0,2):
-       user_per_genre[i] = DB.countUserInRoomByGenre(kinds[i]) #users of kind[i] present in a specific room
-
-    for i in range(0,3):
-       playlist[kinds[i]] = int(float(user_per_genre[i])/float(total_users)*N)
-        #with the playlist now we have to play songs based on the playlist
-
-    return playlist
-
-#create a folder with playlist characteristics and pass the directory to ftp.py
+    N = 20  # number of songs per playlist
+    kinds = ["rock", "pop", "rb"]  # initialize list
+    rooms = ["bagno","sala"] #rooms
+    total_users = db.countUserInRooms()
+    print(total_users)
+    users_per_gen = {}
+    for i in range (0,3):
+        users_per_gen [kinds[i]] = db.countUserInRoomByGenre(kinds[i])
+        print(users_per_gen)
+    playlist={
+        rooms[0]: [N, 0, 0],
+        rooms[1]: [0, N, 0],
+    }
+    id_songs=[[],[]]
+    for i in range (0,N):
+        id_songs[0].append(i+1)
+        id_songs[1].append(i+66)
+    print(playlist)
+    print(id_songs)
+    return id_songs
 
 if __name__ == '__main__':
-    playlist = vote()
-    sorted_list = sorted(playlist.items(), key=operator.itemgetter(1),reverse=True)
-    print(sorted_list)
-
-
+    playlistids=vote()
+    """
+    
+    the vote function return a playlist with each rows indicating a room and each column indicating
+    an id of a song present in the database  
+    
+    """
 
 
 
