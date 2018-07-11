@@ -3,7 +3,7 @@ import glob
 from pygame import mixer # Load the required library
 import pygame
 import time
-from mutagen.mp3 import MP3
+#from mutagen.mp3 import MP3
 #import mpg123
 from pygame import mixer # Load the required library
 #from mpg123 import Mpg123
