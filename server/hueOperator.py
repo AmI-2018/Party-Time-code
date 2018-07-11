@@ -1,4 +1,5 @@
 import ssdpDiscover as ssdp
+import DBoperator as db
 
 """
 !!!!!!IMPORTANT the app need to verify the room names before......
@@ -28,6 +29,11 @@ class hueOperator(object):
         4->green
         5->? #TODO add more colorID
         """
+        kinds = db.getKindsOfMusic()
+        color = ["red","blue","green"]
+        for i in range (0,3):
+            colors [i] = kinds[i]
+        print(colors)
         code_payload={"bri": 254,
                       "hue": colorID,
                       "on": true}

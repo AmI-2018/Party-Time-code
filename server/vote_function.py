@@ -20,6 +20,8 @@ def vote():
         id_songs[1].append(i+66)
     print(playlist)
     print(id_songs)
+    kind = db.getKindsOfMusic()
+    print(kind)
     return id_songs
 
 if __name__ == '__main__':
