@@ -32,7 +32,8 @@ if __name__ == '__main__':
             #print(element)
             for element in elements:
                 if element not in mp3s.keys():
-                        mp3s[path + '/' + element] = 0
+                    mp3s[path + '/' + element] = 0
+                    print(mp3 + ' non risulta gia aggiunto')
                 #print()
                 #print(i)
                 #mp3s.add(path + '/' + i)
