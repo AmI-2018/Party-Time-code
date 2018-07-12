@@ -23,7 +23,7 @@ if __name__ == '__main__':
     for mp3 in mp3s:
         pygame.mixer.init()
         print('carico: ' + mp3)
-        #pygame.mixer.music.load(str(mp3))
+        pygame.mixer.music.load(str(mp3))
         print('riproduco: ' + mp3)
         pygame.mixer.music.play()
         try:
@@ -33,6 +33,8 @@ if __name__ == '__main__':
             """
             time.sleep(5)
         except KeyboardInterrupt:
+            pass
+        except pygame.error:
             pass
         finally:
             pygame.mixer.stop()
