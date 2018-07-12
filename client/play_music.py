@@ -31,7 +31,7 @@ if __name__ == '__main__':
         for path, directory, elements in os.walk(abspath):
             #print(element)
             for element in elements:
-                if element not in mp3s.keys():
+                if str(path + '/' + element) not in mp3s.keys():
                     mp3s[path + '/' + element] = 0
                     print(element + ' non risulta gia aggiunto')
                 #print()
