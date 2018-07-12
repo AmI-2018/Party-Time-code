@@ -15,7 +15,7 @@ if __name__ == '__main__':
         #print(element)
         for element in elements:
             if element not in mp3s.keys():
-                mp3s[path + '/' + element] = 0
+                    mp3s[path + '/' + element] = 0
             #print()
             #print(i)
             #mp3s.add(path + '/' + i)
@@ -23,7 +23,7 @@ if __name__ == '__main__':
     #random.shuffle(mp3s)
 
     print(json.dumps(mp3s, indent=4, sort_keys=False))
-    exit()
+    #exit()
 
     for mp3 in mp3s.keys():
         try:
