@@ -19,6 +19,7 @@ if __name__ == '__main__':
                 print('non ho file')
                 time.sleep(1)
             print('attendere 10 secondi')
+            initial=False
             time.sleep(10)
         #exit()
         #mp3s = set()
@@ -56,7 +57,7 @@ if __name__ == '__main__':
                     time.sleep(0.2)
                 """
                 print('aggiornata:::: ' + str(mp3s[mp3]))
-                time.sleep(5)
+                time.sleep(3)
             except KeyboardInterrupt:
                 pass
             except pygame.error as message:
