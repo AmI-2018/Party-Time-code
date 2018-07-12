@@ -23,17 +23,21 @@ class hueOperator(object):
         """
         this function will set the color by id to a given room (by its name):
 
-        1->red
-        2->blue
-        3->yellow
-        4->green
+        1->red 0
+        2->blue 46920
+        3->yellow 12750
+        4->green 25500
         5->? #TODO add more colorID
         """
+        music = db.getCurrentPlayingKind()
         kinds = db.getKindsOfMusic()
-        color = ["red","blue","green"]
+        color = {"red":0,"blue":46920,"yellow":12750,"green":25500}
         for i in range (0,3):
             colors [i] = kinds[i]
-        print(colors)
+            print(colors)
+            if music == kinds[i]:
+                colorID= color[kinds[i]] #if blue
+
         code_payload={"bri": 254,
                       "hue": colorID,
                       "on": true}
