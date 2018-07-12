@@ -34,7 +34,9 @@ if __name__ == '__main__':
             time.sleep(5)
         except KeyboardInterrupt:
             pass
-        except pygame.error:
+        except pygame.error as message:
+            print('doh')
+            print(message)
             pass
         finally:
             pygame.mixer.stop()
