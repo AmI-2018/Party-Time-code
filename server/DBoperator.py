@@ -480,6 +480,38 @@ def countUserInRoomByGenre(genre):
         sys.exit(1)
     return rows
 
+def getStatForRoom():
+
+    query = """
+        select roomName, preference1, count(preference1)
+        from
+          (
+            select *
+            from positions
+            group by username
+            having time=max(time)
+          ) as lastP, rooms, users
+        where lastP.username=users.username
+        and lastP.beaconMinor = rooms.beaconIDMinor
+        and lastP.beaconMajor = rooms.beaconIDMajor
+        and lastP.beaconID = rooms.beaconID
+        and lastP.username = users.username
+        group by rooms.roomName, preference1;
+        """
+    try:
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query,)
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return rows
+
 def customQueryWithReturn(query):
     try:
         con = sqlite3.connect(path)
@@ -525,5 +557,7 @@ if __name__ == '__main__':
     # print(countUserInRoomByGenre('pop'))
     # print(getListOfUsers())
     # getNSongsByGenre(4, 'rb')
-    print(countUserInRoomByGenre('rock'))
-    print(countUserInRooms())
+    # print(countUserInRoomByGenre('rock'))
+    # print(countUserInRooms())
+    #print(getStatForRoom('sala'))
+    print(getKindsOfMusic())
