@@ -13,6 +13,7 @@ if __name__ == '__main__':
 
         #print(len(os.listdir(abspath)))
         while len(os.listdir(abspath)) == 0:
+            print('non ho file')
             time.sleep(1)
         #exit()
         #mp3s = set()
