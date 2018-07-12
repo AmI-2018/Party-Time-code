@@ -44,30 +44,32 @@ if __name__ == '__main__':
         #exit()
 
         for mp3 in mp3s.keys():
-            try:
-                pygame.mixer.init()
-                print('carico: ' + mp3)
-                pygame.mixer.music.load(str(mp3))
-                print('riproduco: ' + mp3 + ' per la ' + str(mp3s[mp3]) + ' volta')
-                mp3s[mp3] = mp3s[mp3] + 1
-                pygame.mixer.music.play()
+            if mp3s[mp3] != -1:
+                try:
+                    pygame.mixer.init()
+                    print('carico: ' + mp3)
+                    pygame.mixer.music.load(str(mp3))
+                    print('riproduco: ' + mp3 + ' per la ' + str(mp3s[mp3]) + ' volta')
+                    mp3s[mp3] = mp3s[mp3] + 1
+                    pygame.mixer.music.play()
 
 
-                """
-                while pygame.mixer.music.get_busy() == True:
-                    time.sleep(0.2)
-                """
-                print('aggiornata:::: ' + str(mp3s[mp3]))
-                time.sleep(3)
-            except KeyboardInterrupt:
-                pass
-            except pygame.error as message:
-                print('doh')
-                print(message)
-                mp3s[mp3] = -1
-                pass
-            finally:
-                pygame.mixer.stop()
+                    """
+                    while pygame.mixer.music.get_busy() == True:
+                        time.sleep(0.2)
+                    """
+                    print('aggiornata:::: ' + str(mp3s[mp3]))
+                    time.sleep(3)
+                except KeyboardInterrupt:
+                    exit(0)
+                    pass
+                except pygame.error as message:
+                    print('doh')
+                    print(message)
+                    mp3s[mp3] = -1
+                    pass
+                finally:
+                    pygame.mixer.stop()
 
 
         print('fine ciclo')
