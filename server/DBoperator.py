@@ -282,7 +282,11 @@ def getNSongsByGenre(n, genre):
     for r in rows:
         #print(r[0])
         playedSong(r[0])
-    return rows
+    ret = []
+    for song in rows:
+        ret.append(song[0])
+
+    return ret
 
 def playedSong(songLocation):
 
@@ -302,6 +306,32 @@ def playedSong(songLocation):
     except sqlite3.DatabaseError as DBerror:
         print("errore nell'apertura del db " + DBerror.args[0])
         sys.exit(1)
+
+def getIpByName(roomName):
+
+    """ increment song player counter by id"""
+    query = """select raspberryIP
+                from rooms
+                where roomName = ?;
+            """
+    try:
+
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query, (roomName,))
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+
+    return rows[0][0]
+
+
+
 
 def getKindsOfMusic():
 
@@ -578,7 +608,7 @@ if __name__ == '__main__':
         print(a[1])
     """
 
-
+    """
 
     #print(getStatForRoom())
     elements = {}
@@ -610,7 +640,7 @@ if __name__ == '__main__':
             #print(count2)
             count3 = count2*10/totals[room2]
             dict2.update({kind2:int(count3)})
-
+    """
     """risultato in elements
     {
         "bagno": {
@@ -624,3 +654,7 @@ if __name__ == '__main__':
     """
     #print('dopo')
     #print(json.dumps(elements, indent=4))
+
+    #print(getIpByName('sala'))
+
+    #print(getNSongsByGenre(10, 'rock'))

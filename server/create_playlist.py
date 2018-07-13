@@ -4,7 +4,7 @@ import shutil
 import re
 import time
 from server import DBoperator
-
+import json
 
 tot_user_room = DBoperator.countUserInRooms()
 
@@ -80,6 +80,7 @@ for i in range(0, k):
 
 music_base = os.path.abspath('./music')
 basedir = os.path.abspath('./playlist')
+to_be_sent = {}
 
 for room3, dic in elements.items():
     """
@@ -90,26 +91,29 @@ for room3, dic in elements.items():
             os.remove(playlist_dir)
     """
 
-    to_be_sent = []
+    tmp = []
+    tmp.clear()
+
     for genre, nSongs in elements[room3].items():
-        to_be_sent.extend(DBoperator.getNSongsByGenre(nSongs, genre))
-        print("sending to: " + room3)
-        [print(ir) for ir in to_be_sent]
-        print()
-        print()
+        tmp.extend(DBoperator.getNSongsByGenre(nSongs, genre))
 
+    print("sending to: " + room3)
+    [print(ir) for ir in tmp]
+    print()
+    print()
 
-
+    to_be_sent[room3] = tmp
+    print(to_be_sent)
+print(json.dumps(to_be_sent, indent=4))
+#[print(DBoperator.getIpByName(rom) for to_be_sent)]
 exit(0)
-
-
 
 while True:
     dir = r'C:\Users\lucag\Desktop\SCUOLA\3° ANNO\ambient intelligence\Party-Time-code\server\playlist'
     filelist = [f for f in os.listdir(dir) if f.endswith(".mp3")]
     for f in filelist:
         os.remove(os.path.join(dir, f))
-    #folder containing pop music
+
     files_pop = os.listdir(os.path.dirname(r'C:\Users\lucag\Desktop\musica\musica nuova\Calvin Harris\Calvin Harris - Funk Wav Bounces Vol.1 [2017]\\'))
     regex = r"(.mp3)"
     pop_people = 3  #here the effective number taken from the DB
