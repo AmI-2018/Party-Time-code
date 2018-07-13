@@ -212,4 +212,4 @@ for music in music_list:
         ftp.storbinary('STOR ' + f, open(paths['local-directory'] + f, 'rb'))
         ftp.close()
 """
-
+print()
