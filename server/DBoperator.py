@@ -2,6 +2,7 @@ import sqlite3
 import logging
 import sys
 import os
+import json
 
 path = "./.tmpDB"
 musicPath = ""
@@ -557,6 +558,7 @@ if __name__ == '__main__':
     # print(countUserInRoomByGenre('pop'))
     # print(getListOfUsers())
     # getNSongsByGenre(4, 'rb')
+    """    
     print('countUserInRoomByGenre(rock)')
     print(countUserInRoomByGenre('rock'))
     print('countUserInRooms')
@@ -574,3 +576,51 @@ if __name__ == '__main__':
         print(a)
         print(a[0])
         print(a[1])
+    """
+
+
+
+    #print(getStatForRoom())
+    elements = {}
+    #[print(room, genre, stat)for room, genre, stat in getStatForRoom()]
+    for i in getStatForRoom():
+        #print(i)
+        if elements.get(i[0]) is None:
+            elements[i[0]] = {}
+        elements[i[0]].update({i[1]: i[2]})
+    #print(elements)
+
+    #print(countUserInRooms())
+    totals = {}
+
+    [totals.update({room: count})for room, count in countUserInRooms()]
+    #print(totals)
+
+    #print('final func')
+
+
+    #print('prima')
+    #print(json.dumps(elements, indent=4))
+
+    for (room2, dict2) in elements.items():
+        #print(room2)
+        #print(dict2)
+        for (kind2, count2) in dict2.items():
+            #print(kind2)
+            #print(count2)
+            count3 = count2*10/totals[room2]
+            dict2.update({kind2:int(count3)})
+
+    """risultato in elements
+    {
+        "bagno": {
+            "rock": 10
+        },
+        "sala": {
+            "pop": 5,
+            "rock": 5
+        }
+    }
+    """
+    #print('dopo')
+    #print(json.dumps(elements, indent=4))

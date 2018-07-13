@@ -10,6 +10,34 @@ tot_user_room = DBoperator.countUserInRooms()
 
 i = 0
 
+"""risultato in elements
+{
+    "bagno": {
+        "rock": 10
+    },
+    "sala": {
+        "pop": 5,
+        "rock": 5
+    }
+}
+"""
+elements = {}
+for i in DBoperator.getStatForRoom():
+    if elements.get(i[0]) is None:
+        elements[i[0]] = {}
+    elements[i[0]].update({i[1]: i[2]})
+
+totals = {}
+[totals.update({room: count}) for room, count in countUserInRooms()]
+
+for (room2, dict2) in elements.items():
+    for (kind2, count2) in dict2.items():
+        count3 = count2 * 10 / totals[room2]
+        dict2.update({kind2: int(count3)})
+
+
+
+
 for a in tot_user_room:
     j = 0
     for b in tot_user_room:
@@ -18,6 +46,8 @@ for a in tot_user_room:
     room = tot_user_room[i]
     #print(room[i])
     i+=1
+
+
 
 
 k = i
