@@ -3,20 +3,21 @@ import time
 import pygame
 import json
 import telegram
+
 token = '533153001:AAHs_Sgz-wn46qpKU4E2XbBsCjDBNkZcz28'
 initial = True
 bot = telegram.Bot(token=token)
 updates = bot.get_updates()
 
-def stopFunc():
-    """Gracefully stop the Updater and replace the current process with a new one"""
-    updater.stop()
-    exit(0)
+
 
 def sendLogToAll(message):
-    chat_id = bot.get_updates()[-1].message.chat_id
-    bot.send_message(chat_id=chat_id, text=message)
-
+    try:
+        chat_id = bot.get_updates()[-1].message.chat_id
+        bot.send_message(chat_id=chat_id, text=message)
+    except telegram.TelegramError as mess:
+        print(mess)
+        pass
 if __name__ == '__main__':
 
     folder = './playlist'

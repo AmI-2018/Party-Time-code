@@ -120,7 +120,7 @@ def showAllMusic():
         query = """SELECT DISTINCT `title`, `kind`, `location` from `music`"""
         cur.execute(query)
         rows = cur.fetchall()
-        print("risultati")
+        #print("risultati")
         # for row in rows:
         #    print(row)
 
@@ -254,8 +254,8 @@ def importMusic():
 
 def getNSongsByGenre(n, genre):
 
-    """ Return a list of id for less played songs by genre"""
-    query = """select m.id
+    """ Return a list of path for less played songs by genre"""
+    query = """select m.location
                 from music m
                 where m.kind=?
                 order by m.played
@@ -269,8 +269,8 @@ def getNSongsByGenre(n, genre):
 
         cur.execute(query, (genre, n))
         rows = cur.fetchall()
-        print("risultati " + str(rows))
-        print(type(rows))
+        #print("risultati " + str(rows))
+        #print(type(rows))
         con.commit()
         cur.close()
         con.close()
@@ -280,20 +280,20 @@ def getNSongsByGenre(n, genre):
         print("errore nell'apertura del db " + DBerror.args[0])
         sys.exit(1)
     for r in rows:
-        print(r[0])
+        #print(r[0])
         playedSong(r[0])
     return rows
 
-def playedSong(songID):
+def playedSong(songLocation):
 
     """ increment song player counter by id"""
-    query = "update music set played=played+1 where id = ?;"
+    query = "update music set played=played+1 where location = ?;"
     try:
 
         con = sqlite3.connect(path)
         cur = con.cursor()
 
-        cur.execute(query, (str(songID), ))
+        cur.execute(query, (str(songLocation), ))
         con.commit()
         cur.close()
         con.close()
@@ -315,8 +315,8 @@ def getKindsOfMusic():
 
         cur.execute(query)
         rows = cur.fetchall()
-        print("risultati " + str(rows))
-        print(type(rows))
+        #print("risultati " + str(rows))
+        #print(type(rows))
         con.commit()
         cur.close()
         con.close()
@@ -339,8 +339,8 @@ def getKindsOfMusicAndCount():
 
         cur.execute(query)
         rows = cur.fetchall()
-        print("risultati " + str(rows))
-        print(type(rows))
+        #print("risultati " + str(rows))
+        #print(type(rows))
         con.commit()
         cur.close()
         con.close()

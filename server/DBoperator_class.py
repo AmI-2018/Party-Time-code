@@ -112,7 +112,7 @@ class DBoperator:
             query = """select `title`, `kind`, `location` from `music`"""
             cur.execute(query)
             rows = cur.fetchall()
-            print("risultati")
+            #print("risultati")
             # for row in rows:
             #    print(row)
 
@@ -240,7 +240,7 @@ class DBoperator:
 
             cur.execute(query)
             rows = cur.fetchall()
-            print("risultati " + str(rows))
+            #print("risultati " + str(rows))
             con.commit()
             cur.close()
             con.close()
