@@ -1,62 +1,90 @@
 import os, random, time, sys
-import glob
-import pygame
 import time
-#from mutagen.mp3 import MP3
-#import mpg123
-from pygame import mixer # Load the required library
-#from mpg123 import Mpg123
+import pygame
+import json
 
-mp3s = []
-mediapath = "playlist"
-
-
-for path, directory, element in os.walk(mediapath, False):
-    print("Loading music from " + path + "...")
-    tmpArray = element
-
-    for i in range(0, len(tmpArray)):
-        if (tmpArray[i][-3:] == "m4a" and tmpArray[i][:1] != "."):
-            mp3s.append(tmpArray[i])
-            print(mp3s[i])
-        else:
-            print("Unuseable:", tmpArray[i])
-
-    print("Loaded " + str(len(mp3s)) + " files, of " + str(len(element)) + " total")
+initial = True
+if __name__ == '__main__':
+    folder = './playlist'
+    abspath = os.path.abspath(folder)
+    mp3s = {}
+    while True:
+        #print(len(elements) for path, directory, elements in os.walk(abspath))
+        #print(len([name for name in os.listdir(folder) if os.path.isfile(name)]))
 
 
-random.shuffle(mp3s)
+        #print(len(os.listdir(abspath)))
+        if initial==True:
+            while len(os.listdir(abspath)) == 0:
+                print('non ho file')
+                time.sleep(1)
+            print('attendere 10 secondi')
+            initial=False
+            time.sleep(10)
+        #exit()
+        #mp3s = set()
 
 
-"""
-for i in range(0, len(tmpArray)-1):
-    print(mp3s[i])
-    os.system(mediapath + '\\' + mp3s[i])
-"""
 
-for i in range(0, len(tmpArray)-1):
-    tmpString = mediapath + '/' + mp3s[i]
-    print(mp3s[i])
-    print(tmpString)
-    pygame.mixer.music.load(tmpString)
-    #pyg.mixer.music.load(tmpString)
-# instantiate pygame
-    pygame.init()
+        #print(abspath)
+        #exit()
+        for path, directory, elements in os.walk(abspath):
+            #print(element)
+            for element in elements:
+                if str(path + '/' + element) not in mp3s.keys():
+                    mp3s[path + '/' + element] = 0
+                    print(element + ' non risulta gia aggiunto')
+                #print()
+                #print(i)
+                #mp3s.add(path + '/' + i)
+            #exit()
+        #random.shuffle(mp3s)
 
-# select track
-    pygame.mixer.music.load(tmpString)
- #   len = MP3(tmpString).info.length
-    print("riproduco: " + tmpString)
-    #pygame.mixer.music.play()
-    #time.sleep(5)
+        print(json.dumps(mp3s, indent=4, sort_keys=False))
+        #exit()
 
-#    time.sleep(len-1)
+        for mp3 in mp3s.keys():
+            if mp3s[mp3] != -1:
+                try:
+                    pygame.mixer.init()
+                    print('carico: ' + mp3)
+                    pygame.mixer.music.load(str(mp3))
+                    print('riproduco: ' + mp3 + ' per la ' + str(mp3s[mp3]) + ' volta')
+                    mp3s[mp3] = mp3s[mp3] + 1
+                    pygame.mixer.music.play()
 
-# play music (on loop)
-    pygame.mixer.music.play(-1, 0.0)
 
-# wait
-    time.sleep(10)
+                    """
+                    while pygame.mixer.music.get_busy() == True:
+                        time.sleep(0.2)
+                    """
+                    print('aggiornata:::: ' + str(mp3s[mp3]))
+                    time.sleep(3)
+                except KeyboardInterrupt:
+                    exit(0)
+                    pass
+                except pygame.error as message:
+                    print('doh')
+                    print(message)
+                    mp3s[mp3] = -1
+                    pass
+                finally:
+                    pygame.mixer.stop()
 
-# stop music
-    pygame.mixer.music.stop()
+
+        print('fine ciclo')
+        print('fine ciclo')
+        print('fine ciclo')
+        print('fine ciclo')
+        print('fine ciclo')
+        print('fine ciclo')
+        print('fine ciclo')
+        print('fine ciclo')
+        print('fine ciclo')
+        print('fine ciclo')
+        print(json.dumps(mp3s, indent=4, sort_keys=False))
+
+
+
+
+
