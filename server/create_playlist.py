@@ -5,6 +5,10 @@ import re
 import time
 from server import DBoperator
 import json
+from ftplib import FTP
+import os
+import time
+
 
 tot_user_room = DBoperator.countUserInRooms()
 
@@ -156,9 +160,6 @@ while True:
             shutil.copy(f, r'C:\Users\lucag\Desktop\SCUOLA\3° ANNO\ambient intelligence\Party-Time-code\server\playlist')
             i= i+1
 
-    from ftplib import FTP
-    import os
-    import time
 
 
     # ftp settings
