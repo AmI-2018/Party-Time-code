@@ -5,22 +5,40 @@ import re
 import time
 from server import DBoperator
 
-"""
-tot_user_room = DBoperator.countUserInRooms()
-room = []
-print(tot_user_room)
-#print(tot_user_room[0])
 
+tot_user_room = DBoperator.countUserInRooms()
 
 i = 0
-for j in range(0, len(tot_user_room))
-    for a in DBoperator.countUserInRooms():
-        room[j] = a[i]
-        print(a[i])
-        i+=1
+
+for a in tot_user_room:
+    j = 0
+    for b in tot_user_room:
+        print(tot_user_room[i][j])
+        j +=1
+    room = tot_user_room[i]
+    #print(room[i])
+    i+=1
+
+
+k = i
+i = 0
+for i in range(0, k):
+    print("\nfor the " + tot_user_room[i][0] + "\n")
+    pop_people = 1
+    rock_people = 1
+    rb_people = 0
+    pop_songs = (pop_people/tot_user_room[i][1])*10
+    rock_songs = (rock_people/tot_user_room[i][1])*10
+    rb_songs = (rb_people/tot_user_room[i][1])*10
+
+    print("pop songs: " + str(int(pop_songs)))
+    print("rock songs: " + str(int(rock_songs)))
+    print("rb songs: " + str(int(rb_songs)))
+    i+=1
+
 exit(0)
-print(room)
-"""
+
+
 
 while True:
     dir = r'C:\Users\lucag\Desktop\SCUOLA\3° ANNO\ambient intelligence\Party-Time-code\server\playlist'
