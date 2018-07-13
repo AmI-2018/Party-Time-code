@@ -62,6 +62,19 @@ for i in range(0, k):
     print("rb songs: " + str(int(rb_songs)))
     i+=1
 
+    """
+
+
+"""risultato in elements
+{
+    "bagno": {
+        "rock": 10
+    },
+    "sala": {
+        "pop": 5,
+        "rock": 5
+    }
+}
 """
 
 
@@ -96,7 +109,7 @@ while True:
     filelist = [f for f in os.listdir(dir) if f.endswith(".mp3")]
     for f in filelist:
         os.remove(os.path.join(dir, f))
-
+    #folder containing pop music
     files_pop = os.listdir(os.path.dirname(r'C:\Users\lucag\Desktop\musica\musica nuova\Calvin Harris\Calvin Harris - Funk Wav Bounces Vol.1 [2017]\\'))
     regex = r"(.mp3)"
     pop_people = 3  #here the effective number taken from the DB
