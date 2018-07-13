@@ -36,7 +36,6 @@ for (room2, dict2) in elements.items():
         dict2.update({kind2: int(count3)})
 print(elements)
 
-
 """
 for a in tot_user_room:
     j = 0
@@ -46,9 +45,6 @@ for a in tot_user_room:
     room = tot_user_room[i]
     #print(room[i])
     i+=1
-
-
-
 
 k = i
 i = 0
@@ -65,8 +61,35 @@ for i in range(0, k):
     print("rock songs: " + str(int(rock_songs)))
     print("rb songs: " + str(int(rb_songs)))
     i+=1
+
 """
+
+
+music_base = os.path.abspath('./music')
+basedir = os.path.abspath('./playlist')
+
+for room3, dic in elements.items():
+    """
+    playlist_dir = os.path.join(basedir,room3)
+    if not os.path.exists(playlist_dir):
+        os.makedirs(playlist_dir)
+        for f in os.listdir(playlist_dir):
+            os.remove(playlist_dir)
+    """
+
+    to_be_sent = []
+    for genre, nSongs in elements[room3].items():
+        to_be_sent.extend(DBoperator.getNSongsByGenre(nSongs, genre))
+        print("sending to: " + room3)
+        [print(ir) for ir in to_be_sent]
+        print()
+        print()
+
+
+
 exit(0)
+
+
 
 while True:
     dir = r'C:\Users\lucag\Desktop\SCUOLA\3° ANNO\ambient intelligence\Party-Time-code\server\playlist'
