@@ -107,11 +107,11 @@ for room3, dic in elements.items():
     print()
 
     to_be_sent[room3] = tmp
-    print(to_be_sent)
-print(json.dumps(to_be_sent, indent=4))
+#    print(to_be_sent)
+#print(json.dumps(to_be_sent, indent=4))
 #[print(DBoperator.getIpByName(rom) for to_be_sent)]
-exit(0)
-
+#exit(0)
+"""
 while True:
     dir = r'C:\Users\lucag\Desktop\SCUOLA\3° ANNO\ambient intelligence\Party-Time-code\server\playlist'
     filelist = [f for f in os.listdir(dir) if f.endswith(".mp3")]
@@ -159,7 +159,7 @@ while True:
             f = os.path.join(r'C:\Users\lucag\Desktop\SCUOLA\3° ANNO\ambient intelligence\Party-Time-code\server\music\rb\\', f)
             shutil.copy(f, r'C:\Users\lucag\Desktop\SCUOLA\3° ANNO\ambient intelligence\Party-Time-code\server\playlist')
             i= i+1
-
+"""
 
 
     # ftp settings
