@@ -284,7 +284,7 @@ def getNSongsByGenre(n, genre):
         playedSong(r[0])
     ret = []
     for song in rows:
-        ret.append(song[0])
+        ret.append(os.path.abspath(song[0]))
 
     return ret
 
@@ -657,4 +657,4 @@ if __name__ == '__main__':
 
     #print(getIpByName('sala'))
 
-    #print(getNSongsByGenre(10, 'rock'))
+    print(getNSongsByGenre(10, 'rock'))
