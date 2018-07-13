@@ -28,16 +28,16 @@ for i in DBoperator.getStatForRoom():
     elements[i[0]].update({i[1]: i[2]})
 
 totals = {}
-[totals.update({room: count}) for room, count in countUserInRooms()]
+[totals.update({room: count}) for room, count in DBoperator.countUserInRooms()]
 
 for (room2, dict2) in elements.items():
     for (kind2, count2) in dict2.items():
         count3 = count2 * 10 / totals[room2]
         dict2.update({kind2: int(count3)})
+print(elements)
 
 
-
-
+"""
 for a in tot_user_room:
     j = 0
     for b in tot_user_room:
@@ -65,10 +65,8 @@ for i in range(0, k):
     print("rock songs: " + str(int(rock_songs)))
     print("rb songs: " + str(int(rb_songs)))
     i+=1
-
+"""
 exit(0)
-
-
 
 while True:
     dir = r'C:\Users\lucag\Desktop\SCUOLA\3° ANNO\ambient intelligence\Party-Time-code\server\playlist'
