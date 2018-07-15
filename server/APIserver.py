@@ -4,7 +4,7 @@ from collections import  defaultdict
 from datetime import datetime
 
 import logging
-from server import DBoperator
+import DBoperator
 
 app = Flask(__name__)
 
