@@ -110,5 +110,37 @@ class LastViewController: UIViewController{
         }
         task.resume()
     }
+    
+    
+    @IBAction func resetButton(_ sender: Any) {
+        let defaults = UserDefaults.standard
+        defaults.set(nil, forKey: "username")
+        let firstViewController = self.storyboard?.instantiateViewController(withIdentifier: "firstView") as! ViewController
+        self.navigationController?.pushViewController(firstViewController, animated: true)
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -248,10 +248,10 @@
             </objects>
             <point key="canvasLocation" x="2183" y="-714"/>
         </scene>
-        <!--View Controller-->
+        <!--firstView-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PartyTime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="firstView" title="firstView" id="BYZ-38-t0r" customClass="ViewController" customModule="PartyTime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -355,16 +355,29 @@
                                 <color key="textColor" red="0.47211231320215441" green="1" blue="0.56593125681664258" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JvP-uu-LQT">
+                                <rect key="frame" x="320" y="64" width="39" height="30"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetButton:" destination="ziG-uL-9r3" eventType="touchUpInside" id="vRa-Yi-J0V"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ayl-8a-6gD" firstAttribute="trailing" secondItem="9TX-3b-y0f" secondAttribute="trailing" id="I1p-ea-Ftd"/>
                             <constraint firstItem="dDW-61-w6T" firstAttribute="top" secondItem="9TX-3b-y0f" secondAttribute="topMargin" constant="162" id="Ip4-1U-CWc"/>
                             <constraint firstItem="WrS-yH-uAi" firstAttribute="trailing" secondItem="dDW-61-w6T" secondAttribute="trailing" constant="16" id="Ubl-t3-Hp9"/>
+                            <constraint firstItem="JvP-uu-LQT" firstAttribute="leading" relation="lessThanOrEqual" secondItem="9TX-3b-y0f" secondAttribute="leadingMargin" constant="304" id="Wh1-Uv-W0Q"/>
                             <constraint firstItem="dDW-61-w6T" firstAttribute="leading" secondItem="WrS-yH-uAi" secondAttribute="leading" constant="16" id="YfG-Ww-kLP"/>
+                            <constraint firstItem="dDW-61-w6T" firstAttribute="top" relation="lessThanOrEqual" secondItem="JvP-uu-LQT" secondAttribute="bottom" constant="132" id="baw-Fu-qQx"/>
+                            <constraint firstItem="JvP-uu-LQT" firstAttribute="trailing" secondItem="9TX-3b-y0f" secondAttribute="trailingMargin" id="d9V-PC-LgN"/>
                             <constraint firstItem="Ayl-8a-6gD" firstAttribute="top" secondItem="9TX-3b-y0f" secondAttribute="top" id="e20-W5-DKG"/>
                             <constraint firstAttribute="bottom" secondItem="Ayl-8a-6gD" secondAttribute="bottom" id="jie-L4-GGH"/>
                             <constraint firstItem="Ayl-8a-6gD" firstAttribute="leading" secondItem="9TX-3b-y0f" secondAttribute="leading" id="qOZ-7d-uGF"/>
+                            <constraint firstItem="JvP-uu-LQT" firstAttribute="top" secondItem="9TX-3b-y0f" secondAttribute="topMargin" id="uQh-mr-t3R"/>
                             <constraint firstAttribute="bottomMargin" secondItem="dDW-61-w6T" secondAttribute="bottom" constant="227" id="wW5-0E-IPg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WrS-yH-uAi"/>

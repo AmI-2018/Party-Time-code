@@ -23,15 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         locationManager.delegate = self
         
-        //        let serverAddress = "192.168.2.14"
-        let serverAddress = "192.168.0.22"
-        UserDefaults.standard.set(serverAddress, forKey: "serverAddress")
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "http"
-        urlComponents.host = serverAddress
-        urlComponents.path = "/api/pos/allbeacons"
-        urlComponents.port = 5000
+        //        let serverAddress = "192.168.2.14"
+//        let serverAddress = "192.168.2.13"
+//        UserDefaults.standard.set(serverAddress, forKey: "serverAddress")
+//
+//        var urlComponents = URLComponents()
+//        urlComponents.scheme = "http"
+//        urlComponents.host = serverAddress
+//        urlComponents.path = "/api/pos/allbeacons"
+//        urlComponents.port = 5000
         
         print("Sono nel viewController\nstampo l'username")
         print(UserDefaults.standard.string(forKey: "username") ?? "username non presente")
@@ -278,6 +279,9 @@ func submitPost(post: Post, completion:((Error?) -> Void)?) {
         
     }
     task.resume()
+    
+    
+   
 }
 
 

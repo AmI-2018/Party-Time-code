@@ -2,6 +2,7 @@ idea*
 idea/
 /idea
 __PyCache__
+__PyCache__/*
 .idea/
 music/
 venv/
