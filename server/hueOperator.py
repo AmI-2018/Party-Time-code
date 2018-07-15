@@ -34,10 +34,10 @@ class hueOperator(object):
         kinds = db.getKindsOfMusic()
         color = {"red":0,"blue":46920,"yellow":12750,"green":25500}
         for i in range (0,3):
-            colors [i] = kinds[i]
-            print(colors)
+            color [i] = kinds[i]
+            print(color)
             if music == kinds[i]:
-                colorID= color[kinds[i]] #if blue
+                colorID = color[kinds[i]] #if blue
 
         code_payload={"bri": 200,
                       "hue": colorID,
@@ -60,10 +60,10 @@ lights_url = base_url + '/api/' + username + '/lights/'
 all_the_lights = rest.send(url=lights_url)
 kinds = db.getKindsOfMusic()
 if type(all_the_lights) is dict:
-        # iterate over the Hue lights, turn them on with the color loop effect
-        for light in all_the_lights:
-            url_to_call = lights_url + light + '/state'
-            body = '{ "on" : true, effect : "colorloop"}'
-            rest.send('PUT', url_to_call, body, {'Content-Type': 'application/json'})
+    # iterate over the Hue lights
+    for light in all_the_lights:
+        url_to_call = lights_url + light + '/state'
+        body = '{ "on" : true, "hue" : colorID }'
+        rest.send('PUT', url_to_call, body, {'Content-Type': 'application/json'})
         else:
             print('Error:', all_the_lights[0]['error'])
