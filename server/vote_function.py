@@ -1,27 +1,37 @@
-from server import DBoperator
+import DBoperator as db
 
-kindOfMusic = DBoperator.getKindsOfMusicAndCount()
-print(kindOfMusic)
+def vote():
+    N = 20  # number of songs per playlist
+    kinds = ["rock", "pop", "rb"]  # initialize list
+    rooms = ["bagno","sala"] #rooms
+    total_users = db.countUserInRooms()
+    print(total_users)
+    users_per_gen = {}
+    for i in range (0,3):
+        users_per_gen [kinds[i]] = db.countUserInRoomByGenre(kinds[i])
+        print(users_per_gen)
+    playlist={
+        rooms[0]: [N, 0, 0],
+        rooms[1]: [0, N, 0],
+    }
+    id_songs=[[],[]]
+    for i in range (0,N):
+        id_songs[0].append(i+1)
+        id_songs[1].append(i+66)
+    print(playlist)
+    print(id_songs)
+    kind = db.getKindsOfMusic()
+    print(kind)
+    return id_songs
 
-N=100 #number of songs per playlist
-rows=DBoperator.getKindsOfMusicAndCount()
-
-kinds=[]  #initialize list
-user_per_genre=[]  #initialize list
-playlist={} #empty dictionary
-
-for kind,count in rows :
-    kinds.append(kind)
-
-print(kinds)
-total_users=DBoperator.countTotalUser()
-
-for i in range(0,total_users):
-    user_per_genre[i]=DBoperator.countUser(kinds[i])
-
-for i in range(0,total_users):
-    playlist[kinds[i]]=float(user_per_genre[i])/float(total_users)*N
-
+if __name__ == '__main__':
+    playlistids=vote()
+    """
+    
+    the vote function return a playlist with each rows indicating a room and each column indicating
+    an id of a song present in the database  
+    
+    """
 
 
 

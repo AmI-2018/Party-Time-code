@@ -7,3 +7,8 @@ __PyCache__/*
 music/
 venv/
 list
+<<<<<<< HEAD
+=======
+playlist/
+server/music
+>>>>>>> f7d7cadfdaac677f29047feda1166f3e64ccc524

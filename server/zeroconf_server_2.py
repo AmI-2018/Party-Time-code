@@ -1,19 +1,14 @@
 
-""" Announce as PartyTimeServer """
+""" working """
 
 import logging
 import socket
 import sys
 from time import sleep
-from zeroconf import ServiceInfo, Zeroconf
 import netifaces as ni
+from zeroconf import ServiceInfo, Zeroconf
 
-NAME = "PTserver"
-TYPE = "_PT._tcp.local."
-NETWORK_INTERFACE = 'wlp2s0'
-
-#logging.basicConfig(level=logging.DEBUG)
-#logging.getLogger('zeroconf').setLevel(logging.DEBUG)
+NETWORK_INTERFACE='wlan0'
 
 def get_network_interface_ip_address(interface='wlp2s0'):
     """
@@ -33,20 +28,27 @@ def get_network_interface_ip_address(interface='wlp2s0'):
         return interface[2][0]['addr']
 
 
-
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.DEBUG)
+    if len(sys.argv) > 1:
+        assert sys.argv[1:] == ['--debug']
+        logging.getLogger('zeroconf').setLevel(logging.DEBUG)
 
-
+    local_ip_address = get_network_interface_ip_address(NETWORK_INTERFACE)
     desc = {
         'api':'/api/info',
         'welcome': 'hi!!'
         }
-    zeroconf = Zeroconf()
-
-    local_ip_address = get_network_interface_ip_address(NETWORK_INTERFACE)
-    print("local_ip_address = " + local_ip_address)
-    print(" socket.inet_aton(local_ip_address) = " +  str(socket.inet_aton(local_ip_address)))
-
+    '''
+                       type_="_http._tcp.local.",
+                       name="PartyTimeServer._http._tcp.local.",
+                       address=socket.inet_aton(str(local_ip_address)),
+                       port=80,
+                       weight=0,
+                       priority=0,
+                       properties=desc,
+                       server=str(local_ip_address)
+    '''
     info = ServiceInfo(type_="_http._tcp.local.",
                        name="PartyTimeServer._http._tcp.local.",
                        address=socket.inet_aton(str(local_ip_address)),
@@ -54,10 +56,10 @@ if __name__ == '__main__':
                        weight=0,
                        priority=0,
                        properties=desc,
-                       server=str(local_ip_address))
+                       server="partytimeserver.local."
+                       )
 
-
-
+    zeroconf = Zeroconf()
     print("Registration of a service, press Ctrl-C to exit...")
     zeroconf.register_service(info)
     try:
@@ -68,4 +70,4 @@ if __name__ == '__main__':
     finally:
         print("Unregistering...")
         zeroconf.unregister_service(info)
-        zeroconf.close()
+zeroconf.close()

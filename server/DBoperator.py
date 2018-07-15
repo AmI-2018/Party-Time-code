@@ -2,6 +2,7 @@ import sqlite3
 import logging
 import sys
 import os
+import json
 
 path = "./.tmpDB"
 musicPath = ""
@@ -18,9 +19,9 @@ logging.basicConfig(
 """
 '''
     todo funcion which return number of total users and number of
-    users for each preference. 
+    users for each preference.
     countTotalUser() return number of all users
-    countUsers(kindOfMusic) return users with kindOfMusic as parameter kindOfMusic is a string 
+    countUsers(kindOfMusic) return users with kindOfMusic as parameter kindOfMusic is a string
 '''
 
 def initialize(musicFolder):
@@ -40,7 +41,8 @@ def initialize(musicFolder):
                   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
                   `title` varchar(200) NOT NULL,
                   `kind` varchar(200) NOT NULL,
-                  `location` varchar(200) NOT NULL
+                  `location` varchar(200) NOT NULL,
+                  `played` INTEGER 
                 );
             --DROP TABLE IF EXISTS `users`;
             CREATE TABLE IF NOT EXISTS `users`
@@ -54,6 +56,7 @@ def initialize(musicFolder):
                 );
 
             --DROP TABLE IF EXISTS `rooms`;
+            -- hueid is the light name 
             CREATE TABLE IF NOT EXISTS `rooms`
                 (
                   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -94,7 +97,7 @@ def newTrack(trackName, trackPath, trackKind):
     try:
         con = sqlite3.connect(path)
         cur = con.cursor()
-        query = """INSERT INTO `music` (`title`, `kind`, `location`) VALUES (?,?,?)"""
+        query = """INSERT INTO `music` (`title`, `kind`, `location`, `played`) VALUES (?,?,?,0)"""
         cur.execute(query, (trackName, trackKind, trackPath))
         con.commit()
         # cur.execute("select  * from musicDB")
@@ -117,7 +120,7 @@ def showAllMusic():
         query = """SELECT DISTINCT `title`, `kind`, `location` from `music`"""
         cur.execute(query)
         rows = cur.fetchall()
-        print("risultati")
+        #print("risultati")
         # for row in rows:
         #    print(row)
 
@@ -249,6 +252,86 @@ def importMusic():
     # showAllMusic()
     return
 
+def getNSongsByGenre(n, genre):
+
+    """ Return a list of path for less played songs by genre"""
+    query = """select m.location
+                from music m
+                where m.kind=?
+                order by m.played
+                limit ?
+            ;"""
+    rows = ""
+    try:
+
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+
+        cur.execute(query, (genre, n))
+        rows = cur.fetchall()
+        #print("risultati " + str(rows))
+        #print(type(rows))
+        con.commit()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    for r in rows:
+        #print(r[0])
+        playedSong(r[0])
+    ret = []
+    for song in rows:
+        ret.append(os.path.abspath(song[0]))
+
+    return ret
+
+def playedSong(songLocation):
+
+    """ increment song player counter by id"""
+    query = "update music set played=played+1 where location = ?;"
+    try:
+
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+
+        cur.execute(query, (str(songLocation), ))
+        con.commit()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+
+def getIpByName(roomName):
+
+    """ increment song player counter by id"""
+    query = """select raspberryIP
+                from rooms
+                where roomName = ?;
+            """
+    try:
+
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query, (roomName,))
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+
+    return rows[0][0]
+
+
+
 
 def getKindsOfMusic():
 
@@ -262,8 +345,8 @@ def getKindsOfMusic():
 
         cur.execute(query)
         rows = cur.fetchall()
-        print("risultati " + str(rows))
-        print(type(rows))
+        #print("risultati " + str(rows))
+        #print(type(rows))
         con.commit()
         cur.close()
         con.close()
@@ -286,8 +369,8 @@ def getKindsOfMusicAndCount():
 
         cur.execute(query)
         rows = cur.fetchall()
-        print("risultati " + str(rows))
-        print(type(rows))
+        #print("risultati " + str(rows))
+        #print(type(rows))
         con.commit()
         cur.close()
         con.close()
@@ -302,9 +385,9 @@ def getKindsOfMusicAndCount():
 def clearDB():
     query = """
             DROP TABLE IF EXISTS `music`;
-            DROP TABLE IF EXISTS `positions`;
-            DROP TABLE IF EXISTS `rooms`;
-            DROP TABLE IF EXISTS `users`;
+            -- DROP TABLE IF EXISTS `positions`;
+            -- DROP TABLE IF EXISTS `rooms`;
+            -- DROP TABLE IF EXISTS `users`;
             """
     try:
         con = sqlite3.connect(path)
@@ -372,6 +455,94 @@ def beaconsList():
         sys.exit(1)
     return ret
 
+def countUserInRooms():
+    """count users in room"""
+    query = """
+select roomName, count(*)
+from (
+  select *
+  from positions
+  group by username
+  having time = MAX(time))as lastP, rooms
+where lastP.beaconID = rooms.beaconID and lastP.beaconMajor = rooms.beaconIDMajor and lastP.beaconMinor = rooms.beaconIDMinor
+group by roomName
+;"""
+    try:
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query)
+        rows = cur.fetchall()
+        if len(rows) <= 0:
+            ret = false
+        else:
+            ret = rows
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return ret
+
+def countUserInRoomByGenre(genre):
+    """count users in room by given genre"""
+    query = """
+    select roomName, count(*)
+    from (
+      select *
+      from positions
+      group by username
+      having time = MAX(time))as lastP, rooms, users
+    where users.username = lastP.username and lastP.beaconID = rooms.beaconID and lastP.beaconMajor = rooms.beaconIDMajor and lastP.beaconMinor = rooms.beaconIDMinor and users.preference1 = ?
+    group by roomName
+    ;"""
+    try:
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query, (genre,))
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return rows
+
+def getStatForRoom():
+
+    query = """
+        select roomName, preference1, count(preference1)
+        from
+          (
+            select *
+            from positions
+            group by username
+            having time=max(time)
+          ) as lastP, rooms, users
+        where lastP.username=users.username
+        and lastP.beaconMinor = rooms.beaconIDMinor
+        and lastP.beaconMajor = rooms.beaconIDMajor
+        and lastP.beaconID = rooms.beaconID
+        and lastP.username = users.username
+        group by rooms.roomName, preference1;
+        """
+    try:
+        con = sqlite3.connect(path)
+        cur = con.cursor()
+        cur.execute(query,)
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+    except sqlite3.DataError as DataErr:
+        print("errore di creazione table " + DataErr.args[0])
+    except sqlite3.DatabaseError as DBerror:
+        print("errore nell'apertura del db " + DBerror.args[0])
+        sys.exit(1)
+    return rows
+
 def customQueryWithReturn(query):
     try:
         con = sqlite3.connect(path)
@@ -403,16 +574,87 @@ def customQueryWithReturnOneParameter(query, param1):
     return rows
 
 if __name__ == '__main__':
-    # clearDB()
-    # initialize("./music")
+    clearDB()
+    initialize("./music")
     # createExampleEntries()
     # print(userInDB("ciccio"))
     # print(userInDB("ale"))
-    # print(showAllMusic())
-    # getKindsOfMusicAndCount()
+    print(showAllMusic())
+    print(getKindsOfMusicAndCount())
     # db.getKindsOfMusic()
     # DBinit("./music")
     # importMusic()
     # print(showAllMusic())
+    # print(countUserInRoomByGenre('pop'))
+    # print(getListOfUsers())
+    # getNSongsByGenre(4, 'rb')
+    """    
+    print('countUserInRoomByGenre(rock)')
+    print(countUserInRoomByGenre('rock'))
+    print('countUserInRooms')
+    print(countUserInRooms())
+    print('getStatForRoom')
+    print(getStatForRoom())
+    print('getKindsOfMusic')
+    print(getKindsOfMusic())
+    print()
+    print()
+    print()
+    print()
+    print()
+    for a in countUserInRooms():
+        print(a)
+        print(a[0])
+        print(a[1])
+    """
 
-    print(getListOfUsers())
+    """
+
+    #print(getStatForRoom())
+    elements = {}
+    #[print(room, genre, stat)for room, genre, stat in getStatForRoom()]
+    for i in getStatForRoom():
+        #print(i)
+        if elements.get(i[0]) is None:
+            elements[i[0]] = {}
+        elements[i[0]].update({i[1]: i[2]})
+    #print(elements)
+
+    #print(countUserInRooms())
+    totals = {}
+
+    [totals.update({room: count})for room, count in countUserInRooms()]
+    #print(totals)
+
+    #print('final func')
+
+
+    #print('prima')
+    #print(json.dumps(elements, indent=4))
+
+    for (room2, dict2) in elements.items():
+        #print(room2)
+        #print(dict2)
+        for (kind2, count2) in dict2.items():
+            #print(kind2)
+            #print(count2)
+            count3 = count2*10/totals[room2]
+            dict2.update({kind2:int(count3)})
+    """
+    """risultato in elements
+    {
+        "bagno": {
+            "rock": 10
+        },
+        "sala": {
+            "pop": 5,
+            "rock": 5
+        }
+    }
+    """
+    #print('dopo')
+    #print(json.dumps(elements, indent=4))
+
+    #print(getIpByName('sala'))
+
+    #print(getNSongsByGenre(10, 'rock'))

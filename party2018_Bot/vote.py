@@ -29,5 +29,5 @@ print("let me order the preferences:")
 print("rock:"+(str(int(users_percentage["rock"]*playlist_length))) + " " +
       "pop:"+(str(int(users_percentage["pop"]*playlist_length))) + " " +
       "classic:"+(str(int(users_percentage["classic"]*playlist_length)+surplus)))
-list["pop","rb","rock"]
-print
+
+
