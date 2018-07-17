@@ -35,8 +35,8 @@ if __name__ == '__main__':
                 #print('non ho file')
                 sendLogToAll('non ho file')
                 time.sleep(1)
-            #print('attendere 10 secondi')
-            sendLogToAll('attendere 10 secondi')
+            print('attendere 10 secondi')
+            #sendLogToAll('attendere 10 secondi')
             initial=False
             time.sleep(10)
         #exit()
@@ -51,8 +51,8 @@ if __name__ == '__main__':
             for element in elements:
                 if str(path + '/' + element) not in mp3s.keys():
                     mp3s[path + '/' + element] = 0
-                    #print(element + ' non risulta gia aggiunto')
-                    sendLogToAll(element + ' non risulta gia aggiunto')
+                    print(element + ' non risulta gia aggiunto')
+                    #sendLogToAll(element + ' non risulta gia aggiunto')
                 #print()
                 #print(i)
                 #mp3s.add(path + '/' + i)
