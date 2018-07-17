@@ -1,8 +1,7 @@
-import sqlite3
 import logging
-import sys
 import os
-import json
+import sqlite3
+import sys
 
 path = "./.tmpDB"
 musicPath = ""
