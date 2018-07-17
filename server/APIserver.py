@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from flask import Flask, redirect, url_for, render_template, session, request, jsonify, abort, Response
 import json
 from collections import  defaultdict
