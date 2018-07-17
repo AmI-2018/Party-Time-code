@@ -576,6 +576,7 @@ def customQueryWithReturnOneParameter(query, param1):
 if __name__ == '__main__':
     clearDB()
     initialize("./music")
+    importMusic()
     # createExampleEntries()
     # print(userInDB("ciccio"))
     # print(userInDB("ale"))
