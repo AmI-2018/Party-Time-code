@@ -124,19 +124,22 @@ while True:
 
 
     for room in to_be_sent.keys():
-        roomIP = DBoperator.getIpByName(room)
-        # ftp settings
-        server = roomIP
-        username = 'dietpi'
-        password = 'passwordComplessa'
-        remote_path = "/"
-        ftp_connection = FTP(server, username, password)
-        ftp_connection.cwd(remote_path)
-        for music in to_be_sent[room]:
-            print('trasferisco: ' + str(os.path.basename(music)) + ' a ' + roomIP)
-            fh = open(str(music), 'rb')
-            ftp_connection.storbinary('STOR ' + str(os.path.basename(music)), fh)
-            fh.close()
-
+        try:
+            roomIP = DBoperator.getIpByName(room)
+            # ftp settings
+            server = roomIP
+            username = 'dietpi'
+            password = 'passwordComplessa'
+            remote_path = "/"
+            ftp_connection = FTP(server, username, password)
+            ftp_connection.cwd(remote_path)
+            for music in to_be_sent[room]:
+                print('trasferisco: ' + str(os.path.basename(music)) + ' a ' + roomIP)
+                fh = open(str(music), 'rb')
+                ftp_connection.storbinary('STOR ' + str(os.path.basename(music)), fh)
+                fh.close()
+        except UnicodeEncodeError as mess:
+            print('errore di codifica del noem')
+            print(mess)
     time.sleep(60)
 
