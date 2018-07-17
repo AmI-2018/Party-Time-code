@@ -6,18 +6,19 @@ import telegram
 
 token = '533153001:AAHs_Sgz-wn46qpKU4E2XbBsCjDBNkZcz28'
 initial = True
-bot = telegram.Bot(token=token)
-updates = bot.get_updates()
+#bot = telegram.Bot(token=token)
+#updates = bot.get_updates()
 
 
 
 def sendLogToAll(message):
-    try:
-        chat_id = bot.get_updates()[-1].message.chat_id
-        bot.send_message(chat_id=chat_id, text=message)
-    except telegram.TelegramError as mess:
-        print(mess)
-        pass
+    #try:
+    #    chat_id = bot.get_updates()[-1].message.chat_id
+    #    bot.send_message(chat_id=chat_id, text=message)
+    #except telegram.TelegramError as mess:
+    #    print(mess)
+    #    pass
+    print('from play_music' + message)
 if __name__ == '__main__':
 
     folder = './playlist'
@@ -107,8 +108,3 @@ if __name__ == '__main__':
         sendLogToAll('fine ciclo')
         #print(json.dumps(mp3s, indent=4, sort_keys=False))
         sendLogToAll(json.dumps(mp3s, indent=4, sort_keys=False))
-
-
-
-
-
