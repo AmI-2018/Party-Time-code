@@ -9,9 +9,9 @@ print('started create_playlist')
 
 while True:
 
+    tot_user_room = DBoperator.countUserInRooms()
 
-
-    while (tot_user_room = DBoperator.countUserInRooms()) == 0:
+    while tot_user_room == 0:
         tot_user_room = DBoperator.countUserInRooms()
         time.sleep(5)
 
