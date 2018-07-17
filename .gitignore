@@ -2,10 +2,11 @@ idea*
 idea/
 /idea
 __PyCache__
+__PyCache__/*
 .idea/
 music/
 venv/
 list
 playlist/
 server/music
-server/__pycache__
+iOs/PartyTime/PartyTime.xcodeproj/project.xcworkspace/xcuserdata
