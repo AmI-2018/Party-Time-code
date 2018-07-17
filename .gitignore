@@ -8,3 +8,4 @@ venv/
 list
 playlist/
 server/music
+server/__pycache__
