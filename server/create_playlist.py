@@ -5,11 +5,13 @@ from ftplib import FTP
 import os
 import time
 
+print('started create_playlist')
+
 while True:
 
     tot_user_room = DBoperator.countUserInRooms()
 
-    while tot_user_room==0:
+    while tot_user_room == 0:
         tot_user_room = DBoperator.countUserInRooms()
         time.sleep(5)
 
@@ -50,7 +52,7 @@ while True:
         room = tot_user_room[i]
         #print(room[i])
         i+=1
-    
+
     k = i
     i = 0
     for i in range(0, k):
@@ -61,12 +63,12 @@ while True:
         pop_songs = (pop_people/tot_user_room[i][1])*10
         rock_songs = (rock_people/tot_user_room[i][1])*10
         rb_songs = (rb_people/tot_user_room[i][1])*10
-    
+
         print("pop songs: " + str(int(pop_songs)))
         print("rock songs: " + str(int(rock_songs)))
         print("rb songs: " + str(int(rb_songs)))
         i+=1
-    
+
         """
 
 
@@ -131,4 +133,3 @@ while True:
             fh.close()
 
     time.sleep(60*20)
-
