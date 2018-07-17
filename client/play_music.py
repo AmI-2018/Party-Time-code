@@ -70,8 +70,8 @@ if __name__ == '__main__':
                     print('carico: ' + mp3)
                     #sendLogToAll('carico: ' + mp3)
                     pygame.mixer.music.load(mp3)
-                    #print('riproduco: ' + mp3 + ' per la ' + str(mp3s[mp3]) + ' volta')
-                    sendLogToAll('riproduco: ' + mp3 + ' per la ' + str(mp3s[mp3]) + ' volta')
+                    print('riproduco: ' + mp3 + ' per la ' + str(mp3s[mp3]) + ' volta')
+                    #sendLogToAll('riproduco: ' + mp3 + ' per la ' + str(mp3s[mp3]) + ' volta')
                     mp3s[mp3] = mp3s[mp3] + 1
                     pygame.mixer.music.play()
 
@@ -80,9 +80,9 @@ if __name__ == '__main__':
                     while pygame.mixer.music.get_busy() == True:
                         time.sleep(0.2)
                     """
-                    #print('aggiornata:::: ' + str(mp3s[mp3]))
-                    sendLogToAll('aggiornata:::: ' + str(mp3s[mp3]))
-                    time.sleep(3)
+                    print('aggiornata:::: ' + str(mp3s[mp3]))
+                    #sendLogToAll('aggiornata:::: ' + str(mp3s[mp3]))
+                    time.sleep(10)
                     pygame.mixer.stop()
                 except KeyboardInterrupt:
                     exit(0)

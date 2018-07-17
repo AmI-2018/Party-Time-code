@@ -138,5 +138,5 @@ while True:
             ftp_connection.storbinary('STOR ' + str(os.path.basename(music)), fh)
             fh.close()
 
-    time.sleep(60*20)
+    time.sleep(60)
 
