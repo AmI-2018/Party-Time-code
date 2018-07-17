@@ -1,8 +1,7 @@
 #! /bin/bash
 
-#script to automatically lunch all service
-
+python3 zeroconf_server_2.py &
+wait 5
 python3 APIserver.py &
-python3 zeroconf_server_2.pyy &
-
-
+wait 5
+python3 create_playlist.py &
