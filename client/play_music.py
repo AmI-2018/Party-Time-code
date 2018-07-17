@@ -67,8 +67,8 @@ if __name__ == '__main__':
             if mp3s[mp3] != -1:
                 try:
                     pygame.mixer.init()
-                    #print('carico: ' + mp3)
-                    sendLogToAll('carico: ' + mp3)
+                    print('carico: ' + mp3)
+                    #sendLogToAll('carico: ' + mp3)
                     pygame.mixer.music.load(str(mp3))
                     #print('riproduco: ' + mp3 + ' per la ' + str(mp3s[mp3]) + ' volta')
                     sendLogToAll('riproduco: ' + mp3 + ' per la ' + str(mp3s[mp3]) + ' volta')
