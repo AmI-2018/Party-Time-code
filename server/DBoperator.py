@@ -473,7 +473,7 @@ group by roomName
         cur.execute(query)
         rows = cur.fetchall()
         if len(rows) <= 0:
-            ret = false
+            ret = False
         else:
             ret = rows
         cur.close()

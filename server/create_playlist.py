@@ -1,16 +1,17 @@
 #!/usr/bin/python3
-import os
-import random
-import shutil
-import re
-from server import DBoperator
+import DBoperator
 import json
 from ftplib import FTP
 import os
 import time
 
 while True:
+
     tot_user_room = DBoperator.countUserInRooms()
+
+    while tot_user_room==0:
+        tot_user_room = DBoperator.countUserInRooms()
+        time.sleep(5)
 
     i = 0
 
