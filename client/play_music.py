@@ -17,7 +17,9 @@ def sendLogToAll(message):
         bot.send_message(chat_id=chat_id, text=message)
     except telegram.TelegramError as mess:
         print(mess)
-        pass
+
+
+
 if __name__ == '__main__':
 
     folder = './playlist'
@@ -107,8 +109,3 @@ if __name__ == '__main__':
         sendLogToAll('fine ciclo')
         #print(json.dumps(mp3s, indent=4, sort_keys=False))
         sendLogToAll(json.dumps(mp3s, indent=4, sort_keys=False))
-
-
-
-
-
