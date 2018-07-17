@@ -83,6 +83,7 @@ if __name__ == '__main__':
                     #print('aggiornata:::: ' + str(mp3s[mp3]))
                     sendLogToAll('aggiornata:::: ' + str(mp3s[mp3]))
                     time.sleep(3)
+                    pygame.mixer.stop()
                 except KeyboardInterrupt:
                     exit(0)
                     pass
@@ -92,8 +93,7 @@ if __name__ == '__main__':
                     sendLogToAll('non sono riuscito a leggere il file')
                     mp3s[mp3] = -1
                     pass
-                finally:
-                    pygame.mixer.stop()
+
 
 
         #print('fine ciclo')
