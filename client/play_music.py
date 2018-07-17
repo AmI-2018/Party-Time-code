@@ -12,6 +12,7 @@ initial = True
 
 
 def sendLogToAll(message):
+<<<<<<< HEAD
     #try:
     #    chat_id = bot.get_updates()[-1].message.chat_id
     #    bot.send_message(chat_id=chat_id, text=message)
@@ -19,6 +20,16 @@ def sendLogToAll(message):
     #    print(mess)
     #    pass
     print('from play_music' + message)
+=======
+    try:
+        chat_id = bot.get_updates()[-1].message.chat_id
+        bot.send_message(chat_id=chat_id, text=message)
+    except telegram.TelegramError as mess:
+        print(mess)
+
+
+
+>>>>>>> 96efe4a6120bfaa2f89e8de16b90df48f7e49729
 if __name__ == '__main__':
 
     folder = './playlist'

@@ -8,3 +8,6 @@ venv/
 list
 playlist/
 server/music
+server/__pycache__
+__pycache__*
+iOs/PartyTime/PartyTime.xcodeproj/project.xcworkspace/xcuserdata

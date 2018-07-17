@@ -473,7 +473,7 @@ group by roomName
         cur.execute(query)
         rows = cur.fetchall()
         if len(rows) <= 0:
-            ret = false
+            ret = False
         else:
             ret = rows
         cur.close()
@@ -574,13 +574,14 @@ def customQueryWithReturnOneParameter(query, param1):
     return rows
 
 if __name__ == '__main__':
-    # clearDB()
-    # initialize("./music")
+    clearDB()
+    initialize("./music")
+    importMusic()
     # createExampleEntries()
     # print(userInDB("ciccio"))
     # print(userInDB("ale"))
-    # print(showAllMusic())
-    # getKindsOfMusicAndCount()
+    print(showAllMusic())
+    print(getKindsOfMusicAndCount())
     # db.getKindsOfMusic()
     # DBinit("./music")
     # importMusic()
@@ -657,4 +658,4 @@ if __name__ == '__main__':
 
     #print(getIpByName('sala'))
 
-    print(getNSongsByGenre(10, 'rock'))
+    #print(getNSongsByGenre(10, 'rock'))

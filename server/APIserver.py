@@ -1,10 +1,12 @@
+#!/usr/bin/python3
+
 from flask import Flask, redirect, url_for, render_template, session, request, jsonify, abort, Response
 import json
 from collections import  defaultdict
 from datetime import datetime
 
 import logging
-from server import DBoperator
+import DBoperator
 
 app = Flask(__name__)
 

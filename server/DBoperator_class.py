@@ -292,9 +292,9 @@ class DBoperator:
 
     def createExampleEntries(self):
         self.importMusic()
-        self.createUser("ciccio", "rock", "pop", None)
-        self.registerUserPosition("1234", "1111", "2222", "ciccio")
-        self.createRoom("sala", "10.0.0.1", "3429872347", "1234", "1111", "2222")
+        #self.createUser("ciccio", "rock", "pop", None)
+        #self.registerUserPosition("1234", "1111", "2222", "ciccio")
+        #self.createRoom("sala", "10.0.0.1", "3429872347", "1234", "1111", "2222")
 
 
 if __name__ == '__main__':
