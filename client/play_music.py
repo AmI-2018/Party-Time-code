@@ -18,7 +18,7 @@ def sendLogToAll(message):
     #except telegram.TelegramError as mess:
     #    print(mess)
     #    pass
-    print('from play_music' + message)
+    print('from play_music ' + message)
 if __name__ == '__main__':
 
     folder = './playlist'
